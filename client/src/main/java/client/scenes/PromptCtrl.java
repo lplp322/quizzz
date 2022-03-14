@@ -54,7 +54,8 @@ public class PromptCtrl {
                     String inputLine = in.readLine();
                     int ID = Integer.parseInt(inputLine);
                     this.mainCtrl.setCurrentGameID(ID); //sets the gameID of the MainCtrl to the one received
-                    this.mainCtrl.showMostPowerQuestion();  //shows the game screen
+                    this.mainCtrl.showMostPowerQuestion();
+                    this.mainCtrl.setName(nameField.getText());//shows the game screen
                 } catch (IOException e) {
                     errorLabel.setVisible(true);
                     errorLabel.setText("Could not connect to server!");

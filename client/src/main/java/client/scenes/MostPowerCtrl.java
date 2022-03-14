@@ -113,7 +113,8 @@ private final MainCtrl mainCtrl;
         boolean gameFinished = false;
 
         while (gameFinished!= true) {
-            URL url = new URL("http://localhost:8080/1/getGameInfo");
+//            URL url = new URL("http://localhost:8080/1/getGameInfo");
+            URL url = new URL("http://localhost:8080/" + mainCtrl.getCurrentID() + "/getGameInfo");
             //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
             Gson g = new Gson();
@@ -166,7 +167,7 @@ private final MainCtrl mainCtrl;
      * @throws IOException
      */
     public static void jokerMessage(String joker) throws IOException {
-        URL url = new URL("http://localhost:8080/1/getGameInfo");
+        URL url = new URL("http://localhost:8080/1/getGameInfo"); //THIS IS NOT THE CORRECT URL, IT IS JUST A PLACE HOLDER
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
         http.setDoOutput(true);
