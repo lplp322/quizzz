@@ -1,6 +1,7 @@
 package client.scenes;
 
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,12 +20,20 @@ import java.nio.charset.StandardCharsets;
 
 public class MostPowerCtrl {
 //    private final MainCtrl mainCtrl;
+private final MainCtrl mainCtrl;
+
+    @Inject
+    public MostPowerCtrl(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
 
     @FXML
     private Button choiceA;
 
     @FXML
     private Label questionLabel;
+
+
 
     @FXML
     private Button choiceB;

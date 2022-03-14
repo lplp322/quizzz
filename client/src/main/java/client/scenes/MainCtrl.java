@@ -39,6 +39,8 @@ public class MainCtrl {
     private PromptCtrl promptCtrl;
     private Scene prompt;
 
+    private String name;
+
     /**
      * Initializes all scenes via pairs of controllers and fxml files
      * @param primaryStage
@@ -130,4 +132,14 @@ public class MainCtrl {
     public void setCurrentGameID(int ID){
         this.currentGameID = ID;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+
+
