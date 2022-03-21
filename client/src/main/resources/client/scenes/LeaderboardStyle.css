@@ -1,0 +1,49 @@
+#exitButton {
+    -fx-text-fill: "black";
+    -fx-background-color: #ff5d55;
+}
+
+#leftPanel {
+    -fx-border-color: #111111;
+    -fx-background-color: #444444;
+}
+
+#upperPanel {
+    -fx-border-color: #111111;
+    -fx-background-color: #d6d6d6;
+}
+
+#leaderboardPanel {
+    -fx-border-color: #111111;
+}
+
+#gold {
+    -fx-border-color: #111111;
+    -fx-background-color: #f4eb49;
+}
+
+#silver {
+    -fx-border-color: #111111;
+    -fx-background-color: #aaaaaa;
+}
+
+#bronze {
+    -fx-border-color: #111111;
+    -fx-background-color: #ffa834;
+}
+
+#scrPanel {
+    -fx-border-color: #111111;
+}
+
+.text {
+    -fx-alignment: center;
+}
+
+#resultPanel {
+    -fx-background-color: #ebebeb;
+    -fx-border-color: #111111;
+}
+#myResult{
+    -fx-alignment: center;
+}

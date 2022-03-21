@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 package client.scenes;
-
+//CHECKSTYLE:OFF
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MainCtrlTest {
 
@@ -31,11 +35,11 @@ public class MainCtrlTest {
     }
 
     /**
-     * To Be Implemented
+     * Test the getCurrentID method
      */
     @Test
-    public void writeSomeTests() {
-        // TODO create replacement objects and write some tests
-        // sut.initialize(null, null, null);
+    public void getCurrentIDTest() {
+         sut.setCurrentGameID(42);
+         assertEquals(42, sut.getCurrentID());
     }
 }

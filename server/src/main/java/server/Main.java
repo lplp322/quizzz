@@ -15,15 +15,68 @@
  */
 package server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import server.database.ActivityRepository;
+
+import java.io.File;
+import java.util.Optional;
 
 @SpringBootApplication
 @EntityScan(basePackages = { "commons", "server" })
 public class Main {
+
+    @Autowired
+    private ActivityRepository repo;
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+    }
+
+
+    /**
+     * Imports activities into repository on server startup
+     */
+    @EventListener(ApplicationReadyEvent.class)
+    public void setup() {
+        ObjectMapper mapper = new ObjectMapper();
+        File rootFolder = new File("./server/src/main/resources/activities");
+        for (final File folder : rootFolder.listFiles()){
+            for (final File file : folder.listFiles()) {
+                if ( file.getName().endsWith(".json") ) {
+                    try {
+                        JsonActivity temp = mapper.readValue(file, JsonActivity.class);
+                        Optional<Activity> repoActivity = repo.findByTitle(temp.getTitle());
+                        // Filter activities if won't fit in repository or already in repository
+                        if (temp.getConsumption_in_wh() > Integer.MAX_VALUE || temp.getSource().length() > 255 ||
+                                repoActivity.isPresent()) {
+                            continue;
+                        }
+                        String ac = file.getPath();
+                        ac = ac.substring(0, ac.length() - 5);
+                        String image;
+                        if (new File(ac + ".jpg").exists()) {
+                            image = ac + ".jpg";
+                        }
+                        else if (new File(ac + ".jpeg").exists()) {
+                            image = ac + ".jpeg";
+                        }
+                        else {
+                            image = ac + ".png";
+                        }
+                        Activity finalActivity = temp.toActivity(image);
+                        repo.save(finalActivity);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     // I was testing adding into the repository

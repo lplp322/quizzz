@@ -12,7 +12,7 @@ public class Round {
     private int halvedTimer;
     // 1 - game running, 2 - game has ended
     private int gameStatus;
-
+    private boolean timeoutActive = false;
     private final int totalRounds = 20;
     private final int roundTimer = 20;
 
@@ -32,11 +32,18 @@ public class Round {
      */
     public void tickDown() {
         timer--;
-        if(timer == 0) {
-            round++;
+        if (timer == 0){
+            timeoutActive = true;
+        }
+        else if(timer <= 0 && !timeoutActive) {
             timer = 20;
         }
-        if(round == totalRounds) {
+        else if (timer == -5){
+            timeoutActive = false;
+            timer = 20;
+            round++;
+        }
+        if(round == totalRounds-1) {
             gameStatus = 2;
         }
     }
@@ -154,6 +161,7 @@ public class Round {
         return "Round{" +
                 "round=" + round +
                 ", timer=" + timer +
+                ", timeout=" + timeoutActive +
                 ", halvedTimer=" + halvedTimer +
                 ", halfTimerUsed=" + halfTimerUsed +
                 ", playerWhoUsedJoker=" + playerWhoUsedJoker +

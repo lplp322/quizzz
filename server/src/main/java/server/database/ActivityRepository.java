@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import server.Activity;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, String> {
@@ -14,4 +15,11 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
      */
     @Query("SELECT a FROM Activity a")
     List<Activity> getAllActivities();
+
+    /**
+     * Query to find an activity with a given title
+     * @param title Title of the activity
+     * @return The Activity with the given title
+     */
+    Optional<Activity> findByTitle(String title);
 }

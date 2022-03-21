@@ -1,56 +1,35 @@
 package commons;
 
+import java.util.List;
 import java.util.Objects;
 
 public class TrimmedGame {
     private int id;
     private String currentQuestion;
-    private int roundsLeft;
+    private int roundNum;
     private int timer;
-    private boolean timeJoker;
-    private String jokerUser;
-    private int timerJoker;
     private int questionType;
+    private List<String> possibleAnswers;
+    private String correctAnswer;
 
     /**
-     * Creates a new TrimmedGame for singleplayer
-     * @param id the game ID
-     * @param currentQuestion the current question
-     * @param roundsLeft the rounds left
-     * @param timer the time left
-     * @param questionType the question type
+     * @param id Id of the game
+     * @param currentQuestion the current question shown to the user
+     * @param roundNum
+     * @param timer
+     * @param answers
+     * @param questionType
+     * @param correctAnswer the correct answer so this can be displayed to the user
      */
-    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, int questionType) {
+    public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
+                       int questionType, String correctAnswer) {
         this.id = id;
         this.currentQuestion = currentQuestion;
-        this.roundsLeft = roundsLeft;
+        this.roundNum = roundNum;
         this.timer = timer;
-        this.timeJoker = false;
-        this.jokerUser = null;
-        this.timerJoker = -1;
+        this.possibleAnswers = answers;
         this.questionType = questionType;
-    }
-
-    /**
-     * Creates a new TrimmedGame for multiplayer
-     * @param id the game Id
-     * @param currentQuestion the current question
-     * @param roundsLeft the rounds left
-     * @param timer the timer left
-     * @param jokerUser the joker user
-     * @param timerJoker the time joker
-     * @param questionType the question type
-     */
-    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, String jokerUser, int timerJoker,
-                       int questionType) {
-        this.id = id;
-        this.currentQuestion = currentQuestion;
-        this.roundsLeft = roundsLeft;
-        this.timer = timer;
-        this.timeJoker = true;
-        this.jokerUser = jokerUser;
-        this.timerJoker = timerJoker;
-        this.questionType = questionType;
+        this.correctAnswer = correctAnswer;
     }
 
     /**
@@ -70,11 +49,11 @@ public class TrimmedGame {
     }
 
     /**
-     * Getter for the rounds left
-     * @return the rounds left
+     * Getter for the round number
+     * @return the round number
      */
-    public int getRoundsLeft() {
-        return roundsLeft;
+    public int getRoundNum() {
+        return roundNum;
     }
 
     /**
@@ -86,30 +65,6 @@ public class TrimmedGame {
     }
 
     /**
-     * Getter for the time joker
-     * @return true iff it is the time joker
-     */
-    public boolean isTimeJoker() {
-        return timeJoker;
-    }
-
-    /**
-     * Getter for the joker user
-     * @return the joker user
-     */
-    public String getJokerUser() {
-        return jokerUser;
-    }
-
-    /**
-     * Getter for the timer joker
-     * @return the timer joker
-     */
-    public int getTimerJoker() {
-        return timerJoker;
-    }
-
-    /**
      * Getter for the question type
      * @return the question type
      */
@@ -117,6 +72,13 @@ public class TrimmedGame {
         return questionType;
     }
 
+    /**
+     * Getter for the possible answers
+     * @return the list of possible answers
+     */
+    public List<String> getPossibleAnswers() {
+        return possibleAnswers;
+    }
 
     /**
      * Equals method for TrimmedGame
@@ -128,9 +90,18 @@ public class TrimmedGame {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TrimmedGame that = (TrimmedGame) o;
-        return id == that.id && roundsLeft == that.roundsLeft && timer == that.timer && timeJoker == that.timeJoker &&
-                timerJoker == that.timerJoker && Objects.equals(currentQuestion, that.currentQuestion) &&
-                Objects.equals(jokerUser, that.jokerUser);
+        return id == that.id && roundNum == that.roundNum && timer == that.timer &&
+                Objects.equals(currentQuestion, that.currentQuestion) &&
+                Objects.equals(possibleAnswers, that.possibleAnswers);
     }
-}
 
+    /**
+     * @return the string of the correct answer
+     */
+    public String getCorrectAnswer() {
+        return this.correctAnswer;
+    }
+
+
+
+}

@@ -65,4 +65,11 @@ public class Player {
                 ", jokerList=" + jokerList +
                 '}';
     }
+
+    /**
+     * @param score the score that the user has
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

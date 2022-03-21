@@ -19,18 +19,25 @@ public class Activity implements Comparable {
             strategy = GenerationType.SEQUENCE,
             generator = "activity_sequence"
     )
+
     private Long Id;
-    private String name;
-    private int energy;
+    private String title;
+    private int consumption;
+    private String source;
+    private String imagePath;
 
     /**
      * Constructor for activity
-     * @param name the name of the activity
-     * @param energy the energy usage of the activity
+     * @param title the name of the activity
+     * @param consumption the energy usage of the activity
+     * @param source the source of this information
+     * @param imagePath the location of the image
      */
-    public Activity(String name, int energy) {
-        this.name = name;
-        this.energy = energy;
+    public Activity(String title, int consumption, String source, String imagePath) {
+        this.title = title;
+        this.consumption = consumption;
+        this.source = source;
+        this.imagePath = imagePath;
     }
 
     /**
@@ -41,35 +48,67 @@ public class Activity implements Comparable {
     }
 
     /**
+     * Sets the source of the activity
+     * @param source
+     */
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    /**
+     * Sets the path of the image
+     * @param imagePath
+     */
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    /**
+     * Returns the source of the activity
+     * @return source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * Returns the image path
+     * @return imagePath
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    /**
      * sets the name of the activity
      * @param name the name of the activity
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     /**
      * sets the energy of the activity
      * @param energy the energy of the activity
      */
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public void setConsumption(int energy) {
+        this.consumption = energy;
     }
 
     /**
      * returns the name of the activity
      * @return the name of the activity
      */
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     /**
      * returns the energy of the activity
      * @return the evergy of the activity
      */
-    public int getEnergy() {
-        return energy;
+    public int getConsumption() {
+        return consumption;
     }
 
     /**
@@ -79,8 +118,8 @@ public class Activity implements Comparable {
      */
     @Override
     public int compareTo(Object o) {
-        Activity otherActivity = (Activity)o;
-        return (getEnergy() < otherActivity.getEnergy()?-1:1);
+        Activity otherActivity = (Activity) o;
+        return (Integer.compare(getConsumption(), otherActivity.getConsumption()));
     }
 
     /**
@@ -91,8 +130,11 @@ public class Activity implements Comparable {
     public String toString() {
         return "Activity{" +
                 "Id=" + Id +
-                ", name='" + name + '\'' +
-                ", energy=" + energy +
+                ", name='" + title + '\'' +
+                ", energy=" + consumption +
                 '}';
     }
+
+
+
 }

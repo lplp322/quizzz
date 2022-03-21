@@ -19,7 +19,7 @@ public class RoundTest {
     }
     @Test
     public void testFullTick() {
-        for(int i = 0; i < 20*20; i++) {
+        for(int i = 0; i < 20*26; i++) {
             round.tickDown();
         }
         assertTrue(round.getGameStatus() == 2);

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class LobbyService {
     private ActivityRepository dtBase;
     private Map<Integer, Game> games;
     private int idCounter;
-    private List<Player> tempPlayers;
+    private Map<String, Player> tempPlayers;
     private Set<String> names;
     private int singlePlayerID;
 
@@ -33,7 +33,7 @@ public class LobbyService {
         this.dtBase = dtBase;
         games = new HashMap<>();
         idCounter = 1;
-        tempPlayers = new ArrayList<>();
+        tempPlayers = new HashMap<>();
         names = new HashSet<>();
         singlePlayerID = -1;
     }
@@ -41,17 +41,20 @@ public class LobbyService {
     /**
      * Start the game by creating a game instance and adding it to the map of games
      * @param gameType Single-player or multi-player
+     * @return false if no players there
      */
-    public void startGame(int gameType) {
-        Game tempGame = new Game(List.copyOf(tempPlayers), idCounter, gameType, dtBase);
+    public boolean startGame(int gameType) {
+        if(names.size() == 0) return false;
+        Game tempGame = new Game(Map.copyOf(tempPlayers), idCounter, gameType, dtBase);
         Thread t = new Thread(tempGame);
         t.start();
 
         games.put(idCounter++, tempGame);
-        tempPlayers = new ArrayList<>();
+        tempPlayers = new HashMap<>();
         names = new HashSet<>();
 
         System.out.println(tempGame);
+        return true;
     }
 
     /**
@@ -62,7 +65,7 @@ public class LobbyService {
     public boolean addPlayer(String name) {
         if(names.add(name)) {
             Player person = new Player(name);
-            tempPlayers.add(person);
+            tempPlayers.put(name, person);
             return true;
         }
         return false;
@@ -83,8 +86,8 @@ public class LobbyService {
      */
     public int createSinglePlayerGame(String name) {
         Player person = new Player(name);
-        List<Player> players = new ArrayList<>();
-        players.add(person);
+        Map<String, Player> players = new HashMap<>();
+        players.put(name, person);
         Game newGame = new Game(players, singlePlayerID, 0, dtBase);
         games.put(singlePlayerID--, newGame);
         return singlePlayerID+1;
@@ -98,4 +101,7 @@ public class LobbyService {
     public Game getGameByID(int id){
         return games.get(id);
     }
+
+
+
 }

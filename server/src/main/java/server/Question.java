@@ -3,7 +3,7 @@ package server;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -88,19 +88,11 @@ public class Question {
     private void generateTypeOne() {
         Activity act = activities.get(0);
 
-        question = String.format("How much energy does %s use", act.getName());
+        question = String.format("Estimate the energy usage of %s", act.getTitle());
 
-        answers.add(act.getEnergy()+"");
-        answer = act.getEnergy()+"";
+        answers.add(act.getConsumption()+"");
+        answer = act.getConsumption()+"";
 
-        Integer[] types = {1, -1, 2, -2, 3, -3, 4, -4, 5, -5};
-        List<Integer> deviations = Arrays.asList(types);
-        Collections.shuffle(deviations);
-
-        for(int i = 0; i < 3; i++) {
-            int randomlyGeneratedEnergy = act.getEnergy() + deviations.get(i);
-            answers.add(randomlyGeneratedEnergy+"");
-        }
         Collections.shuffle(answers);
     }
 
@@ -108,8 +100,31 @@ public class Question {
      *
      */
     private void generateTypeTwo() {
-        //Activity act = dt.getActivities(1);
-        //TO BE IMPLEMENTED
+        int wrongAnswer1;
+        int wrongAnswer2;
+        Random random = new Random();
+        int questionIndex = random.nextInt(activities.size());
+        question = String.format("How much energy does %s use", activities.get(questionIndex).getTitle());
+        int answerInt = activities.get(questionIndex).getConsumption();
+
+        int deviation = random.nextInt(activities.get(questionIndex).getConsumption());
+        boolean sign = random.nextBoolean();
+
+        if(sign)wrongAnswer1 =activities.get(questionIndex).getConsumption()+deviation;
+            else wrongAnswer1 =activities.get(questionIndex).getConsumption()-deviation;
+
+        deviation = random.nextInt((activities.get(questionIndex).getConsumption()/2));
+        sign = random.nextBoolean();
+
+        if(sign)wrongAnswer2 = activities.get(questionIndex).getConsumption()+deviation;
+            else wrongAnswer2 = activities.get(questionIndex).getConsumption()-deviation;
+
+        answer = String.valueOf(activities.get(questionIndex).getConsumption());
+        answers.add(answer);
+        answers.add(String.valueOf(wrongAnswer1));
+        answers.add(String.valueOf(wrongAnswer2));
+
+        Collections.shuffle(answers);
     }
 
     /** Generates a question in the following format:
@@ -118,13 +133,13 @@ public class Question {
      */
     private void generateTypeThree() {
         Collections.sort(activities);
-        question = String.format("Instead of %s you could use:", activities.get(1).getName());
+        question = String.format("Instead of %s you could use:", activities.get(1).getTitle());
 
-        answer = activities.get(0).getName();
+        answer = activities.get(0).getTitle();
 
         for(int i = 0; i < 4; i++) {
             if(i!=1)
-                answers.add(activities.get(i).getName()+"");
+                answers.add(activities.get(i).getTitle()+"");
         }
         Collections.shuffle(answers);
     }

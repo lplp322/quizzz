@@ -55,13 +55,14 @@ public class PromptCtrl {
             errorLabel.setVisible(false);   //makes the errorLabel visible
             if(isSingleplayer){
                 URL singleplayerGame = new URL("http://localhost:8080/singleplayer/"+nameField.getText());
+                this.mainCtrl.setName(nameField.getText());
                 try {
                     URLConnection nameVerify  = singleplayerGame.openConnection();
                     BufferedReader in = new BufferedReader(new InputStreamReader(nameVerify.getInputStream()));
                     String inputLine = in.readLine();
                     int ID = Integer.parseInt(inputLine);
                     this.mainCtrl.setCurrentGameID(ID); //sets the gameID of the MainCtrl to the one received
-                    this.mainCtrl.showMostPowerQuestion();  //shows the game screen
+                    this.mainCtrl.showGame();  //shows the game screen
                 } catch (IOException e) {
                     errorLabel.setVisible(true);
                     errorLabel.setText("Could not connect to server!");

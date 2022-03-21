@@ -17,7 +17,7 @@ package client;
 
 import client.scenes.AddQuoteCtrl;
 import client.scenes.MainCtrl;
-import client.scenes.MostPowerCtrl;
+import client.scenes.GameCtrl;
 import client.scenes.PromptCtrl;
 import client.scenes.QuoteOverviewCtrl;
 import client.scenes.SplashCtrl;
@@ -32,7 +32,7 @@ public class MyModule implements Module {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
         binder.bind(AddQuoteCtrl.class).in(Scopes.SINGLETON);
         binder.bind(QuoteOverviewCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(MostPowerCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(GameCtrl.class).in(Scopes.SINGLETON);
         binder.bind(SplashCtrl.class).in(Scopes.SINGLETON);
         binder.bind(PromptCtrl.class).in(Scopes.SINGLETON);
     }
