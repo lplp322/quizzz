@@ -15,10 +15,7 @@ import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameTest {
@@ -83,7 +80,7 @@ public class GameTest {
     public void noJokerTrim() {
         TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 00, 20,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), null);
         TrimmedGame gameTrim = game.trim();
         assertEquals(trim, gameTrim);
     }
@@ -92,7 +89,7 @@ public class GameTest {
     public void trimWithJokerOtherPlayer() {
         TrimmedGame expectedTrimB = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 10,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), new HashSet<String>(List.of("Time", "Score")));
         Thread tickThread = new Thread(game::run);
         tickThread.start();
         playerA.getJokerList().get("Time").use();
@@ -105,7 +102,7 @@ public class GameTest {
     public void trimWithJokerSamePlayer() {
         TrimmedGame expectedTrimA = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 20,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), new HashSet<String>(List.of("Score")));
         Thread tickThread = new Thread(game::run);
         tickThread.start();
         playerA.getJokerList().get("Time").use();
@@ -118,7 +115,7 @@ public class GameTest {
     public void trimWithJokerOtherPlayerAfter4Seconds() {
         TrimmedGame expectedTrimB = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 8,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), new HashSet<String>(List.of("Time", "Score")));
         Thread tickThread = new Thread(game::run);
         tickThread.start();
         try {
@@ -136,7 +133,7 @@ public class GameTest {
     public void trimWithJokerOtherPlayerWaitingBeforeAfter() {
         TrimmedGame expectedTrimB = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 6,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), new HashSet<String>(List.of("Time", "Score")));
         Thread tickThread = new Thread(game::run);
         tickThread.start();
         try {
@@ -171,7 +168,7 @@ public class GameTest {
         game.getRound().goNextRound();
         TrimmedGame trimB = game.trim("B");
         TrimmedGame trimA = game.trim("A");
-        assertEquals(trimB, trimA);
+        assertEquals(trimB.getTimer(), trimA.getTimer());
         Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
     }
 

@@ -4,8 +4,10 @@ import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Game implements Runnable{
     private Map<String, Player> players;
@@ -107,7 +109,7 @@ public class Game implements Runnable{
         Question currQuestion = questions.get(round.getRound());
         String answer = currQuestion.getAnswer();
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType(), answer);
+                currQuestion.getAnswers(), currQuestion.getType(), answer, null);
 
     }
     /**
@@ -117,17 +119,23 @@ public class Game implements Runnable{
      */
     public TrimmedGame trim(String requester) {
         if (round.getGameStatus() == 2) {
-            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0, null);
+            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0, null, null);
+        }
+        Set<String> jokers = new HashSet<>();
+        for (String j : players.get(requester).getJokerList().keySet()) {
+            if (!players.get(requester).getJokerList().get(j).isUsed()) {
+                jokers.add(j);
+            }
         }
         Question currQuestion = questions.get(round.getRound());
         if (round.isHalfTimerUsed()){
             if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
                 return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
-                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
+                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), jokers);
             }
         }
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
+                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), jokers);
 
     }
 

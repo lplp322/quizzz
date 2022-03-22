@@ -2,6 +2,7 @@ package commons;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class TrimmedGame {
     private int id;
@@ -11,6 +12,7 @@ public class TrimmedGame {
     private int questionType;
     private List<String> possibleAnswers;
     private String correctAnswer;
+    private Set<String> jokers;
 
     /**
      * @param id Id of the game
@@ -20,9 +22,10 @@ public class TrimmedGame {
      * @param answers
      * @param questionType
      * @param correctAnswer the correct answer so this can be displayed to the user
+     * @param jokers All the jokers the requester still has
      */
     public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
-                       int questionType, String correctAnswer) {
+                       int questionType, String correctAnswer, Set<String> jokers) {
         this.id = id;
         this.currentQuestion = currentQuestion;
         this.roundNum = roundNum;
@@ -30,6 +33,7 @@ public class TrimmedGame {
         this.possibleAnswers = answers;
         this.questionType = questionType;
         this.correctAnswer = correctAnswer;
+        this.jokers = jokers;
     }
 
     /**
@@ -90,9 +94,11 @@ public class TrimmedGame {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TrimmedGame that = (TrimmedGame) o;
-        return id == that.id && roundNum == that.roundNum && timer == that.timer &&
+        return id == that.id && roundNum == that.roundNum && timer == that.timer && questionType == that.questionType &&
                 Objects.equals(currentQuestion, that.currentQuestion) &&
-                Objects.equals(possibleAnswers, that.possibleAnswers);
+                Objects.equals(possibleAnswers, that.possibleAnswers) &&
+                Objects.equals(correctAnswer, that.correctAnswer) &&
+                Objects.equals(jokers, that.jokers);
     }
 
     /**
@@ -101,7 +107,11 @@ public class TrimmedGame {
     public String getCorrectAnswer() {
         return this.correctAnswer;
     }
-
-
+    /**
+     * @return a set of strings representing what jokers the requester has
+     */
+    public Set<String> getJokers() {
+        return this.jokers;
+    }
 
 }
