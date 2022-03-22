@@ -32,6 +32,9 @@ public class Round {
      */
     public void tickDown() {
         timer--;
+        if (halfTimerUsed) {
+            halvedTimer--;
+        }
         if (timer == 0){
             timeoutActive = true;
         }
@@ -39,13 +42,23 @@ public class Round {
             timer = 20;
         }
         else if (timer == -5){
-            timeoutActive = false;
-            timer = 20;
-            round++;
+            goNextRound();
         }
         if(round == totalRounds-1) {
             gameStatus = 2;
         }
+    }
+
+    /**
+     * Helper method to go to the next round (In a separate method to speed up testing)
+     */
+    public void goNextRound() {
+        timeoutActive = false;
+        timer = 20;
+        round++;
+        halfTimerUsed = false;
+        halvedTimer = -1;
+        playerWhoUsedJoker = null;
     }
 
     /**
@@ -65,11 +78,10 @@ public class Round {
     }
 
     /**
-     * sets the halved timer
-     * @param halvedTimer
+     * sets the halved timer, based on current timer
      */
-    public void setHalvedTimer(int halvedTimer) {
-        this.halvedTimer = halvedTimer;
+    public void setHalvedTimer() {
+        this.halvedTimer = this.timer / 2;
     }
 
     /**

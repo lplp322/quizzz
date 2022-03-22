@@ -32,6 +32,11 @@ public class Game implements Runnable{
             questions.add(tempQuestion);
             System.out.println(tempQuestion.getQuestion());
         }
+
+        for (Player player : players.values()){
+            player.getJokerList().put("Time", new TimeJoker(this, player));
+        }
+
 //
 //        for (int i =0; i < players.size(); i ++) {
 //            this.playerScore.put(players.get(i).getName(), 0);
@@ -100,7 +105,7 @@ public class Game implements Runnable{
     public TrimmedGame trim(){
         Question currQuestion = questions.get(round.getRound());
         String answer = currQuestion.getAnswer();
-        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
+        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
                 currQuestion.getAnswers(), currQuestion.getType(), answer);
 
     }

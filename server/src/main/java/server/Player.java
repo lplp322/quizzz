@@ -1,12 +1,12 @@
 package server;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Player {
     private String name;
     private int score;
-    private List<Joker> jokerList;
+    private Map<String, Joker> jokerList;
 
     /**
      * Default constructor
@@ -15,7 +15,7 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.score = 0;
-        this.jokerList = new ArrayList<>();
+        this.jokerList = new HashMap<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class Player {
      * @param name
      * @param jokerList
      */
-    public Player(String name, List<Joker> jokerList) {
+    public Player(String name, Map<String, Joker> jokerList) {
         this.name = name;
         this.score = 0;
         this.jokerList = jokerList;
@@ -49,7 +49,7 @@ public class Player {
      * returns a list of the jokes available to the player
      * @return the list of the jokers available to the player
      */
-    public List<Joker> getJokerList() {
+    public Map<String, Joker> getJokerList() {
         return jokerList;
     }
 

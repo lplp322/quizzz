@@ -1,6 +1,8 @@
 package server.api;
 //CHECKSTYLE:OFF
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -12,6 +14,7 @@ import server.Player;
 import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +26,8 @@ public class GameTest {
     private ActivityRepository activityRepository;
     private List<Player> players;
     private Game game;
+    private Player playerA;
+    private Player playerB;
 
     @BeforeEach
     public void init() {
@@ -33,8 +38,10 @@ public class GameTest {
         activities.add(new Activity("D", 5, "DAS", "DAS"));
         activityRepository = new TestActivityRepository(activities);
         Map<String, Player> players = new HashMap();
-        players.put("A", new Player("A"));
-        players.put("B", new Player("B"));
+        playerA = new Player("A");
+        playerB = new Player("B");
+        players.put("A", playerA);
+        players.put("B", playerB);
         game = new Game(players,
                 1, 1, activityRepository);
     }
@@ -74,10 +81,97 @@ public class GameTest {
 
     @Test
     public void noJokerTrim() {
-        TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
+        TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 00, 20,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
                 game.getQuestions().get(0).getAnswer());
         TrimmedGame gameTrim = game.trim();
         assertEquals(trim, gameTrim);
+    }
+
+    @Test
+    public void trimWithJokerOtherPlayer() {
+        TrimmedGame expectedTrimB = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 10,
+                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
+                game.getQuestions().get(0).getAnswer());
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        playerA.getJokerList().get("Time").use();
+        TrimmedGame trimB = game.trim("B");
+        assertEquals(trimB, expectedTrimB);
+        Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
+    }
+
+    @Test
+    public void trimWithJokerSamePlayer() {
+        TrimmedGame expectedTrimA = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 20,
+                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
+                game.getQuestions().get(0).getAnswer());
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        playerA.getJokerList().get("Time").use();
+        TrimmedGame trimA = game.trim("A");
+        assertEquals(trimA, expectedTrimA);
+        Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
+    }
+
+    @Test
+    public void trimWithJokerOtherPlayerAfter4Seconds() {
+        TrimmedGame expectedTrimB = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 8,
+                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
+                game.getQuestions().get(0).getAnswer());
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        try {
+            TimeUnit.SECONDS.sleep(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        playerA.getJokerList().get("Time").use();
+        TrimmedGame trimB = game.trim("B");
+        assertEquals(trimB, expectedTrimB);
+        Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
+    }
+
+    @Test
+    public void trimWithJokerOtherPlayerWaitingBeforeAfter() {
+        TrimmedGame expectedTrimB = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 0, 6,
+                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
+                game.getQuestions().get(0).getAnswer());
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        try {
+            TimeUnit.SECONDS.sleep(4);
+            playerA.getJokerList().get("Time").use();
+            TimeUnit.SECONDS.sleep(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        TrimmedGame trimB = game.trim("B");
+        assertEquals(trimB, expectedTrimB);
+        Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
+    }
+
+    @Test
+    public void testTwoJokerUses() {
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        playerA.getJokerList().get("Time").use();
+        playerB.getJokerList().get("Time").use();
+
+        Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
+        Assertions.assertFalse(playerB.getJokerList().get("Time").isUsed());
+
+    }
+
+    @Test
+    public void trimWithJokerOtherPlayerNextRound() {
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        playerA.getJokerList().get("Time").use();
+        game.getRound().goNextRound();
+        TrimmedGame trimB = game.trim("B");
+        TrimmedGame trimA = game.trim("A");
+        assertEquals(trimB, trimA);
+        Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
     }
 }
