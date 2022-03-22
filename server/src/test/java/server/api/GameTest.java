@@ -70,8 +70,8 @@ public class GameTest {
     public void testThreadTick() {
         Thread tickThread = new Thread(game::run);
         tickThread.start();
-        int currTimer = game.getRound().getTimer();
         try {
+            int currTimer = game.getRound().getTimer();
             TimeUnit.SECONDS.sleep(1);
             assertEquals(currTimer - 1, game.getRound().getTimer());
         } catch (Exception e) {
@@ -173,5 +173,17 @@ public class GameTest {
         TrimmedGame trimA = game.trim("A");
         assertEquals(trimB, trimA);
         Assertions.assertTrue(playerA.getJokerList().get("Time").isUsed());
+    }
+
+    @Test
+    public void scoreJokerTest() {
+        Thread tickThread = new Thread(game::run);
+        tickThread.start();
+        playerA.getJokerList().get("Score").use();
+        game.updatePlayerScore("A", 100);
+        game.updatePlayerScore("B", 100);
+
+        Assertions.assertTrue(playerA.getScore() == 2 * playerB.getScore());
+        Assertions.assertTrue(playerA.getJokerList().get("Score").isUsed());
     }
 }

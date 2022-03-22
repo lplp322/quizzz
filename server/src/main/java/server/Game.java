@@ -35,6 +35,7 @@ public class Game implements Runnable{
 
         for (Player player : players.values()){
             player.getJokerList().put("Time", new TimeJoker(this, player));
+            player.getJokerList().put("Score", new ScoreJoker(this, player));
         }
 
 //
@@ -214,6 +215,9 @@ public class Game implements Runnable{
         Player player = this.players.get(name);
         int score = player.getScore();
         score = score + points;
+        if (round.getDoublePoints().contains(name)) {
+            score = score + points;
+        }
         player.setScore(score);
         return score;
     }

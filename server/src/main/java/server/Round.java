@@ -1,5 +1,8 @@
 package server;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Round {
     // the number of the current round
     private int round;
@@ -10,6 +13,9 @@ public class Round {
     private Player playerWhoUsedJoker;
     private boolean halfTimerUsed;
     private int halvedTimer;
+    // There is a joker that doubles the points a player receives this round,
+    // so we keep track of the names of the players that have used this joker
+    private List<String> doublePoints;
     // 1 - game running, 2 - game has ended
     private int gameStatus;
     private boolean timeoutActive = false;
@@ -24,6 +30,7 @@ public class Round {
         this.timer = roundTimer;
         this.halfTimerUsed = false;
         this.gameStatus = 1;
+        this.doublePoints = new ArrayList<>();
     }
 
     /**
@@ -59,6 +66,7 @@ public class Round {
         halfTimerUsed = false;
         halvedTimer = -1;
         playerWhoUsedJoker = null;
+        doublePoints.clear();
     }
 
     /**
@@ -162,6 +170,22 @@ public class Round {
      */
     public int getRoundTimer() {
         return roundTimer;
+    }
+
+    /**
+     * Adds a player to the list of players that have used the double score joker this round
+     * @param player Name of the player that used the joker
+     */
+    public void addToDoublePoints(String player) {
+        doublePoints.add(player);
+    }
+
+    /**
+     * Returns the list of players that have used the double score joker this round
+     * @return The list of players that used the joker
+     */
+    public List<String> getDoublePoints() {
+        return doublePoints;
     }
 
     /**
