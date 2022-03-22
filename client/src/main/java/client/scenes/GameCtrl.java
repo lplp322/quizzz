@@ -423,6 +423,15 @@ public class GameCtrl {
         answerLabel.setText("Your answer is " + response);
     }
 
+    /**
+     *
+     */
+    public void submitAnswer() throws IOException {
+        if(!(guessText.getText()==null) && this.checkCanAnswer()){
+            sendAnswer(guessText.getText());
+            lastRoundAnswered = currentround;
+        }
+    }
 }
 
 

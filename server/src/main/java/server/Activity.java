@@ -19,6 +19,7 @@ public class Activity implements Comparable {
             strategy = GenerationType.SEQUENCE,
             generator = "activity_sequence"
     )
+
     private Long Id;
     private String title;
     private int consumption;
@@ -133,4 +134,7 @@ public class Activity implements Comparable {
                 ", energy=" + consumption +
                 '}';
     }
+
+
+
 }

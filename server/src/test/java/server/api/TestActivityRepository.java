@@ -53,6 +53,11 @@ public class TestActivityRepository implements ActivityRepository {
     public void deleteById(String s) {
 
     }
+    
+    @Override
+    public Optional<Activity> findByTitle(String title) {
+        return null;
+    }
 
     @Override
     public void delete(Activity entity) {

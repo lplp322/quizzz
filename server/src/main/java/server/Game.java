@@ -154,8 +154,11 @@ public class Game implements Runnable{
         if(getRound().getRound() == round){
             Question currQuestion = questions.get(getRound().getRound());
             System.out.println("Question type " + currQuestion.getType());
-            if(currQuestion.getType() == 1 || currQuestion.getType() == 0){
+            if(currQuestion.getType() == 0){
                 //TO BE IMPLEMENTED
+                int score = checkPlayerEstimation(name, round, answer+"");
+                updatePlayerScore(name, score);
+                if(score<40) return false;
                 return true;
             }
             else{
@@ -166,14 +169,14 @@ public class Game implements Runnable{
                 System.out.println("Correct answer: "+ correctAns);
                 if(correctAns == -1) System.out.println("errrroororroror");
                 if (correctAns == answer){
-                    updatePlayerScore(name, 100);
+                    updatePlayerScore(name, 5*getRound().getTimer());
                     return true;
                 }
                 return false;
             }
         }
         else{
-            System.out.println("False round");
+            System.out.println("False round"+ round);
             return false;
         }
     }
@@ -186,19 +189,14 @@ public class Game implements Runnable{
      * @return  - number of points awarded
      */
     public int checkPlayerEstimation(String name, int round, String estimation) {
-        System.out.println(getRound().getRound());
-        System.out.println(getQuestions().get(round).getAnswer());
-        if(getRound().getRound() == round){
-            Double answerDouble = Double.parseDouble(getQuestions().get(round).getAnswer());
-            Double estimationDouble = Double.parseDouble(estimation);
-            Double error = Math.abs(answerDouble-estimationDouble);
-            if(error==0)return 100;
-            else if(error<=(answerDouble*20)/100)return 80;
-            else if(error<=(answerDouble*40)/100)return 60;
-            else if(error<=(answerDouble*50)/100)return 40;
-            else if(error<=(answerDouble*70)/100)return 20;
-        }
-        System.out.println("False round");
+        Double answerDouble = Double.parseDouble(getQuestions().get(round).getAnswer());
+        Double estimationDouble = Double.parseDouble(estimation);
+        Double error = Math.abs(answerDouble-estimationDouble);
+        if(error==0)return 100;
+        else if(error<=(answerDouble*20)/100)return 80;
+        else if(error<=(answerDouble*40)/100)return 60;
+        else if(error<=(answerDouble*50)/100)return 40;
+        else if(error<=(answerDouble*70)/100)return 20;
         return 0;
     }
 
