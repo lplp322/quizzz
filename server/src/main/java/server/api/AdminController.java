@@ -1,11 +1,10 @@
 package server.api;
 
-import commons.ActivityInterface;
+import commons.CommonsActivity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import server.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +18,15 @@ public class AdminController {
      */
     @GetMapping("/testActivity")
     @ResponseBody
-    public List<ActivityInterface> newPlayer() {
+    public List<CommonsActivity> newPlayer() {
 
-        Activity testActivity1 = new Activity("Test", 420, "testSource", "testPath");
-        Activity testActivity2 = new Activity("Test2", 024, "testSource", "testPath");
+        CommonsActivity testActivity1 = new CommonsActivity("Test", 420, "testSource", "testPath");
+        CommonsActivity testActivity2 = new CommonsActivity("Test2", 024, "testSource", "testPath");
 
-        List<ActivityInterface> testList = new ArrayList<>();
+        List<CommonsActivity> testList = new ArrayList<>();
         testList.add(testActivity1);
         testList.add(testActivity2);
 
-        return  testList;
+        return testList;
     }
 }
