@@ -1,0 +1,24 @@
+#scrollPane {
+    -fx-border-color: #111111;
+}
+
+#upperPanel {
+    -fx-background-color: #d6d6d6;
+    -fx-border-color: #000000;
+}
+
+#lobbyLabel {
+    -fx-font-size: 30;
+}
+
+#exitLobby, #startGame {
+    -fx-border-color: #000000;
+}
+
+#exitLobby {
+    -fx-background-color: red;
+}
+
+#startGame {
+    -fx-background-color: green;
+}

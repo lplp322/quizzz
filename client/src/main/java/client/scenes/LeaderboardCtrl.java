@@ -67,6 +67,7 @@ public class LeaderboardCtrl {
      */
     public void displayResults(List<LeaderboardEntry> results, LeaderboardEntry yourEntry) {
         int yourPlace = 0;
+        scrollPanel.getChildren().clear();
 
         Text[] firstThree = {goldName, goldScore, silverName, silverScore, bronzeName, bronzeScore};
 

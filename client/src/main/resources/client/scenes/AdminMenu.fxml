@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1131.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ActivityViewerCtrl">
+   <children>
+      <AnchorPane layoutX="-14.0" prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <effect>
+            <GaussianBlur />
+         </effect>
+      </AnchorPane>
+      <GridPane prefHeight="610.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0000712076824" minWidth="300.0" prefWidth="334.6666259765625" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="407.3332621256509" prefWidth="796.3333740234375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;">
+               <effect>
+                  <GaussianBlur radius="63.0" />
+               </effect>
+            </Pane>
+            <Pane opacity="0.52" prefHeight="593.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(#212121, #000000);" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="171.33331298828125" minHeight="57.0" prefHeight="57.33332824707031" vgrow="NEVER" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="573.3333129882812" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="126.00002034505212" minHeight="126.00002034505212" prefHeight="126.00002034505212" vgrow="NEVER" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="quitButton" mnemonicParsing="false" onAction="#returnToMenu" prefHeight="72.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Century Gothic Bold" size="37.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="149.0" text="Activity" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="192.0" fitWidth="223.0" layoutX="58.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Philips_PM5544.svg/1280px-Philips_PM5544.svg.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="23.0" prefHeight="17.0" prefWidth="167.0" text="Image:" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="58.0" layoutY="317.0" prefHeight="25.0" prefWidth="223.0" />
+                        <TextField layoutX="58.0" layoutY="382.0" prefHeight="25.0" prefWidth="223.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="287.0" prefHeight="17.0" prefWidth="167.0" text="Description:" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="351.0" prefHeight="17.0" prefWidth="167.0" text="Energy Usage" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </GridPane>
+            <GridPane alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="277.3333511352539" minHeight="43.0" prefHeight="43.33333841959635" vgrow="NEVER" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="737.9999949137369" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Pane opacity="0.9" prefHeight="43.0" prefWidth="810.0" style="-fx-background-color: linear-gradient(#ebedf0, #b8c1d1);">
+                     <effect>
+                        <DropShadow offsetY="5.0">
+                           <color>
+                              <Color opacity="0.38395416736602783" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="174.0" text="Activity Editor">
+                     <font>
+                        <Font name="Century Gothic Bold" size="19.0" />
+                     </font>
+                  </Label>
+                  <TableView editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" GridPane.rowIndex="1">
+                    <columns>
+                      <TableColumn prefWidth="84.0000330209732" text="ID" />
+                      <TableColumn prefWidth="108.66670989990234" text="Title" />
+                    </columns>
+                  </TableView>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

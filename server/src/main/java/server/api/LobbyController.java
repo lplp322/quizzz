@@ -5,19 +5,22 @@ import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import server.Game;
 import server.LobbyService;
 import server.database.LeaderboardRepository;
-
 import java.util.LinkedList;
-
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
 public class LobbyController {
     private LobbyService lobbyService;
+
+    private final int REACTION_DURATION = 3000;
 
     @Autowired
     private LeaderboardRepository lbRepo;
@@ -31,6 +34,14 @@ public class LobbyController {
         this.lobbyService = lobbyService;
     }
 
+    /**
+     * To answer, if someone is connected
+     * @return connected message
+     */
+    @GetMapping("/")
+    public String newConnection(){
+        return "Connected";
+    }
     /**
      * Start singleplayer game with provided name
      * @param name - name of the player
@@ -49,6 +60,15 @@ public class LobbyController {
         Thread t1 = new Thread(lobbyService.getGameByID(id));
         t1.start();
         return id;
+    }
+
+    /**
+     * Returns the id of the current lobby
+     * @return id of current lobby
+     */
+    @GetMapping("multiplayer/getLobbyId")
+    public int getLobbyId() {
+        return lobbyService.getIdCounter();
     }
 
     /**
@@ -78,6 +98,20 @@ public class LobbyController {
     }
 
     /**
+     * Removes a player with given name from the lobby
+     * @param name
+     * @return true if the player was removed, false otherwise
+     */
+    @DeleteMapping("/multiplayer/delete/{name}")
+    public boolean deleteUserMultiPlayer(@PathVariable String name) {
+        //System.out.println("DASDAS");
+        if(lobbyService.removePlayer(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * PUT request to start game, that is currently in lobby
      * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
      */
@@ -87,6 +121,15 @@ public class LobbyController {
             return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
         }
         else return null;
+    }
+
+    /**
+     * Returns the names of the players, currently in the lobby
+     * @return - List of the players' names
+     */
+    @GetMapping("/pollLobby")
+    public List<String> pollLobby() {
+        return lobbyService.getNames();
     }
 
     /**
@@ -100,7 +143,14 @@ public class LobbyController {
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
     public String checkAnswer(@PathVariable int gameID, @PathVariable String name,
                               @PathVariable int round, @PathVariable int answer){
-        System.out.println(answer);
+//        System.out.println(answer);
+        if(round==-1) {
+            int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
+            {lbRepo.save(new LeaderboardEntry(name, playerScore));}
+            return "correct. Your score is " + playerScore;
+        }
+        System.out.println("eoe");
+        System.out.println(round);
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
             if(round == 19) {lbRepo.save(new LeaderboardEntry(name, playerScore));}
@@ -129,6 +179,24 @@ public class LobbyController {
         return "joker received";
     }
 
+
+    /**
+     * @param gameID the id of the current game
+     * @param name the name of the user
+     * @param round the current round that is being played
+     * @param points the number of new points that should be given to the user
+     * @return a string that just confirms what has taken place for testing purposes
+     */
+    @GetMapping("/{gameID}/{name}/updateScore/{round}/{points}")
+    public int updateUserScore(@PathVariable int gameID, @PathVariable String name,
+                               @PathVariable int round, @PathVariable int points) {
+        System.out.println("new points received");
+        this.lobbyService.getGameByID(gameID).updatePlayerScore(name, points);
+
+        int score = this.lobbyService.getGameByID(gameID).getPlayerScore(name);
+        return score;
+    }
+
     /**
      * @return returns a linked list of entries that store the information
      * of the leaderboard
@@ -136,5 +204,39 @@ public class LobbyController {
     @GetMapping("leaderboard")
     public LinkedList<LeaderboardEntry> getGameInfo(){
         return lbRepo.getAllLeaderboardEntriesOrderedByScore();
+    }
+
+
+    /**
+     * @param gameID the current gameID
+     * @return a linked list containing the names and scores of the players in
+     * this multiplayer game
+     */
+    @GetMapping("/{gameID}/getMultiplayerLeaderBoard")
+    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(@PathVariable int gameID){
+        return this.lobbyService.getGameByID(gameID).getMultiplayerLeaderboard();
+    }
+
+    /**
+     * Adds a reaction for the user of the given game
+     * @param gameID The id of the game
+     * @param player The player who sent the reaction
+     * @param reaction The reaction
+     */
+    @PutMapping("reaction/{gameID}/{player}/{reaction}")
+    public void reaction(@PathVariable int gameID, @PathVariable String player, @PathVariable String reaction) {
+        Game game = lobbyService.getGameByID(gameID);
+        String[] newReaction = new String[] {player, reaction};
+        game.getReactions().add(newReaction);
+        System.out.println("Success: " + newReaction);
+        Thread t = new Thread(()->{
+            try {
+                Thread.sleep(REACTION_DURATION);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            game.getReactions().remove(newReaction);
+        });
+        t.start();
     }
 }

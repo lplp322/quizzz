@@ -43,7 +43,8 @@ public class Round {
             timer = 20;
             round++;
         }
-        if(round == totalRounds-1) {
+        System.out.println(round);
+        if(round == totalRounds) {
             gameStatus = 2;
         }
     }

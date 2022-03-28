@@ -1,6 +1,8 @@
 package server;
 
 
+import commons.ActivityInterface;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Id;
 
 @Entity
-public class Activity implements Comparable {
+public class Activity implements Comparable, ActivityInterface {
     @Id
     @SequenceGenerator(
             name = "activity_sequence",

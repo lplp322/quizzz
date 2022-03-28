@@ -11,6 +11,7 @@ public class TrimmedGame {
     private int questionType;
     private List<String> possibleAnswers;
     private String correctAnswer;
+    private List<String[]> reactionHistory;
 
     /**
      * @param id Id of the game
@@ -20,9 +21,10 @@ public class TrimmedGame {
      * @param answers
      * @param questionType
      * @param correctAnswer the correct answer so this can be displayed to the user
+     * @param reactionHistory
      */
     public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
-                       int questionType, String correctAnswer) {
+                       int questionType, String correctAnswer, List<String[]> reactionHistory) {
         this.id = id;
         this.currentQuestion = currentQuestion;
         this.roundNum = roundNum;
@@ -30,6 +32,7 @@ public class TrimmedGame {
         this.possibleAnswers = answers;
         this.questionType = questionType;
         this.correctAnswer = correctAnswer;
+        this.reactionHistory = reactionHistory;
     }
 
     /**
@@ -81,6 +84,14 @@ public class TrimmedGame {
     }
 
     /**
+     * Return the reaction history of this trimmed Game
+     * @return the list of the reaction history
+     */
+    public List<String[]> getReactionHistory() {
+        return this.reactionHistory;
+    }
+
+    /**
      * Equals method for TrimmedGame
      * @param o the object to compare with
      * @return true iff the other object is equal to this
@@ -92,7 +103,8 @@ public class TrimmedGame {
         TrimmedGame that = (TrimmedGame) o;
         return id == that.id && roundNum == that.roundNum && timer == that.timer &&
                 Objects.equals(currentQuestion, that.currentQuestion) &&
-                Objects.equals(possibleAnswers, that.possibleAnswers);
+                Objects.equals(possibleAnswers, that.possibleAnswers) &&
+                Objects.equals(reactionHistory, that.reactionHistory);
     }
 
     /**

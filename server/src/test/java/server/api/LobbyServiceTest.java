@@ -68,4 +68,6 @@ class LobbyServiceTest {
         lobbyService.startGame(1);
         assertTrue(lobbyService.getGameByID(1).getPlayers().get("P1").getName().equals("P1"));
     }
+
+
 }

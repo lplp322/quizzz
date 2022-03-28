@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="610.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ChooseServerCtrl">
+   <children>
+      <AnchorPane prefHeight="577.0" prefWidth="973.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+                  <Button fx:id="connect" layoutX="446.0" layoutY="359.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="37.0" prefWidth="115.0" text="Connect">
+                      <font>
+                          <Font name="Franklin Gothic Medium" size="21.0" />
+                      </font>
+                  </Button>
+                  <TextField fx:id="textField" focusTraversable="false" layoutX="387.0" layoutY="286.0" prefHeight="38.0" prefWidth="233.0" promptText="http://localhost:8080/" />
+            <Label fx:id="cantConnectLabel" alignment="CENTER" layoutX="430.0" layoutY="552.0" text="Can not connect" textFill="RED" visible="false">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="21.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+            <Label fx:id="mainLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="321.0" layoutY="126.0" prefHeight="122.0" prefWidth="368.0" text="Put IP of server:">
+               <font>
+                  <Font name="Century Gothic Bold" size="45.0" />
+               </font>
+            </Label>
+   </children>
+</AnchorPane>

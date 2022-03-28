@@ -34,6 +34,11 @@ public class SplashCtrl {
     }
 
     /**
+     * Function to be executed when the multiPlayer button is pressed
+     */
+    public void multiPlayer(){this.mainCtrl.showMultiPlayer();}
+
+    /**
      * Changes the size of the AnchorPlane
      * @param w - preferred width
      * @param h - preferred height
@@ -43,4 +48,5 @@ public class SplashCtrl {
         mainWindow.setPrefSize(w,h);
     }
 
+    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
 }

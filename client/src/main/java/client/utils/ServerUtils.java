@@ -32,7 +32,6 @@ import jakarta.ws.rs.core.GenericType;
 
 //CHECKSTYLE:OFF
 public class ServerUtils {
-
     private static final String SERVER = "http://localhost:8080/";
 
     public void getQuotesTheHardWay() throws IOException {

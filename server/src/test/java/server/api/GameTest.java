@@ -10,6 +10,7 @@ import server.Activity;
 import server.Game;
 import server.Player;
 import commons.TrimmedGame;
+import server.Round;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class GameTest {
     private ActivityRepository activityRepository;
     private List<Player> players;
     private Game game;
+    private List<String[]> reactions;
 
     @BeforeEach
     public void init() {
@@ -35,8 +37,13 @@ public class GameTest {
         Map<String, Player> players = new HashMap();
         players.put("A", new Player("A"));
         players.put("B", new Player("B"));
+        reactions = new ArrayList<>();
+        String[] reaction = new String[2];
+        reaction[0] = "Henk";
+        reaction[1] = "crazy.jpg";
+        reactions.add(reaction);
         game = new Game(players,
-                1, 1, activityRepository);
+                1, 1, activityRepository, reactions);
     }
 
     @Test
@@ -76,8 +83,10 @@ public class GameTest {
     public void noJokerTrim() {
         TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), reactions);
         TrimmedGame gameTrim = game.trim();
         assertEquals(trim, gameTrim);
     }
+
+
 }

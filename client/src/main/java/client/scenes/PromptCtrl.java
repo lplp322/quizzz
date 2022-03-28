@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 public class PromptCtrl {
     private final MainCtrl mainCtrl;
     private boolean isSingleplayer; //Holds information about the mode of the game
+
     @FXML
     private AnchorPane mainWindow;
     @FXML
@@ -53,21 +54,30 @@ public class PromptCtrl {
     public void onClickStart() throws MalformedURLException {
         if(nameField.getText().matches("[a-zA-Z0-9]+")){    //regex for checking name
             errorLabel.setVisible(false);   //makes the errorLabel visible
-            if(isSingleplayer){
-                URL singleplayerGame = new URL("http://localhost:8080/singleplayer/"+nameField.getText());
+            URL playerGame;
+            if(isSingleplayer) {
+                playerGame = new URL(mainCtrl.getLink() + "singleplayer/" + nameField.getText());
+            }
+            else playerGame = new URL(mainCtrl.getLink() + "multiplayer/" + nameField.getText());
                 this.mainCtrl.setName(nameField.getText());
                 try {
-                    URLConnection nameVerify  = singleplayerGame.openConnection();
+                    URLConnection nameVerify  = playerGame.openConnection();
                     BufferedReader in = new BufferedReader(new InputStreamReader(nameVerify.getInputStream()));
                     String inputLine = in.readLine();
                     int ID = Integer.parseInt(inputLine);
+                    if(ID == 0){
+                        errorLabel.setVisible(true);
+                        errorLabel.setText("Your name is already taken");
+                        return;
+                    }
                     this.mainCtrl.setCurrentGameID(ID); //sets the gameID of the MainCtrl to the one received
-                    this.mainCtrl.showGame();  //shows the game screen
+                    if(isSingleplayer)  this.mainCtrl.showGame();  //shows the game screen
+
+                    else this.mainCtrl.showWaitingRoom(); //lobby screen needed to be here instead of overview
                 } catch (IOException e) {
                     errorLabel.setVisible(true);
                     errorLabel.setText("Could not connect to server!");
                 }
-            }
         }
         else{
             if(nameField.getText().equals(""))      //checks if name is empty
