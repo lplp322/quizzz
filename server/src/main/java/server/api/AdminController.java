@@ -16,7 +16,7 @@ public class AdminController {
      * Mapping to test how the ActivityInterface behaves
      * @return A list containing two test activities
      */
-    @GetMapping("/testActivity")
+    @GetMapping("/activities")
     @ResponseBody
     public List<CommonsActivity> newPlayer() {
 

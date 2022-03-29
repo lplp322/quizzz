@@ -4,9 +4,13 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import commons.CommonsActivity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -60,12 +64,26 @@ public class ActivityViewerCtrl {
      */
     @FXML
     public void updateEntries() throws IOException {
-        URL activityReceive = new URL(mainCtrl.getLink()+"admin/testActivity");
+        URL activityReceive = new URL(mainCtrl.getLink()+"admin/activities");
         HttpURLConnection http = (HttpURLConnection) activityReceive.openConnection();
         String jsonActivites = MainCtrl.httpToJSONString(http);
         Gson g = new Gson();
         Type ActivityList = new TypeToken<ArrayList<CommonsActivity>>(){}.getType();    //fixes type-erasure
         this.activities  = g.fromJson(jsonActivites, ActivityList);
+
+        TableColumn<CommonsActivity, String> titleCol = new TableColumn<CommonsActivity, String>("Title");
+        TableColumn<CommonsActivity, Integer> usageCol = new TableColumn<CommonsActivity, Integer>("Consumption");
+
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        usageCol.setCellValueFactory(new PropertyValueFactory<>("consumption"));
+
+        ObservableList<CommonsActivity> data = FXCollections.observableArrayList(activities);
+        table.setItems(data);
+
+
+        table.getColumns().setAll(titleCol,usageCol);
+
+
 
         //BufferedReader in = new BufferedReader(new InputStreamReader(updateTable.getInputStream()));
         //String inputLine = in.readLine();
