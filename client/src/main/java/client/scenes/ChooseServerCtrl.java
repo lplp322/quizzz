@@ -44,6 +44,7 @@ public class ChooseServerCtrl {
      * Used to connect to current server
      */
     public void connectToServer(){
+        mainCtrl.getSounds().get("click").play();
         cantConnectLabel.setVisible(false);
         String link = textField.getText();
         System.out.println(textField.getText());
