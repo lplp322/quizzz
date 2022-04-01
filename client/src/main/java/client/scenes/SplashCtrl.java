@@ -3,6 +3,7 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class SplashCtrl {
@@ -16,6 +17,14 @@ public class SplashCtrl {
 
     @FXML
     private Button multiplayerButton;
+
+    @FXML
+    private Button helpButton;
+
+    @FXML
+    private Label helpLabel;
+
+
 
     /**
      * Instantiates a Splash Controller
@@ -55,4 +64,20 @@ public class SplashCtrl {
     }
 
     public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
+
+
+    /**
+     * shows the help label instructing the user how the game works
+     */
+    public void showHelp() {
+        this.helpLabel.setWrapText(true);
+
+        if (this.helpLabel.isVisible()) {
+            this.helpLabel.setVisible(false);
+        }
+
+        else {
+            this.helpLabel.setVisible(true);
+        }
+    }
 }

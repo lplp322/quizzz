@@ -59,35 +59,6 @@
     -fx-background-color: #444444;
 }
 
-@keyframes example {
-    0%   {background-color: red;}
-    25%  {background-color: yellow;}
-    50%  {background-color: blue;}
-    100% {background-color: green;}
-}
 
-/* The element to apply the animation to */
-#guaranteeButton:hover {
-    background-color: red;
-    animation-name: example;
-    animation-duration: 4s;
-}
 
-#doublePointsJokerButton:hover {
-    background-color: red;
-    animation-name: example;
-    animation-duration: 4s;
-}
-
-#halfTimeJokerButton:hover {
-    background-color: red;
-    animation-name: example;
-    animation-duration: 4s;
-}
-
-#eliminateWrongButton:hover {
-    background-color: red;
-    animation-name: example;
-    animation-duration: 4s;
-}
 
