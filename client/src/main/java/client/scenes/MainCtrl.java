@@ -58,6 +58,7 @@ public class MainCtrl {
     private Scene lobby;
 
     private String name;
+    private boolean singleplayerFlag;
 
     /**
      * Initializes all scenes via pairs of controllers and fxml files
@@ -285,4 +286,20 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
     }
+
+    /**
+     * @return a boolean indicating if the game is singleplayer or not
+     */
+    public Boolean isSingleplayerFlag() {
+        return this.singleplayerFlag;
+    }
+
+    /**
+     * @param value assigns a value (boolean to the flag indicating if
+     *              the game is single player or no t
+     */
+    public void setSingleplayerFlag(Boolean value) {
+        this.singleplayerFlag = value;
+    }
+
 }

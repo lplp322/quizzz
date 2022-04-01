@@ -31,12 +31,18 @@ public class SplashCtrl {
      */
     public void singlePlayer() {
         this.mainCtrl.showSinglePlayerPrompt();
+        this.mainCtrl.setSingleplayerFlag(true);
+        System.out.println(this.mainCtrl.isSingleplayerFlag());
     }
 
     /**
      * Function to be executed when the multiPlayer button is pressed
      */
-    public void multiPlayer(){this.mainCtrl.showMultiPlayer();}
+    public void multiPlayer(){
+        this.mainCtrl.showMultiPlayer();
+        this.mainCtrl.setSingleplayerFlag(false);
+        System.out.println(this.mainCtrl.isSingleplayerFlag());
+    }
 
     /**
      * Changes the size of the AnchorPlane
