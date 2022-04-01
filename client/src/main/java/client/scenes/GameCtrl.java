@@ -168,7 +168,7 @@ public class GameCtrl {
     }
 
     /**
-     * This method is used to make the jokers invisible in singplayer games 
+     * This method is used to make the jokers invisible in singplayer games
      */
     public void disableJokers() {
         this.guaranteeButton.setVisible(false);
