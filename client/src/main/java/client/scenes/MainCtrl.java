@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.io.BufferedReader;
@@ -314,5 +315,28 @@ public class MainCtrl {
      */
     public HashMap<String, MediaPlayer> getSounds() {
         return this.sounds;
+    }
+
+    /**
+     * Resets the sound for multiple uses
+     * @param sound the sound to reset
+     */
+    public void resetSound(MediaPlayer sound) {
+        Duration startTime = sound.getStartTime();
+        sound.seek(startTime);
+    }
+
+    /**
+     * Plays the sound and resets it
+     * @param sound the filename of the sound
+     */
+    public void playSound(String sound) {
+        MediaPlayer mp = this.sounds.get(sound);
+        if(mp == null) {
+            System.out.println("Sound file not found.");
+            return;
+        }
+        mp.play();
+        resetSound(mp);
     }
 }
