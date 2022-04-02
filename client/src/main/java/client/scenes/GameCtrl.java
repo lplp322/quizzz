@@ -119,6 +119,8 @@ public class GameCtrl {
 
     private int newPoints = 0;
 
+    private int reactionSize = 0;
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -413,7 +415,7 @@ public class GameCtrl {
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
         questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
-        
+
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
             case 1:
@@ -711,7 +713,14 @@ public class GameCtrl {
      * @throws MalformedURLException If cannot find the reactions folder
      */
     public void showReaction(List<String[]> reactions) throws MalformedURLException {
-        reactionBox.getChildren().remove(0, reactionBox.getChildren().size());
+        if(reactionBox.getChildren().size() < reactions.size()) {
+            mainCtrl.playSound("msg");
+        }
+        reactionBox.getChildren().clear();
+        if(reactions.size() > this.reactionSize) {
+            mainCtrl.playSound("msg");
+            this.reactionSize = reactions.size();
+        }
         for(String[] pair : reactions) {
             Label lb = new Label();
             lb.setPrefWidth(190);

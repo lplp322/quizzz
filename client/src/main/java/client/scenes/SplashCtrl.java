@@ -30,13 +30,17 @@ public class SplashCtrl {
      * Function to be executed when the singlePlayer button is pressed
      */
     public void singlePlayer() {
+        mainCtrl.playSound("success");
         this.mainCtrl.showSinglePlayerPrompt();
     }
 
     /**
      * Function to be executed when the multiPlayer button is pressed
      */
-    public void multiPlayer(){this.mainCtrl.showMultiPlayer();}
+    public void multiPlayer(){
+        mainCtrl.playSound("success");
+        this.mainCtrl.showMultiPlayer();
+    }
 
     /**
      * Changes the size of the AnchorPlane
@@ -48,5 +52,11 @@ public class SplashCtrl {
         mainWindow.setPrefSize(w,h);
     }
 
-    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
+    /**
+     * Shows the activity viewer
+     */
+    public void showActivityViewer(){
+        mainCtrl.playSound("success");
+        this.mainCtrl.showActivityViewer();
+    }
 }
