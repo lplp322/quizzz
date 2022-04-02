@@ -414,7 +414,11 @@ public class GameCtrl {
         currentRoundLabel.setText("Current Round " + trimmedGame.getRound().getRound() + 1);
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
-        questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
+        try {
+            questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
+        } catch (IllegalArgumentException e) {
+            questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl()).toURI().toString()));
+        }
 
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
