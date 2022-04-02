@@ -36,6 +36,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import java.io.File;
+
+
 public class GameCtrl {
 
     @FXML
@@ -141,6 +144,11 @@ public class GameCtrl {
         lastRoundAnswered = -1;
         this.resetColors();
         inTimeOut = false;
+
+        String path = "/Users/christophercharlesworth/Desktop/Game_Music_Long.mp3";
+
+        //Instantiating Media class
+
     }
 
     /**

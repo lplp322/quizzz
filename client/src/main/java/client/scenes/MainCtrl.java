@@ -23,6 +23,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -314,7 +315,8 @@ public class MainCtrl {
     public void checkForClosingApplication() {
         primaryStage.setOnCloseRequest(evt -> {
             // allow user to decide between yes and no
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to close this application?", ButtonType.YES, ButtonType.NO);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Do you really want to close this application?", ButtonType.YES, ButtonType.NO);
 
             // clicking X also means no
             ButtonType result = alert.showAndWait().orElse(ButtonType.NO);

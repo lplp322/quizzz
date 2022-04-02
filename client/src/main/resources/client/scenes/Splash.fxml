@@ -87,7 +87,7 @@
             </Button>
             <Pane prefHeight="253.0" prefWidth="1001.0">
                <children>
-                  <Label fx:id="helpLabel" layoutX="37.0" layoutY="104.0" prefHeight="413.0" prefWidth="214.0" text="Quizzzzzzz is a game that can be played alone or with friends where the object of the game is to answer questions regarding the energy usage of different activities." visible="false" />
+                  <Label fx:id="helpLabel" layoutX="37.0" layoutY="104.0" prefHeight="413.0" prefWidth="214.0" text="Quizzzzzzz is a game that can be played alone or with friends where the object of the game is to answer questions regarding the energy usage of different activities. To make the game more intersting  the faster you answer the more points you receive and for the guessing question you receive points are also dependant on how  accurate your guess is. Additionally throughout the game every player has a series of jokers that can be used once to bend the rules to their advantage. These include: Halving the time for the other players, doubling your points for a specific round, removing an incorrect answer in the multiple choice questions as well as a joker that gurantees that the answer you send is correct." visible="false" />
                   <Button fx:id="helpButton" layoutX="51.0" layoutY="20.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="26.0" prefWidth="53.0" text="Help">
                      <font>
                         <Font size="14.0" />

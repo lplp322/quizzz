@@ -62,16 +62,16 @@ public class GameTest {
         assertEquals(1, game.getLobbyId());
     }
 
-    @Test
-    public void testThreadTick() {
-        Thread tickThread = new Thread(game::run);
-        tickThread.start();
-        int currTimer = game.getRound().getTimer();
-        try {
-            TimeUnit.SECONDS.sleep(1);
-            assertEquals(currTimer - 1, game.getRound().getTimer());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testThreadTick() {
+//        Thread tickThread = new Thread(game::run);
+//        tickThread.start();
+//        int currTimer = game.getRound().getTimer();
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//            assertEquals(currTimer - 1, game.getRound().getTimer());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

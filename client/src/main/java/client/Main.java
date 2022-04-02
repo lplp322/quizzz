@@ -17,6 +17,7 @@ package client;
 
 import static com.google.inject.Guice.createInjector;
 
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -31,6 +32,8 @@ import client.scenes.ActivityViewerCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+
 
 public class Main extends Application {
 
@@ -66,7 +69,9 @@ public class Main extends Application {
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
         mainCtrl.initialize(primaryStage, splash, game, prompt, leaderboard, chooseServer, lobby, activityViewer);
-        //mainCtrl.showLeaderboard();
-
+        // TODO Auto-generated method stub
+        //Initialising path of the media file, replace this with your file path
     }
+
+
 }
