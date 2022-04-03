@@ -1,4 +1,6 @@
-package commons;
+package server;
+
+import commons.LeaderboardEntryCommons;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -69,5 +71,13 @@ public class LeaderboardEntry implements Comparable{
         boolean g = score < ((LeaderboardEntry)o).getScore();
         if(g) return 1;
         else return -1;
+    }
+
+    /**
+     * Returns the leaderboard entry as a common one
+     * @return a leaderboard entry usable in commons
+     */
+    public LeaderboardEntryCommons getAsCommon() {
+        return new LeaderboardEntryCommons(getName(), getScore());
     }
 }

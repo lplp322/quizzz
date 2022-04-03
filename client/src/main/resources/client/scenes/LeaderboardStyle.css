@@ -17,17 +17,17 @@
     -fx-border-color: #111111;
 }
 
-#gold {
+#goldBar {
     -fx-border-color: #111111;
     -fx-background-color: #f4eb49;
 }
 
-#silver {
+#silverBar {
     -fx-border-color: #111111;
     -fx-background-color: #aaaaaa;
 }
 
-#bronze {
+#bronzeBar {
     -fx-border-color: #111111;
     -fx-background-color: #ffa834;
 }
