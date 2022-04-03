@@ -1,6 +1,8 @@
 package server;
 
 
+import commons.CommonsActivity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -114,7 +116,7 @@ public class Activity implements Comparable{
     /**
      * compares it to another object
      * @param o
-     * @return
+     * @return Same as string comparison
      */
     @Override
     public int compareTo(Object o) {
@@ -124,7 +126,7 @@ public class Activity implements Comparable{
 
     /**
      * returns to string
-     * @return
+     * @return - String representation
      */
     @Override
     public String toString() {
@@ -135,6 +137,12 @@ public class Activity implements Comparable{
                 '}';
     }
 
-
+    /**
+     * Method for transforming Activity into an equivalent CommonsActivity
+     * @return - Commonsactivity with same title
+     */
+    public CommonsActivity convertCommonsActivity(){
+        return new CommonsActivity(this.title,this.consumption,this.source,this.imagePath);
+    }
 
 }

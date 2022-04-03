@@ -78,4 +78,13 @@ public class Config {
             }
         }
     }
+
+    /**
+     * Creates a new adminService for use in the AdminController
+     * @return new AdminService
+     */
+    @Bean
+    public AdminService addAdminService(){
+        return new AdminService();
+    }
 }
