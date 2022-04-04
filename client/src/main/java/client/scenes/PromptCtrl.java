@@ -52,6 +52,7 @@ public class PromptCtrl {
      */
     @FXML
     public void onClickStart() throws MalformedURLException {
+        System.out.println(mainCtrl.getLink());
         if(nameField.getText().matches("[a-zA-Z0-9]+")){    //regex for checking name
             errorLabel.setVisible(false);   //makes the errorLabel visible
             URL playerGame;
