@@ -91,13 +91,14 @@
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="editButton" layoutX="212.0" layoutY="363.0" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="editButton" layoutX="212.0" layoutY="363.0" mnemonicParsing="false" onAction="#editActivity" text="Edit" />
                         <TextField fx:id="idText" layoutX="55.0" layoutY="79.0" prefHeight="25.0" prefWidth="223.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="114.0" prefHeight="17.0" prefWidth="167.0" text="Description:" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
+                        <Button fx:id="deleteButton" layoutX="128.0" layoutY="364.0" mnemonicParsing="false" onAction="#deleteActivity" text="Delete" />
                      </children>
                   </Pane>
                </children>

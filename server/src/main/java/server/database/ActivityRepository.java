@@ -22,4 +22,11 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
      * @return The Activity with the given title
      */
     Optional<Activity> findByTitle(String title);
+
+
+//    /**
+//     * @param id of the activity that you wish to delete
+//     */
+//    @Query ("DELETE FROM Activity WHERE Activity .Id = id")
+//    void deleteById(Long id);
 }

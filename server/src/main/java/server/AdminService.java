@@ -46,4 +46,12 @@ public class AdminService {
         Activity activity = new Activity(description, power, source, imagePath);
         dt.save(activity);
     }
+
+    /**
+     * @param id the id of the activity you want to delete
+     */
+    public void deleteActivity(Long id) {
+        Activity activity = dt.getById(id.toString());
+        dt.delete(activity);
+    }
 }

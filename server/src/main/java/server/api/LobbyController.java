@@ -255,8 +255,34 @@ public class LobbyController {
     @GetMapping("admin/new_activity/{description}/{usage}/{source}/{imagePath}")
     public void newActivity(@PathVariable String description, @PathVariable String usage,
     @PathVariable String source, @PathVariable String imagePath) {
-      adminService.addActivity(description, Integer.parseInt(usage),source, imagePath);
+      adminService.addActivity(splitString(description), Integer.parseInt(usage),source, imagePath);
     }
+
+
+    /**
+     * @param input the string that is going to be split to include spaces
+     * @return the string including spaces instead of !
+     */
+    public String splitString(String input) {
+        String[] list = input.split("!");
+        String result = list[0];
+        for (int i = 1; i < list.length; i ++) {
+            result = result + " " + list[i];
+        }
+        return result;
+    }
+
+
+    /**
+     * @param id the id of the activity you would like to delete
+     */
+    @GetMapping("admin/delete_activity/{id}")
+    public void deleteActivity(@PathVariable Long id) {
+        Long longid = id;
+        adminService.deleteActivity(id);
+//        System.out.println(id);
+    }
+
 
 
 }

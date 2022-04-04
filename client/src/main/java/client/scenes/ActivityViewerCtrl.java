@@ -55,6 +55,8 @@ public class ActivityViewerCtrl {
     @FXML
     private Button editButton;
 
+    @FXML
+    private Button deleteButton;
 
 
     /**
@@ -135,16 +137,16 @@ public class ActivityViewerCtrl {
 //        + "/" + this.usageText.getText());
 
         URL url = new URL(mainCtrl.getLink() + "admin/new_activity/"
-                + this.descriptionText.getText() + "/"
+                + this.combineString(this.descriptionText.getText()) + "/"
                  + this.usageText.getText() + "/"
                 + this.sourceText.getText() + "/"
                 + this.pathText.getText());
 
-        System.out.println(mainCtrl.getLink() + "admin/new_activity/"
-                + this.descriptionText.getText() + "/"
-                + this.usageText.getText() + "/"
-                + this.sourceText.getText() + "/"
-                + this.pathText.getText());
+//        System.out.println(mainCtrl.getLink() + "admin/new_activity/"
+//                + this.descriptionText.getText() + "/"
+//                + this.usageText.getText() + "/"
+//                + this.sourceText.getText() + "/"
+//                + this.pathText.getText());
 
 //        System.out.println(mainCtrl.getLink() + "admin/new_activity/"+this.descriptionText.getText()
 //                + "/" + this.usageText.getText());
@@ -153,6 +155,8 @@ public class ActivityViewerCtrl {
 //        String jsonString = mainCtrl.httpToJSONString(http);
         System.out.println(http.getResponseCode());
 //        System.out.println(jsonString);
+        this.clearTexts();
+        this.updateEntries();
 
     }
 
@@ -174,6 +178,48 @@ public class ActivityViewerCtrl {
 
     }
 
+    /**
+     * @param input String that you want to combine into 1
+     * @return a string that is combined with ! instead of spaces.
+     */
+    public String combineString(String input) {
+        String[] list = input.split(" ");
+        String output = list[0];
+
+        for (int i = 1; i < list.length; i ++) {
+            output = output + "!" + list[i];
+        }
+
+        return output;
+    }
+
+    /**
+     * Delete an activity with the given id in the db
+     */
+    public void deleteActivity() throws IOException {
+        URL url = new URL(mainCtrl.getLink() + "admin/delete_activity/" + this.idText.getText());
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        System.out.println(mainCtrl.getLink() + "admin/delete_activity/" + this.idText.getText());
+
+        System.out.println(http.getResponseCode());
+        this.clearTexts();
+        this.updateEntries();
+    }
+
+
+    /**
+     * @throws IOException if the url is invalid
+     */
+    public void editActivity() throws IOException {
+        this.deleteActivity();
+        this.submitActivity();
+        this.clearTexts();
+        this.updateEntries();
+    }
+
+
+
+
 //    public void editActivity() throws IOException {
 //        System.out.println(this.descriptionText.getText());
 //        System.out.println(this.usageText.getText());
@@ -188,6 +234,18 @@ public class ActivityViewerCtrl {
 //        System.out.println(http.getResponseCode());
 ////        System.out.println(jsonString);
 //    }
+
+
+    /**
+     * clears all of the textfields to avoid confusion once activities have been changed / updated
+     */
+    public void clearTexts() {
+        this.idText.setText("");
+        this.descriptionText.setText("");
+        this.usageText.setText("");
+        this.sourceText.setText("");
+        this.pathText.setText("");
+    }
 
 
 }
