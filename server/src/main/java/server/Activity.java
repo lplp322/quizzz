@@ -142,7 +142,7 @@ public class Activity implements Comparable{
      * @return - Commonsactivity with same title
      */
     public CommonsActivity convertCommonsActivity(){
-        return new CommonsActivity(this.title,this.consumption,this.source,this.imagePath);
+        return new CommonsActivity(this.Id, this.title,this.consumption,this.source,this.imagePath);
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import server.AdminService;
 import server.Game;
 import server.LobbyService;
 import server.database.LeaderboardRepository;
@@ -19,6 +20,8 @@ import java.util.List;
 @RequestMapping("/")
 public class LobbyController {
     private LobbyService lobbyService;
+    @Autowired
+    private AdminService adminService;
 
     private final int REACTION_DURATION = 3000;
 
@@ -32,6 +35,7 @@ public class LobbyController {
     @Autowired
     public LobbyController(LobbyService lobbyService) {
         this.lobbyService = lobbyService;
+
     }
 
     /**
@@ -239,4 +243,18 @@ public class LobbyController {
         });
         t.start();
     }
+
+
+    /**
+     * @param description of the new activity being added
+     * @param usage of the new activity being added
+     * @return bool of true if it has been received
+     */
+    @GetMapping("admin/new_activity/{description}/{usage}")
+    public Boolean newActivity(@PathVariable String description, @PathVariable String usage) {
+      adminService.addActivity(description, Integer.parseInt(usage));
+      return true;
+    }
+
+
 }

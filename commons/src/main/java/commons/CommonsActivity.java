@@ -1,7 +1,7 @@
 package commons;
 //FOR NOW THIS IS LITERALLY THE ACTIVITY CLASS BUT WITH A DIFFERENT NAME
 public class CommonsActivity {
-    private Long Id;
+    private Long id;
     private String title;
     private int consumption;
     private String source;
@@ -13,8 +13,10 @@ public class CommonsActivity {
      * @param consumption the energy usage of the activity
      * @param source the source of this information
      * @param imagePath the location of the image
+     * @param Id is the id of the activity
      */
-    public CommonsActivity(String title, int consumption, String source, String imagePath) {
+    public CommonsActivity( Long Id, String title, int consumption, String source, String imagePath) {
+        this.id = Id;
         this.title = title;
         this.consumption = consumption;
         this.source = source;
@@ -85,4 +87,21 @@ public class CommonsActivity {
         return consumption;
     }
 
+    @Override
+    public String toString() {
+        return "CommonsActivity{" +
+                "Id=" + id +
+                ", title='" + title + '\'' +
+                ", consumption=" + consumption +
+                ", source='" + source + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
+    }
+
+    /**
+     * @return the id of the activity
+     */
+    public Long getId() {
+        return id;
+    }
 }

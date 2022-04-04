@@ -20,7 +20,18 @@ public class AdminService {
         List<CommonsActivity> commonsActivities = new ArrayList<>();
         for(int i=0;i<activities.size();i++){
             commonsActivities.add(activities.get(i).convertCommonsActivity());
+            System.out.println(commonsActivities.get(i));
         }
+
         return commonsActivities;
+    }
+
+    /**
+     * @param description
+     * @param power
+     */
+    public void addActivity(String description, int power) {
+        Activity activity = new Activity(description, power, "not null", "not null");
+        dt.save(activity);
     }
 }

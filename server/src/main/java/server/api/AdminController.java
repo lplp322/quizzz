@@ -2,8 +2,10 @@ package server.api;
 
 import commons.CommonsActivity;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import server.AdminService;
@@ -19,6 +21,7 @@ public class AdminController {
      * Constructor for the AdminController class
      * @param adminService
      */
+    @Autowired
     public AdminController(AdminService adminService ) {
         this.adminService = adminService;
     }
@@ -34,4 +37,7 @@ public class AdminController {
 
         return testList;
     }
+
+
+
 }
