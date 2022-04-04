@@ -26,12 +26,24 @@ public class AdminService {
         return commonsActivities;
     }
 
+//    /**
+//     * @param description
+//     * @param power
+//     */
+//    public void addActivity(String description, int power) {
+//        Activity activity = new Activity(description, power, "not null", "not null");
+//        dt.save(activity);
+//    }
+
+
     /**
-     * @param description
-     * @param power
+     * @param description description of the activity
+     * @param power the power consumption of the activity
+     * @param source the source related to this information
+     * @param imagePath the image path
      */
-    public void addActivity(String description, int power) {
-        Activity activity = new Activity(description, power, "not null", "not null");
+    public void addActivity(String description, int power, String source, String imagePath) {
+        Activity activity = new Activity(description, power, source, imagePath);
         dt.save(activity);
     }
 }

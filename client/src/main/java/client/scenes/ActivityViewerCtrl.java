@@ -131,11 +131,23 @@ public class ActivityViewerCtrl {
         System.out.println(this.descriptionText.getText());
         System.out.println(this.usageText.getText());
 
-        URL url = new URL(mainCtrl.getLink() + "admin/new_activity/"+this.descriptionText.getText()
-        + "/" + this.usageText.getText());
+//        URL url = new URL(mainCtrl.getLink() + "admin/new_activity/"+this.descriptionText.getText()
+//        + "/" + this.usageText.getText());
 
-        System.out.println(mainCtrl.getLink() + "admin/new_activity/"+this.descriptionText.getText()
-                + "/" + this.usageText.getText());
+        URL url = new URL(mainCtrl.getLink() + "admin/new_activity/"
+                + this.descriptionText.getText() + "/"
+                 + this.usageText.getText() + "/"
+                + this.sourceText.getText() + "/"
+                + this.pathText.getText());
+
+        System.out.println(mainCtrl.getLink() + "admin/new_activity/"
+                + this.descriptionText.getText() + "/"
+                + this.usageText.getText() + "/"
+                + this.sourceText.getText() + "/"
+                + this.pathText.getText());
+
+//        System.out.println(mainCtrl.getLink() + "admin/new_activity/"+this.descriptionText.getText()
+//                + "/" + this.usageText.getText());
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
 //        String jsonString = mainCtrl.httpToJSONString(http);
@@ -145,7 +157,8 @@ public class ActivityViewerCtrl {
     }
 
     /**
-     *
+     *this methods enables the autofilling of the activity that you click on into the textfields
+     * making it easier to edit them
      */
     public void init() {
     ObservableList<CommonsActivity> observableList =  table.getSelectionModel().getSelectedItems();

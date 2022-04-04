@@ -246,14 +246,16 @@ public class LobbyController {
 
 
     /**
-     * @param description of the new activity being added
-     * @param usage of the new activity being added
-     * @return bool of true if it has been received
+     *
+     * @param description
+     * @param usage
+     * @param source
+     * @param imagePath
      */
-    @GetMapping("admin/new_activity/{description}/{usage}")
-    public Boolean newActivity(@PathVariable String description, @PathVariable String usage) {
-      adminService.addActivity(description, Integer.parseInt(usage));
-      return true;
+    @GetMapping("admin/new_activity/{description}/{usage}/{source}/{imagePath}")
+    public void newActivity(@PathVariable String description, @PathVariable String usage,
+    @PathVariable String source, @PathVariable String imagePath) {
+      adminService.addActivity(description, Integer.parseInt(usage),source, imagePath);
     }
 
 
