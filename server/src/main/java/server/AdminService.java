@@ -6,6 +6,7 @@ import server.database.ActivityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AdminService {
     @Autowired
@@ -20,7 +21,7 @@ public class AdminService {
         List<CommonsActivity> commonsActivities = new ArrayList<>();
         for(int i=0;i<activities.size();i++){
             commonsActivities.add(activities.get(i).convertCommonsActivity());
-            System.out.println(commonsActivities.get(i));
+            //System.out.println(commonsActivities.get(i));
         }
 
         return commonsActivities;
@@ -44,6 +45,7 @@ public class AdminService {
      */
     public void addActivity(String description, int power, String source, String imagePath) {
         Activity activity = new Activity(description, power, source, imagePath);
+        //System.out.println(activity);
         dt.save(activity);
     }
 
@@ -51,7 +53,13 @@ public class AdminService {
      * @param id the id of the activity you want to delete
      */
     public void deleteActivity(Long id) {
-        Activity activity = dt.getById(id.toString());
-        dt.delete(activity);
+        Optional<Activity> activity = dt.findById(id);
+        //System.out.println("DA");
+        if(activity.isPresent()) {
+            dt.deleteById(id);
+        }
+        else {
+            System.out.println("NOT PRESENT");
+        }
     }
 }

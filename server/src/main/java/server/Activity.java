@@ -50,6 +50,14 @@ public class Activity implements Comparable{
     }
 
     /**
+     * returns the id of the activity
+     * @return id of activity
+     */
+    public Long getId() {
+        return Id;
+    }
+
+    /**
      * Sets the source of the activity
      * @param source
      */

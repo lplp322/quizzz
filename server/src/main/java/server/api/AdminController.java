@@ -15,7 +15,6 @@ import java.util.List;
 public class AdminController {
     AdminService adminService;
 
-
     /**
      * Constructor for the AdminController class
      * @param adminService
@@ -31,12 +30,8 @@ public class AdminController {
     @GetMapping("/activities")
     @ResponseBody
     public List<CommonsActivity> newPlayer() {
-
         List<CommonsActivity> testList = adminService.getActivities();
 
         return testList;
     }
-
-
-
 }

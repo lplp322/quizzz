@@ -252,10 +252,11 @@ public class LobbyController {
      * @param source
      * @param imagePath
      */
-    @GetMapping("admin/new_activity/{description}/{usage}/{source}/{imagePath}")
+    @PutMapping("admin/new_activity/{description}/{usage}/{source}/{imagePath}")
     public void newActivity(@PathVariable String description, @PathVariable String usage,
     @PathVariable String source, @PathVariable String imagePath) {
-      adminService.addActivity(splitString(description), Integer.parseInt(usage),source, imagePath);
+        //System.out.println("DASDAS");
+        adminService.addActivity(splitString(description), Integer.parseInt(usage),source, imagePath);
     }
 
 
@@ -276,13 +277,11 @@ public class LobbyController {
     /**
      * @param id the id of the activity you would like to delete
      */
-    @GetMapping("admin/delete_activity/{id}")
+    @DeleteMapping("admin/delete_activity/{id}")
     public void deleteActivity(@PathVariable Long id) {
         Long longid = id;
+        //System.out.println(id);
         adminService.deleteActivity(id);
 //        System.out.println(id);
     }
-
-
-
 }

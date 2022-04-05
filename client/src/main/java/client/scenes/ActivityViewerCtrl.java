@@ -119,8 +119,6 @@ public class ActivityViewerCtrl {
 
         table.getColumns().setAll(idCol,titleCol,usageCol,sourceCol, imagePathCol);
 
-
-
         //BufferedReader in = new BufferedReader(new InputStreamReader(updateTable.getInputStream()));
         //String inputLine = in.readLine();
     }
@@ -130,8 +128,8 @@ public class ActivityViewerCtrl {
      * @throws IOException if the url is for the communication is invalid
      */
     public void submitActivity() throws IOException {
-        System.out.println(this.descriptionText.getText());
-        System.out.println(this.usageText.getText());
+        //System.out.println(this.descriptionText.getText());
+        //System.out.println(this.usageText.getText());
 
 //        URL url = new URL(mainCtrl.getLink() + "admin/new_activity/"+this.descriptionText.getText()
 //        + "/" + this.usageText.getText());
@@ -152,9 +150,11 @@ public class ActivityViewerCtrl {
 //                + "/" + this.usageText.getText());
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
-//        String jsonString = mainCtrl.httpToJSONString(http);
-        System.out.println(http.getResponseCode());
+        http.setRequestMethod("PUT");
+        String jsonString = mainCtrl.httpToJSONString(http);
+        //System.out.println(http.getResponseCode());
 //        System.out.println(jsonString);
+        http.disconnect();
         this.clearTexts();
         this.updateEntries();
 
@@ -199,13 +199,12 @@ public class ActivityViewerCtrl {
     public void deleteActivity() throws IOException {
         URL url = new URL(mainCtrl.getLink() + "admin/delete_activity/" + this.idText.getText());
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
-        System.out.println(mainCtrl.getLink() + "admin/delete_activity/" + this.idText.getText());
-
-        System.out.println(http.getResponseCode());
+        http.setRequestMethod("DELETE");
+        mainCtrl.httpToJSONString(http);
+        http.disconnect();
         this.clearTexts();
         this.updateEntries();
     }
-
 
     /**
      * @throws IOException if the url is invalid
