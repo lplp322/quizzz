@@ -900,6 +900,4 @@ public class GameCtrl {
             }
         }
     }
-
-
 }

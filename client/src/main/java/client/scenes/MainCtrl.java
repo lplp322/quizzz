@@ -170,6 +170,10 @@ public class MainCtrl {
         ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
          ll3);
         */
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
         primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
