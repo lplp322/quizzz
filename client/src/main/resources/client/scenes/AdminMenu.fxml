@@ -66,39 +66,39 @@
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="descriptionText" layoutX="60.0" layoutY="133.0" prefHeight="25.0" prefWidth="223.0" />
-                        <TextField fx:id="usageText" alignment="CENTER" layoutX="60.0" layoutY="195.0" prefHeight="25.0" prefWidth="223.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="56.0" prefHeight="17.0" prefWidth="167.0" text="Id:" textFill="WHITE">
+                        <TextField fx:id="descriptionText" layoutX="55.0" layoutY="137.0" prefHeight="25.0" prefWidth="223.0" />
+                        <TextField fx:id="usageText" alignment="CENTER" layoutX="55.0" layoutY="195.0" prefHeight="25.0" prefWidth="223.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="56.0" prefHeight="17.0" prefWidth="167.0" text="Id:" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="165.0" prefHeight="17.0" prefWidth="167.0" text="Energy Usage" textFill="WHITE">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="172.0" prefHeight="17.0" prefWidth="167.0" text="Energy Usage" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="submitButton" layoutX="58.0" layoutY="363.0" mnemonicParsing="false" onAction="#submitActivity" text="Add" />
-                        <TextField fx:id="sourceText" layoutX="66.0" layoutY="257.0" prefHeight="25.0" prefWidth="223.0" />
-                        <TextField fx:id="pathText" layoutX="66.0" layoutY="319.0" prefHeight="25.0" prefWidth="223.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="229.0" prefHeight="17.0" prefWidth="167.0" text="Source" textFill="WHITE">
+                        <Button fx:id="submitButton" layoutX="73.0" layoutY="363.0" mnemonicParsing="false" onAction="#submitActivity" prefHeight="25.0" prefWidth="50.0" text="Add" />
+                        <TextField fx:id="sourceText" layoutX="55.0" layoutY="252.0" prefHeight="25.0" prefWidth="223.0" />
+                        <TextField fx:id="pathText" layoutX="55.0" layoutY="313.0" prefHeight="25.0" prefWidth="223.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="229.0" prefHeight="17.0" prefWidth="167.0" text="Source" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="290.0" prefHeight="17.0" prefWidth="167.0" text="Img path" textFill="WHITE">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="290.0" prefHeight="17.0" prefWidth="167.0" text="Img path" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="editButton" layoutX="212.0" layoutY="363.0" mnemonicParsing="false" onAction="#editActivity" text="Edit" />
+                        <Button fx:id="editButton" layoutX="212.0" layoutY="363.0" mnemonicParsing="false" onAction="#editActivity" prefHeight="25.0" prefWidth="50.0" text="Edit" />
                         <TextField fx:id="idText" layoutX="55.0" layoutY="79.0" prefHeight="25.0" prefWidth="223.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="114.0" prefHeight="17.0" prefWidth="167.0" text="Description:" textFill="WHITE">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="114.0" prefHeight="17.0" prefWidth="167.0" text="Description:" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="deleteButton" layoutX="128.0" layoutY="364.0" mnemonicParsing="false" onAction="#deleteActivity" text="Delete" />
+                        <Button fx:id="deleteButton" layoutX="141.0" layoutY="363.0" mnemonicParsing="false" onAction="#deleteActivity" text="Delete" />
                      </children>
                   </Pane>
                </children>
