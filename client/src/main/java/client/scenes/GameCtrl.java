@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import commons.HalveTimeJoker;
+import commons.LeaderboardEntryCommons;
 import commons.Player;
-import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -598,14 +598,14 @@ public class GameCtrl {
      * @return the list of entries in the leaderboard from the server
      * @throws IOException if the link is not valid
      */
-    public LinkedList<commons.LeaderboardEntry> getLeaderboard() throws IOException {
+    public LinkedList<commons.LeaderboardEntryCommons> getLeaderboard() throws IOException {
         URL url = new URL(mainCtrl.getLink() + "leaderboard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = mainCtrl.httpToJSONString(http);
-        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
+        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntryCommons>>(){}.getType();
         //System.out.println(typeToken.getTypeName());
-        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
+        LinkedList<commons.LeaderboardEntryCommons> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
         //System.out.println(leaderboardList);
         return leaderboardList;
@@ -795,7 +795,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void showLeaderboard() throws IOException {
-        commons.LeaderboardEntry myEntry = new commons.LeaderboardEntry(this.mainCtrl.getName(), myScore);
+        commons.LeaderboardEntryCommons myEntry = new commons.LeaderboardEntryCommons(this.mainCtrl.getName(), myScore);
         this.mainCtrl.showLeaderboard(this.getLeaderboard(), myEntry);
     }
 
@@ -903,12 +903,12 @@ public class GameCtrl {
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = this.mainCtrl.httpToJSONString(http);
-        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
+        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntryCommons>>(){}.getType();
         //System.out.println(typeToken.getTypeName());
-        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
+        LinkedList<commons.LeaderboardEntryCommons> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
         //System.out.println(leaderboardList);
-        LeaderboardEntry userEntry = new LeaderboardEntry(this.mainCtrl.getName(), this.myScore);
+        LeaderboardEntryCommons userEntry = new LeaderboardEntryCommons(this.mainCtrl.getName(), this.myScore);
         this.mainCtrl.showLeaderboard(leaderboardList, userEntry);
 //        return leaderboardList;
     }

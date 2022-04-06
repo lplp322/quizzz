@@ -1,6 +1,7 @@
 package server.api;
 
-import commons.LeaderboardEntry;
+import commons.LeaderboardEntryCommons;
+import server.LeaderboardEntry;
 import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import server.AdminService;
 import server.Game;
 import server.LobbyService;
 import server.database.LeaderboardRepository;
+
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -217,8 +220,15 @@ public class LobbyController {
      * of the leaderboard
      */
     @GetMapping("leaderboard")
-    public LinkedList<LeaderboardEntry> getGameInfo(){
-        return lbRepo.getAllLeaderboardEntriesOrderedByScore();
+    public LinkedList<LeaderboardEntryCommons> getGameInfo(){
+        LinkedList<LeaderboardEntry> lde = lbRepo.getAllLeaderboardEntriesOrderedByScore();
+        LinkedList<LeaderboardEntryCommons> forCommons = new LinkedList<>();
+        for(LeaderboardEntry a : lde) {
+            forCommons.add(a.getAsCommon());
+        }
+        Collections.sort(forCommons);
+
+        return forCommons;
     }
 
 
@@ -228,7 +238,7 @@ public class LobbyController {
      * this multiplayer game
      */
     @GetMapping("/{gameID}/getMultiplayerLeaderBoard")
-    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(@PathVariable int gameID){
+    public LinkedList<LeaderboardEntryCommons> getMultiplayerLeaderboard(@PathVariable int gameID){
         return this.lobbyService.getGameByID(gameID).getMultiplayerLeaderboard();
     }
 

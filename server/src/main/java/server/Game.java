@@ -1,8 +1,8 @@
 package server;
 
+import commons.LeaderboardEntryCommons;
 import commons.Player;
 import commons.Round;
-import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import server.database.ActivityRepository;
 import java.util.Map;
@@ -248,18 +248,19 @@ public class Game implements Runnable{
     /**
      * @return a linked list containing the current leaderboard for multiplayer games
      */
-    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard() {
+    public LinkedList<LeaderboardEntryCommons> getMultiplayerLeaderboard() {
         Set<Map.Entry<String,Player>> playerMappings = this.players.entrySet();
-        LinkedList<LeaderboardEntry> leaderboardEntries = new LinkedList<>();
+        //LinkedList<LeaderboardEntry> leaderboardEntries = new LinkedList<>();
+        LinkedList<LeaderboardEntryCommons> leaderboardEntryCommons = new LinkedList<>();
 
         for (Map.Entry<String, Player> entry : playerMappings) {
             Player player = entry.getValue();
-            commons.LeaderboardEntry ldEntry = new LeaderboardEntry(player.getName(), player.getScore());
-            leaderboardEntries.add(ldEntry);
+            LeaderboardEntry ldEntry = new LeaderboardEntry(player.getName(), player.getScore());
+            leaderboardEntryCommons.add(ldEntry.getAsCommon());
         }
 
-        Collections.sort(leaderboardEntries);
+        Collections.sort(leaderboardEntryCommons);
 
-        return leaderboardEntries;
+        return leaderboardEntryCommons;
     }
 }

@@ -15,7 +15,7 @@
  */
 package client.scenes;
 
-import commons.LeaderboardEntry;
+import commons.LeaderboardEntryCommons;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,8 +25,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -120,7 +118,12 @@ public class MainCtrl {
         this.sounds = new HashMap<>();
         initSounds();
         //showSplash();
+        //LeaderboardEntryCommons a1 = new LeaderboardEntryCommons("A", 60);
+        //LeaderboardEntryCommons a2 = new LeaderboardEntryCommons("B",  0);
+        //LeaderboardEntryCommons a3 = new LeaderboardEntryCommons("C", 20);
+        //showLeaderboard(List.of(a1, a2), a2);
         showChooseServer();
+
         primaryStage.show();
 
         this.checkForClosingApplication();
@@ -162,7 +165,7 @@ public class MainCtrl {
      * @param results
      * @param myResult
      */
-    public void showLeaderboard(List<LeaderboardEntry> results, LeaderboardEntry myResult) {
+    public void showLeaderboard(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons myResult) {
         /*if(primaryStage.getScene() != null) {
             Scene currentScene = primaryStage.getScene();
             leaderboardCtrl.setWindowSize(currentScene.getWidth(), currentScene.getHeight());
