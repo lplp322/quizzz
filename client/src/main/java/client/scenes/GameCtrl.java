@@ -280,6 +280,7 @@ public class GameCtrl {
     public void tickGame() throws IOException {
         //getLeaderboard();
         loadReactions();
+        mainCtrl.playSound("music");
         //playerList.getItems().add(this.mainCtrl.getName());
 
         Thread t1 = new Thread(()-> {
@@ -902,13 +903,3 @@ public class GameCtrl {
 
 
 }
-
-
-
-
-
-
-
-
-
-
