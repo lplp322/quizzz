@@ -144,10 +144,7 @@ public class GameCtrl {
         lastRoundAnswered = -1;
         this.resetColors();
         inTimeOut = false;
-
-        String path = "/Users/christophercharlesworth/Desktop/Game_Music_Long.mp3";
-
-        //Instantiating Media class
+        
 
     }
 
