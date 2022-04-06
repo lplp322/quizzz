@@ -41,18 +41,30 @@ public class SplashCtrl {
      * Function to be executed when the singlePlayer button is pressed
      */
     public void singlePlayer() {
+        mainCtrl.playSound("success");
         this.mainCtrl.showSinglePlayerPrompt();
         this.mainCtrl.setSingleplayerFlag(true);
         System.out.println(this.mainCtrl.isSingleplayerFlag());
     }
 
+//    /**
+//     * Function to be executed when the multiPlayer button is pressed
+//     */
+//    public void multiPlayer(){
+//        mainCtrl.playSound("success");
+//        this.mainCtrl.showMultiPlayer();
+//    }
+
+
     /**
-     * Function to be executed when the multiPlayer button is pressed
+     * Function to be executed when the multiplayer button is pressed
      */
     public void multiPlayer(){
         this.mainCtrl.showMultiPlayer();
         this.mainCtrl.setSingleplayerFlag(false);
         System.out.println(this.mainCtrl.isSingleplayerFlag());
+        mainCtrl.playSound("success");
+        this.mainCtrl.showMultiPlayer();
     }
 
     /**
@@ -65,7 +77,14 @@ public class SplashCtrl {
         mainWindow.setPrefSize(w,h);
     }
 
-    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
+    /**
+     * Shows the activity viewer
+     */
+    public void showActivityViewer(){
+        mainCtrl.playSound("success");
+        this.mainCtrl.showActivityViewer();
+    }
+//    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
 
 
     /**

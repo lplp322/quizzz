@@ -77,6 +77,7 @@ public class Config {
     public void setup() {
         ObjectMapper mapper = new ObjectMapper();
         File rootFolder = new File("commons/src/main/resources/activities");
+        if(rootFolder.listFiles() == null) {rootFolder = new File("../commons/src/main/resources/activities");}
         for (final File folder : rootFolder.listFiles()){
             for (final File file : folder.listFiles()) {
                 if ( file.getName().endsWith(".json") ) {

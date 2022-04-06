@@ -20,17 +20,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+
 import java.util.List;
 
 public class MainCtrl {
@@ -62,6 +68,9 @@ public class MainCtrl {
 
     private String name;
     private boolean singleplayerFlag;
+
+    private HashMap<String, MediaPlayer> sounds;
+
 
     /**
      * Initializes all scenes via pairs of controllers and fxml files
@@ -107,6 +116,8 @@ public class MainCtrl {
         this.chooseServerCtrl = chooseServer.getKey();
         this.chooseServer = new Scene(chooseServer.getValue());
 
+        this.sounds = new HashMap<>();
+        initSounds();
         //showSplash();
         showChooseServer();
         primaryStage.show();
@@ -165,6 +176,10 @@ public class MainCtrl {
         ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
          ll3);
         */
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
         primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
@@ -290,6 +305,49 @@ public class MainCtrl {
     public void returnToGame() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
+    }
+
+    /**
+     * Initialize sounds
+     */
+    private void initSounds() {
+        File file = new File("client/src/main/resources/sounds");
+        if(file.listFiles() == null) {file = new File("src/main/resources/sounds");}
+        for(File f : file.listFiles()) {
+            MediaPlayer mp = new MediaPlayer(new Media(f.toURI().toString()));
+            this.sounds.put(f.getName().split("\\.")[0], mp);
+        }
+    }
+
+    /**
+     * Getter for the SoundBank
+     * @return a hashmap containing all the sounds
+     */
+    public HashMap<String, MediaPlayer> getSounds() {
+        return this.sounds;
+    }
+
+    /**
+     * Resets the sound for multiple uses
+     * @param sound the sound to reset
+     */
+    public void resetSound(MediaPlayer sound) {
+        Duration startTime = sound.getStartTime();
+        sound.seek(startTime);
+    }
+
+    /**
+     * Plays the sound and resets it
+     * @param sound the filename of the sound
+     */
+    public void playSound(String sound) {
+        MediaPlayer mp = this.sounds.get(sound);
+        if(mp == null) {
+            System.out.println("Sound file not found.");
+            return;
+        }
+        mp.play();
+        resetSound(mp);
     }
 
     /**
