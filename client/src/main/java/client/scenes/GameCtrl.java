@@ -282,7 +282,7 @@ public class GameCtrl {
         loadReactions();
         mainCtrl.playSound("music");
         //playerList.getItems().add(this.mainCtrl.getName());
-
+        this.scoreLabel.setText("0");
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
