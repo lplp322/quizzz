@@ -647,6 +647,7 @@ public class GameCtrl {
         System.out.println(correctAnswer);
         if(questType == 0){
             correctAns.setText("Correct answer: "+ correctAnswer+" Wh");
+            correctAns.setVisible(true);
         }
         else {
             Button correctButton = this.findCorrectChoice(correctAnswer);

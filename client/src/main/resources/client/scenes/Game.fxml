@@ -97,7 +97,10 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Label fx:id="correctAns" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="528.0" text="Correct answer: " textFill="#5d96d9" />
+            <Label fx:id="correctAns" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="528.0" text="Correct answer: " textFill="#5d96d9">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </children>
