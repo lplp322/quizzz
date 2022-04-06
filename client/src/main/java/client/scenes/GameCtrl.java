@@ -36,6 +36,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import java.io.File;
+
+
 public class GameCtrl {
 
     @FXML
@@ -146,6 +149,8 @@ public class GameCtrl {
         lastRoundAnswered = -1;
         this.resetColors();
         inTimeOut = false;
+        
+
     }
 
     /**
@@ -172,6 +177,16 @@ public class GameCtrl {
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
         this.correctAns.setVisible(false);
+    }
+
+    /**
+     * This method is used to make the jokers invisible in singplayer games
+     */
+    public void disableJokers() {
+        this.guaranteeButton.setVisible(false);
+        this.eliminateWrongButton.setVisible(false);
+        this.doublePointsJokerButton.setVisible(false);
+        this.halfTimeJokerButton.setVisible(false);
     }
 
     /**
@@ -233,7 +248,7 @@ public class GameCtrl {
                 this.resetColors();
                 haveYouVoted.setVisible(false);
             }
-            if (trimmedGame.getRound().getTimer() == -2) {
+            if (trimmedGame.getRound().getTimer() == -2 && !this.mainCtrl.isSingleplayerFlag()) {
                 this.getMultiplayerLeaderboard();
             }
         } else {
@@ -297,7 +312,11 @@ public class GameCtrl {
 
                         try {
                             showReaction(trimmedGame.getReactionHistory()); // display all the reactions
-                            displayScreen(trimmedGame); // show round or timeout
+                            displayScreen(trimmedGame);
+                            if (this.mainCtrl.isSingleplayerFlag()) {
+                                this.disableJokers();
+                            }
+                            // show round or timeout
                             //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
                         }
                         catch (IOException e) {
