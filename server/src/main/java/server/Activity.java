@@ -1,7 +1,7 @@
 package server;
 
 
-import commons.ActivityInterface;
+import commons.CommonsActivity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Id;
 
 @Entity
-public class Activity implements Comparable, ActivityInterface {
+public class Activity implements Comparable{
     @Id
     @SequenceGenerator(
             name = "activity_sequence",
@@ -47,6 +47,14 @@ public class Activity implements Comparable, ActivityInterface {
      */
     public Activity() {
 
+    }
+
+    /**
+     * returns the id of the activity
+     * @return id of activity
+     */
+    public Long getId() {
+        return Id;
     }
 
     /**
@@ -116,7 +124,7 @@ public class Activity implements Comparable, ActivityInterface {
     /**
      * compares it to another object
      * @param o
-     * @return
+     * @return Same as string comparison
      */
     @Override
     public int compareTo(Object o) {
@@ -126,7 +134,7 @@ public class Activity implements Comparable, ActivityInterface {
 
     /**
      * returns to string
-     * @return
+     * @return - String representation
      */
     @Override
     public String toString() {
@@ -137,6 +145,12 @@ public class Activity implements Comparable, ActivityInterface {
                 '}';
     }
 
-
+    /**
+     * Method for transforming Activity into an equivalent CommonsActivity
+     * @return - Commonsactivity with same title
+     */
+    public CommonsActivity convertCommonsActivity(){
+        return new CommonsActivity(this.Id, this.title,this.consumption,this.source,this.imagePath);
+    }
 
 }

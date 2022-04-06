@@ -76,6 +76,7 @@ public class Config {
     public void setup() {
         ObjectMapper mapper = new ObjectMapper();
         File rootFolder = new File("commons/src/main/resources/activities");
+        if(rootFolder.listFiles() == null) {rootFolder = new File("../commons/src/main/resources/activities");}
         for (final File folder : rootFolder.listFiles()){
             for (final File file : folder.listFiles()) {
                 if ( file.getName().endsWith(".json") ) {
@@ -119,5 +120,14 @@ public class Config {
                 dtBasee.save(new LeaderboardEntry("Henk"+i, 1000*i));
             }
         }
+    }
+
+    /**
+     * Creates a new adminService for use in the AdminController
+     * @return new AdminService
+     */
+    @Bean
+    public AdminService addAdminService(){
+        return new AdminService();
     }
 }

@@ -3,7 +3,10 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+
 
 public class SplashCtrl {
     private final MainCtrl mainCtrl;
@@ -16,6 +19,14 @@ public class SplashCtrl {
 
     @FXML
     private Button multiplayerButton;
+
+    @FXML
+    private Button helpButton;
+
+    @FXML
+    private Label helpLabel;
+
+
 
     /**
      * Instantiates a Splash Controller
@@ -30,13 +41,31 @@ public class SplashCtrl {
      * Function to be executed when the singlePlayer button is pressed
      */
     public void singlePlayer() {
+        mainCtrl.playSound("success");
         this.mainCtrl.showSinglePlayerPrompt();
+        this.mainCtrl.setSingleplayerFlag(true);
+        System.out.println(this.mainCtrl.isSingleplayerFlag());
     }
 
+//    /**
+//     * Function to be executed when the multiPlayer button is pressed
+//     */
+//    public void multiPlayer(){
+//        mainCtrl.playSound("success");
+//        this.mainCtrl.showMultiPlayer();
+//    }
+
+
     /**
-     * Function to be executed when the multiPlayer button is pressed
+     * Function to be executed when the multiplayer button is pressed
      */
-    public void multiPlayer(){this.mainCtrl.showMultiPlayer();}
+    public void multiPlayer(){
+        this.mainCtrl.showMultiPlayer();
+        this.mainCtrl.setSingleplayerFlag(false);
+        System.out.println(this.mainCtrl.isSingleplayerFlag());
+        mainCtrl.playSound("success");
+        this.mainCtrl.showMultiPlayer();
+    }
 
     /**
      * Changes the size of the AnchorPlane
@@ -48,5 +77,28 @@ public class SplashCtrl {
         mainWindow.setPrefSize(w,h);
     }
 
-    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
+    /**
+     * Shows the activity viewer
+     */
+    public void showActivityViewer(){
+        mainCtrl.playSound("success");
+        this.mainCtrl.showActivityViewer();
+    }
+//    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
+
+
+    /**
+     * shows the help label instructing the user how the game works
+     */
+    public void showHelp() {
+        this.helpLabel.setWrapText(true);
+
+        if (this.helpLabel.isVisible()) {
+            this.helpLabel.setVisible(false);
+        }
+
+        else {
+            this.helpLabel.setVisible(true);
+        }
+    }
 }
