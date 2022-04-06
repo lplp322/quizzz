@@ -84,7 +84,8 @@ public class LobbyController {
     @GetMapping("{gameID}/{player}/getGameInfo")
     public TrimmedGame getGameInfo(@PathVariable int gameID, @PathVariable String player){
         //System.out.println( gameID + " polls");
-        return lobbyService.getGameByID(gameID).trim(player);
+        //return lobbyService.getGameByID(gameID).trim(player);
+        return lobbyService.getGameByID(gameID).getTrimmed();
     }
 
     /**
@@ -116,13 +117,23 @@ public class LobbyController {
     }
 
     /**
+     * Removes a player with given name from the lobby
+     * @param name
+     * @param id
+     */
+    @DeleteMapping("/multiplayer/disconnect/{id}/{name}")
+    public void disconnectPlayer(@PathVariable int id, @PathVariable String name) {
+        lobbyService.getGameByID(id).disconnectPlayer(name);
+    }
+
+    /**
      * PUT request to start game, that is currently in lobby
      * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
      */
     @PutMapping("/startGame")
     public TrimmedGame startGame(){
         if(lobbyService.startGame(1) == true) {
-            return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
+            return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).getTrimmed();
         }
         else return null;
     }
@@ -153,8 +164,8 @@ public class LobbyController {
             {lbRepo.save(new LeaderboardEntry(name, playerScore));}
             return "correct. Your score is " + playerScore;
         }
-        System.out.println("eoe");
-        System.out.println(round);
+        //System.out.println("eoe");
+        //System.out.println(round);
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
             if(round == 19) {lbRepo.save(new LeaderboardEntry(name, playerScore));}
@@ -169,16 +180,16 @@ public class LobbyController {
     /**
      * @param gameID The id of the game
      * @param name name of the player
-     * @param round round of the game
      * @param joker which joker was used (string)
      * @return returns a string hardcoded for now that says it has been received
      */
-    @GetMapping("/{gameID}/{name}/joker/{round}/{joker}")
+    @PutMapping("/{gameID}/{name}/joker/{joker}")
     //CHECKSTYLE:OFF
     public String receiveJoker(@PathVariable int gameID, @PathVariable String name,
-                               @PathVariable int round, @PathVariable String joker) {
+                               @PathVariable String joker) {
         //CHECKSTYLE:ON
-        System.out.println(joker);
+        //System.out.println(joker);
+        lobbyService.getGameByID(gameID).useJoker(joker, name);
 
         return "joker received";
     }
@@ -232,7 +243,7 @@ public class LobbyController {
         Game game = lobbyService.getGameByID(gameID);
         String[] newReaction = new String[] {player, reaction};
         game.getReactions().add(newReaction);
-        System.out.println("Success: " + newReaction);
+//        System.out.println("Success: " + newReaction);
         Thread t = new Thread(()->{
             try {
                 Thread.sleep(REACTION_DURATION);

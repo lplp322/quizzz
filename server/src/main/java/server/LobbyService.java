@@ -1,5 +1,6 @@
 package server;
 
+import commons.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;

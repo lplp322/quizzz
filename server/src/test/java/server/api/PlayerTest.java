@@ -2,7 +2,7 @@ package server.api;
 //CHECKSTYLE:OFF
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import server.Player;
+import commons.Player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

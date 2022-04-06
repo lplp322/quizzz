@@ -1,14 +1,16 @@
 package server;
 
+import commons.Player;
+import commons.Round;
 import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import server.database.ActivityRepository;
-
+import java.util.Map;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.Collections;
 
 
 public class Game implements Runnable{
@@ -44,7 +46,14 @@ public class Game implements Runnable{
 //        for (int i =0; i < players.size(); i ++) {
 //            this.playerScore.put(players.get(i).getName(), 0);
 //        }
+    }
 
+    /**
+     * sets a player as disconnected
+     * @param name
+     */
+    public void disconnectPlayer(String name) {
+        players.get(name).setDisconnected(true);
     }
 
     /**
@@ -61,6 +70,19 @@ public class Game implements Runnable{
         }
         catch (Exception e) {
             System.out.println(e.getStackTrace());
+        }
+    }
+
+    /**
+     * activates a joker
+     * @param joker
+     * @param playerName
+     */
+    public void useJoker(String joker, String playerName) {
+        if(round.getHalveTimeJoker() == null) {
+            if(joker.equals("HALF")) {
+                round.activateHalfTime(players.get(playerName));
+            }
         }
     }
 
@@ -109,37 +131,20 @@ public class Game implements Runnable{
      */
     public Round getRound() { return round; }
 
-    /**
-     * Trims game for generic purposes, not for a given player
-     * @return the current object as TrimmedGame, with full timer
-     */
+    /*
     public TrimmedGame trim(){
         Question currQuestion = questions.get(round.getRound());
         String answer = currQuestion.getAnswer();
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
                 currQuestion.getAnswers(), currQuestion.getType(), answer, (List<String[]>) reactions);
+    }*/
 
-    }
     /**
      * trims the current object
-     * @param requester Name of the player requesting the trimmed game
      * @return the current object as TrimmedGame
      */
-    public TrimmedGame trim(String requester) {
-        if (round.getGameStatus() == 2) {
-            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0
-                    , null, new ArrayList<String[]>());
-        }
-        Question currQuestion = questions.get(round.getRound());
-        if (round.isHalfTimerUsed()){
-            if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
-                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
-                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), reactions);
-            }
-        }
-        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), reactions);
-
+    public TrimmedGame getTrimmed() {
+        return new TrimmedGame(lobbyId, questions.get(round.getRound()).getTrimmed(), players, round, reactions);
     }
 
 
@@ -166,11 +171,11 @@ public class Game implements Runnable{
      * @return True if answer was correct
      */
     public boolean checkPlayerAnswer(String name, int round, int answer) {
-        System.out.println("Round: "+ getRound().getRound());
-        System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
+        //System.out.println("Round: "+ getRound().getRound());
+        //System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
         if(getRound().getRound() == round){
             Question currQuestion = questions.get(getRound().getRound());
-            System.out.println("Question type " + currQuestion.getType());
+            //System.out.println("Question type " + currQuestion.getType());
             if(currQuestion.getType() == 0){
                 //TO BE IMPLEMENTED
                 int score = checkPlayerEstimation(name, round, answer+"");
@@ -184,7 +189,7 @@ public class Game implements Runnable{
                 for(int i=0; i<currQuestion.getAnswers().size(); i++){
                     if(currQuestion.getAnswers().get(i).equals(currQuestion.getAnswer())) correctAns = i;
                 }
-                System.out.println("Correct answer: "+ correctAns);
+                //System.out.println("Correct answer: "+ correctAns);
                 if(correctAns == -1) System.out.println("errrroororroror");
                 if (correctAns == answer){
                     updatePlayerScore(name, 5*getRound().getTimer());
@@ -252,6 +257,8 @@ public class Game implements Runnable{
             commons.LeaderboardEntry ldEntry = new LeaderboardEntry(player.getName(), player.getScore());
             leaderboardEntries.add(ldEntry);
         }
+
+        Collections.sort(leaderboardEntries);
 
         return leaderboardEntries;
     }

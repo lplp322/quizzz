@@ -81,6 +81,7 @@ public class ActivityViewerCtrl {
      * Shows the splash screen
      */
     public void returnToMenu(){
+        this.mainCtrl.playSound("success");
         this.mainCtrl.showSplash();
     }
 

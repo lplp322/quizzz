@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -76,7 +77,7 @@ public class LobbyCtrl {
                         http.disconnect();
 
                         if(!names.equals(prevNames)) {
-                            displayNames(names);
+                            displayNamesFibonacci(names);
                             prevNames = names;
                         }
 
@@ -105,7 +106,7 @@ public class LobbyCtrl {
      * Displays the list of names on the screen
      * @param names list of names
      */
-    public void displayNames(List<String> names) {
+    /*public void displayNames(List<String> names) {
         lobbyLabel.setText(String.format("%d player" +
                 (names.size() > 1? "s":"") +
                 " currently waiting in the room", names.size()));
@@ -142,7 +143,113 @@ public class LobbyCtrl {
             scrollPanel.getChildren().add(tmp);
         }
         scrollPanel.setPrefSize(Math.ceil(1.00*names.size() / perRow) * nameWidth, scrollPanel.getHeight());
+    }*/
+
+    /**
+     * displays the names in an interesting pattern
+     * @param names
+     */
+    //CHECKSTYLE:OFF
+    public void displayNamesFibonacci(List<String> names) {
+        lobbyLabel.setText(String.format("%d player" +
+                (names.size() > 1? "s":"") +
+                " currently waiting in the room", names.size()));
+        lobbyLabel.setWrapText(true);
+        scrollPanel.getChildren().clear();
+
+        double height = scrollPanel.getHeight();
+        double width = scrollPanel.getWidth();
+        double y = 0, x = 0;
+
+        double ratio = 0.15; // ratio between the current element to the next element
+        int rotationStep = 0; // there are 4 steps that repeat in creating the sequence
+
+        double[] startColor = new double[]{255, 0, 0};
+        double[] endColor = new double[]{0, 0, 255};
+        double[] colorDiff = new double[] { // how much we have to change to reach the second color
+                endColor[0] - startColor[0],
+                endColor[1] - startColor[1],
+                endColor[2] - startColor[2]
+        };
+
+        for(int i = 0; i < names.size(); i++) {
+            Label tempLabel = new Label(names.get(i));
+
+            //tempLabel.setWrapText(true);
+
+            String hex = String.format("#%02x%02x%02x",
+                    (int)Math.ceil(startColor[0] + (colorDiff[0] * (i) / names.size())),
+                    (int)Math.ceil(startColor[1] + (colorDiff[1] * (i) / names.size())),
+                    (int)Math.ceil(startColor[2] + (colorDiff[2] * (i) / names.size())));
+
+            tempLabel.setAlignment(Pos.CENTER);
+            tempLabel.setStyle("-fx-border-color: black;" +
+                    "-fx-background-color: " + hex + ";" +
+                    "-fx-font-weight: bold;" +
+                    "-fx-text-fill: white;" +
+                    "-fx-font-size: " + Math.min(height, width)/20);
+
+            if(i == names.size() - 1) { // last one
+                tempLabel.setPrefHeight(height);
+                tempLabel.setPrefWidth(width);
+
+                AnchorPane.setTopAnchor(tempLabel, y);
+                AnchorPane.setLeftAnchor(tempLabel, x);
+            }
+            else {
+                double tempHeight = (ratio * height) / (ratio + 1);
+                double tempWidth = (ratio * width) / (ratio + 1);
+
+                switch (rotationStep) {
+                    case 0:
+                        tempLabel.setPrefHeight(height);
+                        tempLabel.setPrefWidth(tempWidth);
+
+                        AnchorPane.setTopAnchor(tempLabel, y);
+                        AnchorPane.setLeftAnchor(tempLabel, x);
+
+                        x += tempWidth;
+                        width -= tempWidth;
+
+                        break;
+                    case 1:
+                        tempLabel.setPrefHeight(tempHeight);
+                        tempLabel.setPrefWidth(width);
+
+                        AnchorPane.setTopAnchor(tempLabel, y);
+                        AnchorPane.setLeftAnchor(tempLabel, x);
+
+                        y += tempHeight;
+                        height -= tempHeight;
+
+                        break;
+                    case 2:
+                        tempLabel.setPrefHeight(height);
+                        tempLabel.setPrefWidth(tempWidth);
+
+                        AnchorPane.setTopAnchor(tempLabel, y);
+                        AnchorPane.setLeftAnchor(tempLabel, x + (width - tempWidth));
+
+                        width -= tempWidth;
+
+                        break;
+                    case 3:
+                        tempLabel.setPrefHeight(tempHeight);
+                        tempLabel.setPrefWidth(width);
+
+                        AnchorPane.setTopAnchor(tempLabel, y + (height - tempHeight));
+                        AnchorPane.setLeftAnchor(tempLabel, x);
+
+                        height -= tempHeight;
+
+                        break;
+                }
+                rotationStep = (rotationStep + 1) % 4;
+            }
+            scrollPanel.getChildren().add(tempLabel);
+        }
     }
+    //CHECKSTYLE:ON
 
     /**
      * Exits the lobby and removes the player from it

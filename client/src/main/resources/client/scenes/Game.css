@@ -17,6 +17,23 @@
     -fx-border-radius: 10%;
 }
 
+#questionAnchor {
+    -fx-border-color: #000000;
+    -fx-background-color: #1d3557;
+}
+
+#questionLabel {
+    -fx-text-fill: white;
+}
+
+#scrollPanel > .viewport {
+    -fx-background-color: transparent;
+}
+
+#scrollPanel {
+    -fx-background-color: transparent;
+}
+
 #choiceA, #choiceB, #choiceC {
     -fx-border-color: #111111;
 }
@@ -41,3 +58,7 @@
 #playerList:even {
     -fx-background-color: #444444;
 }
+
+
+
+

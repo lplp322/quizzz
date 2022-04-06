@@ -2,10 +2,10 @@ package client.scenes;
 
 import commons.LeaderboardEntry;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import javax.inject.Inject;
 import java.util.List;
 
@@ -21,25 +21,25 @@ public class LeaderboardCtrl {
     private AnchorPane scrollPanel;
 
     @FXML
-    private Text myResult;
+    private Label myResult;
 
     @FXML
-    private Text goldScore;
+    private Label goldScore;
 
     @FXML
-    private Text goldName;
+    private Label goldName;
 
     @FXML
-    private Text silverScore;
+    private Label silverScore;
 
     @FXML
-    private Text silverName;
+    private Label silverName;
 
     @FXML
-    private Text bronzeScore;
+    private Label bronzeScore;
 
     @FXML
-    private Text bronzeName;
+    private Label bronzeName;
 
     /**
      *
@@ -69,7 +69,7 @@ public class LeaderboardCtrl {
         int yourPlace = 0;
         scrollPanel.getChildren().clear();
 
-        Text[] firstThree = {goldName, goldScore, silverName, silverScore, bronzeName, bronzeScore};
+        Label[] firstThree = {goldName, goldScore, silverName, silverScore, bronzeName, bronzeScore};
 
         for(int i = 0; i < results.size(); i++) {
             LeaderboardEntry tempEntry = results.get(i);

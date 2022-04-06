@@ -15,8 +15,11 @@
  */
 package server;
 
+import java.io.File;
+import java.util.Optional;
 import java.util.Random;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import commons.LeaderboardEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +47,7 @@ public class Config {
     /**
      * Adds 4 activities in case the database is empty
      */
-    @Bean
+    /*@Bean
     public void addTempActivities() {
         if(dtBase.getAllActivities().size() < 4) {
             dtBase.save(new Activity("Taking a hot shower for 6 minutes",
@@ -65,6 +68,47 @@ public class Config {
                     "00/vacuuming.png"));
         }
         //System.out.println(dtBase.getAllActivities().size());
+    }*/
+
+    /**
+     * Imports activities into repository on server startup
+     */
+    @Bean
+    public void setup() {
+        ObjectMapper mapper = new ObjectMapper();
+        File rootFolder = new File("commons/src/main/resources/activities");
+        if(rootFolder.listFiles() == null) {rootFolder = new File("../commons/src/main/resources/activities");}
+        for (final File folder : rootFolder.listFiles()){
+            for (final File file : folder.listFiles()) {
+                if ( file.getName().endsWith(".json") ) {
+                    try {
+                        JsonActivity temp = mapper.readValue(file, JsonActivity.class);
+                        Optional<Activity> repoActivity = dtBase.findByTitle(temp.getTitle());
+                        // Filter activities if won't fit in repository or already in repository
+                        if (temp.getConsumption_in_wh() > Integer.MAX_VALUE || temp.getSource().length() > 255 ||
+                                repoActivity.isPresent()) {
+                            continue;
+                        }
+                        String ac = file.getPath();
+                        ac = ac.substring(0, ac.length() - 5);
+                        String image;
+                        if (new File(ac + ".jpg").exists()) {
+                            image = ac + ".jpg";
+                        }
+                        else if (new File(ac + ".jpeg").exists()) {
+                            image = ac + ".jpeg";
+                        }
+                        else {
+                            image = ac + ".png";
+                        }
+                        Activity finalActivity = temp.toActivity(image);
+                        dtBase.save(finalActivity);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     /**
