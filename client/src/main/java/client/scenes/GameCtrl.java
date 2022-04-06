@@ -122,6 +122,8 @@ public class GameCtrl {
 
     private int newPoints = 0;
 
+    private int reactionSize = 0;
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -283,6 +285,7 @@ public class GameCtrl {
     public void tickGame() throws IOException {
         //getLeaderboard();
         loadReactions();
+        mainCtrl.playSound("music");
         //playerList.getItems().add(this.mainCtrl.getName());
 
         Thread t1 = new Thread(()-> {
@@ -417,8 +420,12 @@ public class GameCtrl {
         currentRoundLabel.setText("Current Round " + trimmedGame.getRound().getRound() + 1);
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
-        questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
-        
+        try {
+            questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
+        } catch (IllegalArgumentException e) {
+            questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl()).toURI().toString()));
+        }
+
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
             case 1:
@@ -470,6 +477,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void sendAnswer(String answer) throws IOException {
+        mainCtrl.playSound("success");
         URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +
                 currentTrimmedGame.getRound().getRound()  + "/" + answer);
@@ -508,6 +516,7 @@ public class GameCtrl {
      * Sends the halftime joker
      */
     public void sendHalfJoker() {
+        mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID() + "/" + this.mainCtrl.getName() + "/joker/"
                     + "HALF");
@@ -528,6 +537,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void choiceASend () throws IOException {
+        mainCtrl.playSound("success");
         if (this.checkCanAnswer()) {
             this.sendAnswer("0");
 
@@ -541,6 +551,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void choiceBSend() throws IOException {
+        mainCtrl.playSound("success");
         if (this.checkCanAnswer()) {
             this.sendAnswer("1");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
@@ -553,6 +564,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void choiceCSend() throws IOException {
+        mainCtrl.playSound("success");
         if (this.checkCanAnswer()) {
             this.sendAnswer("2");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
@@ -668,6 +680,7 @@ public class GameCtrl {
      * the other players see that this play has disconnected
      */
     public void exitGame() {
+        mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + "multiplayer/disconnect/" + mainCtrl.getCurrentID() +
                     "/" + mainCtrl.getName());
@@ -722,7 +735,14 @@ public class GameCtrl {
      * @throws MalformedURLException If cannot find the reactions folder
      */
     public void showReaction(List<String[]> reactions) throws MalformedURLException {
-        reactionBox.getChildren().remove(0, reactionBox.getChildren().size());
+        if(reactionBox.getChildren().size() < reactions.size()) {
+            mainCtrl.playSound("msg");
+        }
+        reactionBox.getChildren().clear();
+        if(reactions.size() > this.reactionSize) {
+            mainCtrl.playSound("msg");
+            this.reactionSize = reactions.size();
+        }
         for(String[] pair : reactions) {
             Label lb = new Label();
             lb.setPrefWidth(190);
@@ -769,6 +789,7 @@ public class GameCtrl {
      * @throws IOException if the url where it sends the answer is invalid
      */
     public void sendCorrectAnswer() throws IOException {
+        mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
         }
@@ -809,7 +830,7 @@ public class GameCtrl {
      * @throws IOException if the url is invalid
      */
     public void sendDoublePoints() throws IOException {
-
+        mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
         }
@@ -868,6 +889,7 @@ public class GameCtrl {
      * the incorrect answers in multiple choice questions
      */
     public void eliminateWrongAnswer() {
+        mainCtrl.playSound("success");
         //System.out.println("checking wrong answer");
         //System.out.println(this.currentTrimmedGame.getQuestionType());
         if (this.currentTrimmedGame.getQuestion().getType() != 0 &&
@@ -892,13 +914,3 @@ public class GameCtrl {
 
 
 }
-
-
-
-
-
-
-
-
-
-

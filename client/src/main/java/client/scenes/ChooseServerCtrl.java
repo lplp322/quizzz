@@ -55,23 +55,25 @@ public class ChooseServerCtrl {
             BufferedReader in = new BufferedReader(new InputStreamReader(http.getInputStream()));
             String inputLine = in.readLine();
             if(inputLine.equals("Connected")){
+                mainCtrl.playSound("success");
                 if(!(link.substring(link.length() - 1)).equals("/")){
                     link+="/";
                 }
                 mainCtrl.setLink(link);
                 mainCtrl.showSplash();
             }
-
         }
         catch(MalformedURLException u){
             cantConnectLabel.setText("Can not connect");
             cantConnectLabel.setVisible(true);
+            mainCtrl.playSound("error");
         } catch(ConnectException e){
             cantConnectLabel.setText("Server not started");
             cantConnectLabel.setVisible(true);
-
+            mainCtrl.playSound("error");
         } catch(IOException e) {
             e.printStackTrace();
+            mainCtrl.playSound("error");
         }
     }
 

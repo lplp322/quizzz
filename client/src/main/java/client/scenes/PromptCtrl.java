@@ -69,18 +69,22 @@ public class PromptCtrl {
                     if(ID == 0){
                         errorLabel.setVisible(true);
                         errorLabel.setText("Your name is already taken");
+                        mainCtrl.playSound("error");
                         return;
                     }
                     this.mainCtrl.setCurrentGameID(ID); //sets the gameID of the MainCtrl to the one received
+                    mainCtrl.playSound("success");
                     if(isSingleplayer)  this.mainCtrl.showGame();  //shows the game screen
 
                     else this.mainCtrl.showWaitingRoom(); //lobby screen needed to be here instead of overview
                 } catch (IOException e) {
                     errorLabel.setVisible(true);
                     errorLabel.setText("Could not connect to server!");
+                    mainCtrl.playSound("error");
                 }
         }
         else{
+            mainCtrl.playSound("error");
             if(nameField.getText().equals(""))      //checks if name is empty
                 errorLabel.setText("Name cannot be empty!");
             else errorLabel.setText("Name can only contain letters/numbers!");
@@ -92,6 +96,7 @@ public class PromptCtrl {
      * Is executed when clicking on the menu button
      */
     public void onClickMenu(){
+        mainCtrl.playSound("success");
         this.mainCtrl.showSplash();
     }
 
