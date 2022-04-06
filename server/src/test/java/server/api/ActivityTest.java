@@ -84,4 +84,10 @@ class ActivityTest {
     void testToString() {
         assertEquals("Activity{Id=null, name='Title', energy=2000}", act.toString());
     }
+
+    @Test
+    void emptyConstructorTest(){
+        var activ = new Activity();
+        assertTrue(activ!=null);
+    }
 }
