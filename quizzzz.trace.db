@@ -7226,6 +7226,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
 	at server.Main.main(Main.java:38)
 <<<<<<< HEAD
+<<<<<<< HEAD
 2022-03-31 09:48:33 database: flush
 org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/home/gloryfighter/Documents/OOPP/repository-template/quizzzz.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
@@ -7352,6 +7353,8 @@ java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supporte
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:829)
 =======
+=======
+>>>>>>> dev
 2022-04-04 15:41:52 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
@@ -7654,4 +7657,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
 	at server.Main.main(Main.java:38)
+<<<<<<< HEAD
+>>>>>>> dev
+=======
 >>>>>>> dev
