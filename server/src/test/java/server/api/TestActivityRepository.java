@@ -25,6 +25,11 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
+    public Optional<Activity> findByTitle(String title) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Activity> findAll() {
         return null;
     }
@@ -40,7 +45,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public List<Activity> findAllById(Iterable<String> strings) {
+    public List<Activity> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -50,13 +55,8 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public void deleteById(String s) {
+    public void deleteById(Long aLong) {
 
-    }
-    
-    @Override
-    public Optional<Activity> findByTitle(String title) {
-        return null;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public void deleteAllById(Iterable<? extends String> strings) {
+    public void deleteAllById(Iterable<? extends Long> longs) {
 
     }
 
@@ -90,12 +90,12 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public Optional<Activity> findById(String s) {
+    public Optional<Activity> findById(Long aLong) {
         return Optional.empty();
     }
 
     @Override
-    public boolean existsById(String s) {
+    public boolean existsById(Long aLong) {
         return false;
     }
 
@@ -120,7 +120,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public void deleteAllByIdInBatch(Iterable<String> strings) {
+    public void deleteAllByIdInBatch(Iterable<Long> longs) {
 
     }
 
@@ -130,12 +130,12 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public Activity getOne(String s) {
+    public Activity getOne(Long aLong) {
         return null;
     }
 
     @Override
-    public Activity getById(String s) {
+    public Activity getById(Long aLong) {
         return null;
     }
 
@@ -171,7 +171,7 @@ public class TestActivityRepository implements ActivityRepository {
 
     @Override
     public <S extends Activity, R> R findBy(Example<S> example,
-                                            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

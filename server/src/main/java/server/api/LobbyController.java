@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import server.AdminService;
 import server.Game;
 import server.LobbyService;
 import server.database.LeaderboardRepository;
@@ -19,6 +20,8 @@ import java.util.List;
 @RequestMapping("/")
 public class LobbyController {
     private LobbyService lobbyService;
+    @Autowired
+    private AdminService adminService;
 
     private final int REACTION_DURATION = 3000;
 
@@ -32,6 +35,7 @@ public class LobbyController {
     @Autowired
     public LobbyController(LobbyService lobbyService) {
         this.lobbyService = lobbyService;
+
     }
 
     /**
@@ -249,5 +253,56 @@ public class LobbyController {
             game.getReactions().remove(newReaction);
         });
         t.start();
+    }
+
+
+    /**
+     *
+     * @param description
+     * @param usage
+     * @param source
+     * @param imagePath
+     */
+    @PutMapping("admin/new_activity/{description}/{usage}/{source}/{imagePath}")
+    public void newActivity(@PathVariable String description, @PathVariable String usage,
+    @PathVariable String source, @PathVariable String imagePath) {
+        //System.out.println("DASDAS");
+        adminService.addActivity(splitString(description),
+                Integer.parseInt(usage), fixPath(source),  fixPath(imagePath));
+    }
+
+
+    /**
+     * @param input the string that is going to be split to include spaces
+     * @return the string including spaces instead of !
+     */
+    public String splitString(String input) {
+        String[] list = input.split("!");
+        String result = list[0];
+        for (int i = 1; i < list.length; i ++) {
+            result = result + " " + list[i];
+        }
+        return result;
+    }
+
+
+    /**
+     * @param id the id of the activity you would like to delete
+     */
+    @DeleteMapping("admin/delete_activity/{id}")
+    public void deleteActivity(@PathVariable Long id) {
+        Long longid = id;
+        //System.out.println(id);
+        adminService.deleteActivity(id);
+//        System.out.println(id);
+    }
+
+    /**
+     * @param input the path that you want to replace the "/"s with "~"s
+     * @return the path with /s instead of ~s
+     */
+    public String fixPath(String input) {
+        String output = input.replace("~", "/");
+        return output;
     }
 }
