@@ -152,7 +152,11 @@ public class ActivityViewerCtrl {
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         http.setRequestMethod("PUT");
-        String jsonString = mainCtrl.httpToJSONString(http);
+        try {
+            mainCtrl.httpToJSONString(http);
+        } catch (Exception e) {
+
+        }
         //System.out.println(http.getResponseCode());
 //        System.out.println(jsonString);
         http.disconnect();
@@ -256,6 +260,4 @@ public class ActivityViewerCtrl {
         String output =  input.replace("/", "~");
         return output;
     }
-
-
 }
