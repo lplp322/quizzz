@@ -511,7 +511,7 @@ public class GameCtrl {
      * Sends the halftime joker
      */
     public void sendHalfJoker() {
-        sendJoker("Half-Time-Joker");
+        sendJoker("Half-Time");
         mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID() + "/" + this.mainCtrl.getName() + "/joker/"
@@ -785,7 +785,7 @@ public class GameCtrl {
      * @throws IOException if the url where it sends the answer is invalid
      */
     public void sendCorrectAnswer() throws IOException {
-        sendJoker("Correct-Answer");
+        sendJoker("Guarantee-Correct-Answer");
         mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
