@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ActivityRepository extends JpaRepository<Activity, String> {
+public interface ActivityRepository extends JpaRepository<Activity, Long> {
     /**
      * query to return all the activities in the database as a list of activity
      * @return all the activities in the database
@@ -22,4 +22,17 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
      * @return The Activity with the given title
      */
     Optional<Activity> findByTitle(String title);
+
+    /**
+     *
+     * @param id
+     * @return the activity with the given id
+     */
+//    Optional<Activity> findById(Long id);
+
+//    /**
+//     * @param id of the activity that you wish to delete
+//     */
+//    @Query ("DELETE FROM Activity WHERE Activity .Id = id")
+//    void deleteById(Long id);
 }

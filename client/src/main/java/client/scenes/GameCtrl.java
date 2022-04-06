@@ -36,6 +36,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import java.io.File;
+
+
 public class GameCtrl {
 
     @FXML
@@ -104,6 +107,9 @@ public class GameCtrl {
     @FXML
     private ScrollPane scrollPane;
 
+    @FXML
+    private Label correctAns;
+
     private MainCtrl mainCtrl;
 
     private static int lastRoundAnswered = -1;
@@ -143,6 +149,8 @@ public class GameCtrl {
         lastRoundAnswered = -1;
         this.resetColors();
         inTimeOut = false;
+        
+
     }
 
     /**
@@ -155,6 +163,7 @@ public class GameCtrl {
         this.choiceC.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
+        this.correctAns.setVisible(false);
     }
 
     /**
@@ -167,6 +176,17 @@ public class GameCtrl {
         this.choiceC.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
+        this.correctAns.setVisible(false);
+    }
+
+    /**
+     * This method is used to make the jokers invisible in singplayer games
+     */
+    public void disableJokers() {
+        this.guaranteeButton.setVisible(false);
+        this.eliminateWrongButton.setVisible(false);
+        this.doublePointsJokerButton.setVisible(false);
+        this.halfTimeJokerButton.setVisible(false);
     }
 
     /**
@@ -223,12 +243,12 @@ public class GameCtrl {
 
         if (timeForCurrentPlayer < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
             showTimeout(trimmedGame);
-            this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer());
+            this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer(), trimmedGame.getQuestion().getType());
             if (trimmedGame.getRound().getTimer() == -4) {
                 this.resetColors();
                 haveYouVoted.setVisible(false);
             }
-            if (trimmedGame.getRound().getTimer() == -2) {
+            if (trimmedGame.getRound().getTimer() == -2 && !this.mainCtrl.isSingleplayerFlag()) {
                 this.getMultiplayerLeaderboard();
             }
         } else {
@@ -282,7 +302,7 @@ public class GameCtrl {
         loadReactions();
         mainCtrl.playSound("music");
         //playerList.getItems().add(this.mainCtrl.getName());
-
+        this.scoreLabel.setText("0");
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
@@ -292,7 +312,11 @@ public class GameCtrl {
 
                         try {
                             showReaction(trimmedGame.getReactionHistory()); // display all the reactions
-                            displayScreen(trimmedGame); // show round or timeout
+                            displayScreen(trimmedGame);
+                            if (this.mainCtrl.isSingleplayerFlag()) {
+                                this.disableJokers();
+                            }
+                            // show round or timeout
                             //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
                         }
                         catch (IOException e) {
@@ -511,6 +535,7 @@ public class GameCtrl {
      * Sends the halftime joker
      */
     public void sendHalfJoker() {
+        sendJoker("Half-Time");
         mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID() + "/" + this.mainCtrl.getName() + "/joker/"
@@ -636,12 +661,19 @@ public class GameCtrl {
 
     /**
      * @param correctAnswer the string of the correct answer
+     * @param questType
      */
-    public void showCorrectAnswer(String correctAnswer) {
+    public void showCorrectAnswer(String correctAnswer, int questType) {
         System.out.println(correctAnswer);
-        Button correctButton = this.findCorrectChoice(correctAnswer);
-        System.out.println(correctButton.getText());
-        correctButton.setStyle("-fx-background-color: #16b211");
+        if(questType == 0){
+            correctAns.setText("Correct answer: "+ correctAnswer+" Wh");
+            correctAns.setVisible(true);
+        }
+        else {
+            Button correctButton = this.findCorrectChoice(correctAnswer);
+            System.out.println(correctButton.getText());
+            correctButton.setStyle("-fx-background-color: #16b211");
+        }
     }
 
 
@@ -739,12 +771,19 @@ public class GameCtrl {
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
             lb.setId("reaction");
-            Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
-            ImageView imageView = new ImageView(img);
-            imageView.setFitHeight(30);
-            imageView.setFitWidth(30);
-            lb.setGraphic(imageView);
-            lb.setText(pair[0]+": ");
+            try {
+                Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/" + pair[1])
+                        .toString()));ImageView imageView = new ImageView(img);
+                imageView.setFitHeight(30);
+                imageView.setFitWidth(30);
+                lb.setGraphic(imageView);
+                lb.setText(pair[0]+": ");
+            } catch (NullPointerException e) {
+                lb.setPrefHeight(80);
+                lb.setText(pair[0]+ ": " + pair[1].replace("-", " "));
+                lb.setWrapText(true);
+                lb.setStyle("-fx-background-color: red");
+            }
             lb.setFont(new Font(18));
             reactionBox.getChildren().add(lb);
         }
@@ -778,6 +817,7 @@ public class GameCtrl {
      * @throws IOException if the url where it sends the answer is invalid
      */
     public void sendCorrectAnswer() throws IOException {
+        sendJoker("Guarantee-Correct-Answer");
         mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
@@ -819,6 +859,7 @@ public class GameCtrl {
      * @throws IOException if the url is invalid
      */
     public void sendDoublePoints() throws IOException {
+        sendJoker("Double-Points");
         mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
@@ -878,6 +919,7 @@ public class GameCtrl {
      * the incorrect answers in multiple choice questions
      */
     public void eliminateWrongAnswer() {
+        sendJoker("Eliminated-Wrong-Answer");
         mainCtrl.playSound("success");
         //System.out.println("checking wrong answer");
         //System.out.println(this.currentTrimmedGame.getQuestionType());
@@ -898,6 +940,23 @@ public class GameCtrl {
             else {
                 choiceC.setVisible(false);
             }
+        }
+    }
+
+    /**
+     * Sends the joker to all other players (notification)
+     * @param joker The joker to send
+     */
+    public void sendJoker(String joker) {
+        try {
+            URL url = new URL( mainCtrl.getLink()+ "reaction/" + mainCtrl.getCurrentID()
+                    + "/" + mainCtrl.getName() + "/" + joker);
+            HttpURLConnection http = (HttpURLConnection)url.openConnection();
+            http.setRequestMethod("PUT");
+            mainCtrl.httpToJSONString(http);
+            http.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

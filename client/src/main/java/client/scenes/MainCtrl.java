@@ -18,11 +18,14 @@ package client.scenes;
 import commons.LeaderboardEntry;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -64,6 +67,7 @@ public class MainCtrl {
     private Scene lobby;
 
     private String name;
+    private boolean singleplayerFlag;
 
     private HashMap<String, MediaPlayer> sounds;
 
@@ -117,6 +121,8 @@ public class MainCtrl {
         //showSplash();
         showChooseServer();
         primaryStage.show();
+
+        this.checkForClosingApplication();
     }
 
     /**
@@ -343,4 +349,43 @@ public class MainCtrl {
         mp.play();
         resetSound(mp);
     }
+
+    /**
+     * @return a boolean indicating if the game is singleplayer or not
+     */
+    public Boolean isSingleplayerFlag() {
+        return this.singleplayerFlag;
+    }
+
+    /**
+     * @param value assigns a value (boolean to the flag indicating if
+     *              the game is single player or no t
+     */
+    public void setSingleplayerFlag(Boolean value) {
+        this.singleplayerFlag = value;
+    }
+
+
+    /**
+     * Method checks if the user is closing the application, if this is the case
+     * it creates an alert that makes them confirm this is the case or cancel
+     */
+    public void checkForClosingApplication() {
+        primaryStage.setOnCloseRequest(evt -> {
+            // allow user to decide between yes and no
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Do you really want to close this application?", ButtonType.YES, ButtonType.NO);
+
+            // clicking X also means no
+            ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+
+            if (ButtonType.NO.equals(result)) {
+                // consume event i.e. ignore close request
+                evt.consume();
+            }
+        });
+    }
+
+
+
 }
