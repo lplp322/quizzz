@@ -107,6 +107,9 @@ public class GameCtrl {
     @FXML
     private ScrollPane scrollPane;
 
+    @FXML
+    private Label correctAns;
+
     private MainCtrl mainCtrl;
 
     private static int lastRoundAnswered = -1;
@@ -160,6 +163,7 @@ public class GameCtrl {
         this.choiceC.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
+        this.correctAns.setVisible(false);
     }
 
     /**
@@ -172,6 +176,7 @@ public class GameCtrl {
         this.choiceC.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
+        this.correctAns.setVisible(false);
     }
 
     /**
@@ -238,7 +243,7 @@ public class GameCtrl {
 
         if (timeForCurrentPlayer < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
             showTimeout(trimmedGame);
-            this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer());
+            this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer(), trimmedGame.getQuestion().getType());
             if (trimmedGame.getRound().getTimer() == -4) {
                 this.resetColors();
                 haveYouVoted.setVisible(false);
@@ -655,12 +660,19 @@ public class GameCtrl {
 
     /**
      * @param correctAnswer the string of the correct answer
+     * @param questType
      */
-    public void showCorrectAnswer(String correctAnswer) {
+    public void showCorrectAnswer(String correctAnswer, int questType) {
         System.out.println(correctAnswer);
-        Button correctButton = this.findCorrectChoice(correctAnswer);
-        System.out.println(correctButton.getText());
-        correctButton.setStyle("-fx-background-color: #16b211");
+        if(questType == 0){
+            correctAns.setText("Correct answer: "+ correctAnswer+" Wh");
+            correctAns.setVisible(true);
+        }
+        else {
+            Button correctButton = this.findCorrectChoice(correctAnswer);
+            System.out.println(correctButton.getText());
+            correctButton.setStyle("-fx-background-color: #16b211");
+        }
     }
 
 
