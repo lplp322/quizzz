@@ -43,17 +43,7 @@
       </AnchorPane>
       <AnchorPane fx:id="upperPanel" layoutX="233.0" prefHeight="40.0" prefWidth="776.0">
          <children>
-            <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Text layoutX="286.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="163.76736450195312">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Text layoutX="578.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
+            <Text layoutX="306.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="163.76736450195312">
                <font>
                   <Font size="27.0" />
                </font>
