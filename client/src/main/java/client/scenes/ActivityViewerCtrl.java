@@ -137,8 +137,8 @@ public class ActivityViewerCtrl {
         URL url = new URL(mainCtrl.getLink() + "admin/new_activity/"
                 + this.combineString(this.descriptionText.getText()) + "/"
                  + this.usageText.getText() + "/"
-                + this.sourceText.getText() + "/"
-                + this.pathText.getText());
+                + this.modifyPath(this.sourceText.getText())  + "/"
+                + this.modifyPath(this.pathText.getText()));
 
 //        System.out.println(mainCtrl.getLink() + "admin/new_activity/"
 //                + this.descriptionText.getText() + "/"
@@ -202,7 +202,7 @@ public class ActivityViewerCtrl {
         http.setRequestMethod("DELETE");
         mainCtrl.httpToJSONString(http);
         http.disconnect();
-        this.clearTexts();
+//        this.clearTexts();
         this.updateEntries();
     }
 
@@ -244,6 +244,16 @@ public class ActivityViewerCtrl {
         this.usageText.setText("");
         this.sourceText.setText("");
         this.pathText.setText("");
+    }
+
+    /**
+     * replaces all of the "/"s in a path so that it can be transfered in a url
+     * @param input the string that you want to edit
+     * @return a string with ~s instead of /s
+     */
+    public String modifyPath(String input) {
+        String output =  input.replace("/", "~");
+        return output;
     }
 
 

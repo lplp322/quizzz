@@ -256,7 +256,8 @@ public class LobbyController {
     public void newActivity(@PathVariable String description, @PathVariable String usage,
     @PathVariable String source, @PathVariable String imagePath) {
         //System.out.println("DASDAS");
-        adminService.addActivity(splitString(description), Integer.parseInt(usage),source, imagePath);
+        adminService.addActivity(splitString(description),
+                Integer.parseInt(usage), fixPath(source),  fixPath(imagePath));
     }
 
 
@@ -283,5 +284,14 @@ public class LobbyController {
         //System.out.println(id);
         adminService.deleteActivity(id);
 //        System.out.println(id);
+    }
+
+    /**
+     * @param input the path that you want to replace the "/"s with "~"s
+     * @return the path with /s instead of ~s
+     */
+    public String fixPath(String input) {
+        String output = input.replace("~", "/");
+        return output;
     }
 }
