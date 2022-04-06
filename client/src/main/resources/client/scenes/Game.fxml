@@ -27,7 +27,7 @@
       </AnchorPane>
     <AnchorPane layoutX="255.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="756.0">
          <children>
-            <Label fx:id="typeLabel" layoutX="370.0" layoutY="220.0" prefHeight="111.0" prefWidth="314.0" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="typeLabel" layoutX="343.0" layoutY="124.0" prefHeight="240.0" prefWidth="207.0" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="19.0" />
                </font>

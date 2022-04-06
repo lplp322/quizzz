@@ -7,9 +7,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainWindow" prefHeight="577.0" prefWidth="973.0" stylesheets="@LeaderboardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LeaderboardCtrl">
+<AnchorPane fx:id="mainWindow" prefHeight="610.0" prefWidth="1009.0" stylesheets="@LeaderboardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LeaderboardCtrl">
    <children>
-      <AnchorPane fx:id="leaderboardPanel" layoutX="300.0" layoutY="87.0" prefHeight="431.0" prefWidth="605.0">
+      <AnchorPane fx:id="leaderboardPanel" layoutX="295.0" layoutY="90.0" prefHeight="431.0" prefWidth="652.0">
          <children>
             <ScrollPane fx:id="scrPanel" layoutX="76.0" layoutY="117.0" prefHeight="241.0" prefWidth="453.0">
               <content>
@@ -26,7 +26,7 @@
                   <Label fx:id="goldScore" alignment="CENTER" layoutY="20.0" prefHeight="20.0" prefWidth="134.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="bronze" layoutX="383.0" layoutY="63.0" prefHeight="33.0" prefWidth="126.0">
+            <AnchorPane fx:id="bronze" layoutX="381.0" layoutY="56.0" prefHeight="40.0" prefWidth="126.0">
                <children>
                   <Label fx:id="bronzeScore" alignment="CENTER" layoutY="8.0" prefHeight="23.0" prefWidth="123.0" />
                </children>
@@ -41,26 +41,16 @@
             <Label fx:id="bronzeName" alignment="CENTER" layoutX="383.0" layoutY="36.0" prefHeight="21.0" prefWidth="124.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="upperPanel" layoutX="233.0" prefHeight="40.0" prefWidth="739.0">
+      <AnchorPane fx:id="upperPanel" layoutX="233.0" prefHeight="40.0" prefWidth="776.0">
          <children>
-            <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Text layoutX="286.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="163.76736450195312">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Text layoutX="578.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
+            <Text layoutX="306.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="163.76736450195312">
                <font>
                   <Font size="27.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="leftPanel" prefHeight="577.0" prefWidth="234.0">
+      <AnchorPane fx:id="leftPanel" prefHeight="610.0" prefWidth="234.0">
          <children>
             <Button fx:id="exitButton" layoutX="35.0" layoutY="510.0" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="52.0" prefWidth="164.0" text="Quit Game">
                <font>

@@ -302,7 +302,7 @@ public class GameCtrl {
         loadReactions();
         mainCtrl.playSound("music");
         //playerList.getItems().add(this.mainCtrl.getName());
-
+        this.scoreLabel.setText("0");
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
@@ -535,6 +535,7 @@ public class GameCtrl {
      * Sends the halftime joker
      */
     public void sendHalfJoker() {
+        sendJoker("Half-Time");
         mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID() + "/" + this.mainCtrl.getName() + "/joker/"
@@ -770,12 +771,19 @@ public class GameCtrl {
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
             lb.setId("reaction");
-            Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
-            ImageView imageView = new ImageView(img);
-            imageView.setFitHeight(30);
-            imageView.setFitWidth(30);
-            lb.setGraphic(imageView);
-            lb.setText(pair[0]+": ");
+            try {
+                Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/" + pair[1])
+                        .toString()));ImageView imageView = new ImageView(img);
+                imageView.setFitHeight(30);
+                imageView.setFitWidth(30);
+                lb.setGraphic(imageView);
+                lb.setText(pair[0]+": ");
+            } catch (NullPointerException e) {
+                lb.setPrefHeight(80);
+                lb.setText(pair[0]+ ": " + pair[1].replace("-", " "));
+                lb.setWrapText(true);
+                lb.setStyle("-fx-background-color: red");
+            }
             lb.setFont(new Font(18));
             reactionBox.getChildren().add(lb);
         }
@@ -809,6 +817,7 @@ public class GameCtrl {
      * @throws IOException if the url where it sends the answer is invalid
      */
     public void sendCorrectAnswer() throws IOException {
+        sendJoker("Guarantee-Correct-Answer");
         mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
@@ -850,6 +859,7 @@ public class GameCtrl {
      * @throws IOException if the url is invalid
      */
     public void sendDoublePoints() throws IOException {
+        sendJoker("Double-Points");
         mainCtrl.playSound("success");
         if (userChoice == null) {
             return;
@@ -909,6 +919,7 @@ public class GameCtrl {
      * the incorrect answers in multiple choice questions
      */
     public void eliminateWrongAnswer() {
+        sendJoker("Eliminated-Wrong-Answer");
         mainCtrl.playSound("success");
         //System.out.println("checking wrong answer");
         //System.out.println(this.currentTrimmedGame.getQuestionType());
@@ -929,6 +940,23 @@ public class GameCtrl {
             else {
                 choiceC.setVisible(false);
             }
+        }
+    }
+
+    /**
+     * Sends the joker to all other players (notification)
+     * @param joker The joker to send
+     */
+    public void sendJoker(String joker) {
+        try {
+            URL url = new URL( mainCtrl.getLink()+ "reaction/" + mainCtrl.getCurrentID()
+                    + "/" + mainCtrl.getName() + "/" + joker);
+            HttpURLConnection http = (HttpURLConnection)url.openConnection();
+            http.setRequestMethod("PUT");
+            mainCtrl.httpToJSONString(http);
+            http.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
