@@ -29,6 +29,7 @@ import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -239,7 +240,7 @@ public class MainCtrl {
      * @param http this is a http connection that the response of which will be turned into a string
      * @return The http response in JSON format
      */
-    public static String httpToJSONString(HttpURLConnection http) {
+    public static String httpToJSONString(HttpURLConnection http) throws FileNotFoundException {
         StringBuilder textBuilder = new StringBuilder();
         try (Reader reader = new BufferedReader(new InputStreamReader
                 (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
@@ -248,7 +249,7 @@ public class MainCtrl {
                 textBuilder.append((char) c);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         String jsonString = textBuilder.toString();
         return jsonString;
