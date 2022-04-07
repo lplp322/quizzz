@@ -26,8 +26,6 @@ public class SplashCtrl {
     @FXML
     private Label helpLabel;
 
-
-
     /**
      * Instantiates a Splash Controller
      * @param mainCtrl The Main Controller
@@ -83,6 +81,14 @@ public class SplashCtrl {
     public void showActivityViewer(){
         mainCtrl.playSound("success");
         this.mainCtrl.showActivityViewer();
+    }
+
+    /**
+     * Displays the leaderboard for singleplayer
+     */
+    public void showLeaderboard() {
+        mainCtrl.playSound("success");
+        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), null);
     }
 //    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
 

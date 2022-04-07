@@ -8,6 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -21,10 +23,16 @@ public class LobbyCtrl {
     private Label lobbyLabel;
 
     @FXML
+    private AnchorPane screen;
+
+    @FXML
     private AnchorPane scrollPanel;
 
     @FXML
     private Button startGame;
+
+    @FXML
+    private GridPane gridP;
 
     /**
      * Injecting mainCtrl
@@ -60,6 +68,8 @@ public class LobbyCtrl {
      * Starts polling for lobby info
      */
     public void init() {
+        System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
+        gridP.setPrefSize(mainCtrl.WIDTH, mainCtrl.HEIGHT);
         stopPolling = false;
         prevNames = null;
         Thread t = new Thread(() -> {

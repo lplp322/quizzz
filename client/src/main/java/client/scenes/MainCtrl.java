@@ -15,6 +15,8 @@
  */
 package client.scenes;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import commons.LeaderboardEntryCommons;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,11 +33,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainCtrl {
@@ -70,6 +75,7 @@ public class MainCtrl {
 
     private HashMap<String, MediaPlayer> sounds;
 
+    private double height, width;
 
     /**
      * Initializes all scenes via pairs of controllers and fxml files
@@ -117,6 +123,7 @@ public class MainCtrl {
 
         this.sounds = new HashMap<>();
         initSounds();
+
         //showSplash();
         //LeaderboardEntryCommons a1 = new LeaderboardEntryCommons("A", 60);
         //LeaderboardEntryCommons a2 = new LeaderboardEntryCommons("B",  0);
@@ -125,6 +132,8 @@ public class MainCtrl {
         showChooseServer();
 
         primaryStage.show();
+        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
 
         this.checkForClosingApplication();
     }
@@ -137,6 +146,8 @@ public class MainCtrl {
             Scene currentScene = primaryStage.getScene();   //Gets current scene
             splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         }
+        height = primaryStage.getScene().getHeight();
+        width = primaryStage.getScene().getWidth();
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(splash);
     }
@@ -166,20 +177,6 @@ public class MainCtrl {
      * @param myResult
      */
     public void showLeaderboard(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons myResult) {
-        /*if(primaryStage.getScene() != null) {
-            Scene currentScene = primaryStage.getScene();
-            leaderboardCtrl.setWindowSize(currentScene.getWidth(), currentScene.getHeight());
-        }*/
-        /*primaryStage.setTitle("Leaderboard");
-        primaryStage.setScene(leaderboard);
-        LeaderboardEntry ll = new LeaderboardEntry("Energy Master29", 150);
-        LeaderboardEntry ll2 = new LeaderboardEntry("MLGenergyUsage", 100);
-        LeaderboardEntry ll3 = new LeaderboardEntry("You", 50);
-        LeaderboardEntry ll4 = new LeaderboardEntry("Me", 3);
-        leaderboardCtrl.displayResults(List.of(ll, ll2, ll3, ll4, ll4,
-        ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
-         ll3);
-        */
         if(primaryStage.getScene()!=null){
             Scene currentScene = primaryStage.getScene();   //Gets current scene
             leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
@@ -203,6 +200,30 @@ public class MainCtrl {
     public void showMultiPlayer(){
         promptCtrl.setMultiplayer();
         showPrompt();
+    }
+
+    /**
+     * @return the list of entries in the leaderboard from the server
+     * @throws IOException if the link is not valid
+     */
+    public LinkedList<LeaderboardEntryCommons> getLeaderboard() {
+        LinkedList<LeaderboardEntryCommons> leaderboardList = new LinkedList<>();
+        try {
+            URL url = new URL(getLink() + "leaderboard" );
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            Gson g = new Gson();
+            String jsonString = httpToJSONString(http);
+            Type typeToken = new TypeToken<LinkedList<LeaderboardEntryCommons>>(){}.getType();
+            //System.out.println(typeToken.getTypeName());
+            leaderboardList = g.fromJson(jsonString, typeToken);
+            http.disconnect();
+            //System.out.println(leaderboardList);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return leaderboardList;
     }
 
     /**
@@ -256,6 +277,22 @@ public class MainCtrl {
         }
         String jsonString = textBuilder.toString();
         return jsonString;
+    }
+
+    /**
+     * returns the height
+     * @return height of the screen
+     */
+    public double getHeight() {
+        return height;
+    }
+
+    /**
+     * returns the width
+     * @return width of the screen
+     */
+    public double getWidth() {
+        return width;
     }
 
     /**

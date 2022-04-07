@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainWindow" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PromptCtrl">
+<AnchorPane fx:id="mainWindow" prefHeight="680.0" prefWidth="1124.0" stylesheets="@Prompt.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PromptCtrl">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </AnchorPane>
-      <GridPane prefHeight="677.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="10.0" prefWidth="500.0" />
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="245.33333333333334" minHeight="10.0" prefHeight="168.66666666666666" vgrow="SOMETIMES" />
-          <RowConstraints fillHeight="false" maxHeight="501.33333333333337" minHeight="10.0" prefHeight="434.0" vgrow="SOMETIMES" />
+          <RowConstraints fillHeight="false" maxHeight="422.6368777289034" minHeight="10.0" prefHeight="402.64731474062216" valignment="CENTER" vgrow="ALWAYS" />
+          <RowConstraints fillHeight="false" maxHeight="501.33333333333337" minHeight="10.0" prefHeight="434.0" valignment="CENTER" vgrow="ALWAYS" />
           <RowConstraints maxHeight="146.33333333333337" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -30,7 +32,7 @@
                   <Font name="Century Gothic Bold" size="96.0" />
                </font>
             </Label>
-            <Pane opacity="0.88" prefHeight="305.0" prefWidth="505.0" style="-fx-background-color: White;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Pane opacity="0.88" prefHeight="305.0" prefWidth="505.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label alignment="CENTER" layoutX="48.0" layoutY="39.0" prefHeight="17.0" prefWidth="404.0" text="Enter your preferred name:" textFill="#000000ce">
                      <font>
@@ -42,21 +44,21 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="startButton" layoutX="278.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#baff70, #5bb000);" text="Start" textFill="#000000df">
-                     <font>
-                        <Font name="Century Gothic" size="29.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="menuButton" layoutX="48.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickMenu" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Back to menu" textFill="#000000df">
-                     <font>
-                        <Font name="Century Gothic" size="19.0" />
-                     </font>
-                  </Button>
                   <Label fx:id="errorLabel" alignment="CENTER" layoutX="117.0" layoutY="147.0" prefHeight="17.0" prefWidth="266.0" text="Name is already taken!" textAlignment="CENTER" textFill="#fc0000" visible="false">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="91.0" fitWidth="91.0" layoutX="348.0" layoutY="199.0" onMouseClicked="#onClickStart" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../ClientImages/start.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="91.0" fitWidth="91.0" layoutX="61.0" layoutY="199.0" onMouseClicked="#onClickMenu" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../ClientImages/exit.png" />
+                     </image>
+                  </ImageView>
                </children>
                <effect>
                   <DropShadow offsetX="5.0" offsetY="5.0">

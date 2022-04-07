@@ -4,9 +4,9 @@ import commons.QuestionTrimmed;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Random;
 
 
@@ -23,7 +23,7 @@ public class Question {
     private ActivityRepository dt;
     //Correct answer
     private String answer;
-    private String url;
+    private List<String> url;
 
     /**
      * Creates a new question
@@ -36,6 +36,7 @@ public class Question {
         Collections.shuffle(allActivities);
         activities = new ArrayList<>();
         answers = new ArrayList<>();
+        url = new LinkedList<>();
 
         for(int i = 0; i < 4; i++) {
             activities.add(allActivities.get(i));
@@ -66,6 +67,7 @@ public class Question {
         Collections.shuffle(allActivities);
         activities = new ArrayList<>();
         answers = new ArrayList<>();
+        url = new LinkedList<>();
 
         for(int i = 0; i < 4; i++) {
             activities.add(allActivities.get(i));
@@ -92,7 +94,7 @@ public class Question {
 
         question = act.getTitle();
 
-        url = act.getImagePath();
+        url.add(act.getImagePath());
 
         answers.add(act.getConsumption()+"");
         answer = act.getConsumption()+"";
@@ -110,7 +112,7 @@ public class Question {
         int questionIndex = random.nextInt(activities.size());
         question = activities.get(questionIndex).getTitle();
 
-        url = activities.get(questionIndex).getImagePath();
+        url.add(activities.get(questionIndex).getImagePath());
 
         int answerInt = activities.get(questionIndex).getConsumption();
 
@@ -142,13 +144,15 @@ public class Question {
         Collections.sort(activities);
         question = activities.get(1).getTitle();
 
-        url = activities.get(1).getImagePath();
+        url.add(activities.get(1).getImagePath());
 
         answer = activities.get(0).getTitle();
 
         for(int i = 0; i < 4; i++) {
-            if(i!=1)
+            if(i!=1) {
                 answers.add(activities.get(i).getTitle()+"");
+                url.add(activities.get(i).getImagePath());
+            }
         }
         Collections.shuffle(answers);
     }
@@ -205,7 +209,7 @@ public class Question {
      * returns the path to the image
      * @return path
      */
-    public String getUrl() {
+    public List<String> getUrl() {
         return url;
     }
 

@@ -1,3 +1,5 @@
+@import "Style.css";
+
 #scrollPane {
     -fx-border-color: #111111;
 }
@@ -17,6 +19,10 @@
 
 #exitLobby {
     -fx-background-color: red;
+}
+
+#screen {
+    -fx-background-color: delftBlue;
 }
 
 #startGame {

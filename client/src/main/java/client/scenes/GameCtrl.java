@@ -12,19 +12,19 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -42,25 +42,25 @@ import java.io.File;
 public class GameCtrl {
 
     @FXML
-    private Button choiceA;
+    private Label choiceA;
 
     @FXML
     private Label questionLabel;
 
     @FXML
-    private Button choiceB;
+    private Label choiceB;
 
     @FXML
-    private Button choiceC;
+    private Label choiceC;
 
     @FXML
-    private Button halfTimeJokerButton;
+    private ImageView halfTimeJokerButton;
 
     @FXML
-    private Button doublePointsJokerButton;
+    private ImageView doublePointsJokerButton;
 
     @FXML
-    private Button eliminateWrongButton;
+    private ImageView eliminateWrongButton;
 
     @FXML
     private Button quitGameButton;
@@ -69,10 +69,19 @@ public class GameCtrl {
     private AnchorPane playerList;
 
     @FXML
-    private TextField guessText;
+    private Slider guessText;
 
     @FXML
-    private Button submitButton;
+    private ImageView imageA;
+
+    @FXML
+    private ImageView imageB;
+
+    @FXML
+    private ImageView imageC;
+
+    @FXML
+    private ImageView submitButton;
 
     @FXML
     private Label currentRoundLabel;
@@ -84,7 +93,13 @@ public class GameCtrl {
     private Label answerLabel;
 
     @FXML
-    private Text haveYouVoted;
+    private GridPane choiceOne;
+
+    @FXML
+    private GridPane choiceTwo;
+
+    @FXML
+    private GridPane choiceThree;
 
     @FXML
     private ComboBox<ImageView> reactions;
@@ -95,8 +110,11 @@ public class GameCtrl {
     @FXML
     private Label scoreLabel;
 
+    //@FXML
+    //private Button guaranteeButton;
+
     @FXML
-    private Button guaranteeButton;
+    private Label sliderValue;
 
     @FXML
     private ImageView questionImage;
@@ -107,14 +125,18 @@ public class GameCtrl {
     @FXML
     private ScrollPane scrollPane;
 
+    //@FXML
+    //private Label correctAns;
+
     @FXML
-    private Label correctAns;
+    private GridPane gridPane;
 
     private MainCtrl mainCtrl;
 
     private static int lastRoundAnswered = -1;
 
-    private Button userChoice;
+    private GridPane userChoice;
+    private Label userChoiceLabel;
 
     private boolean stopGame;
     private boolean inTimeOut;
@@ -145,6 +167,9 @@ public class GameCtrl {
      * Resets the game
      */
     public void init() {
+        setJokers(true);
+        gridPane.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
+        //System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
         stopGame = false;
         lastRoundAnswered = -1;
         this.resetColors();
@@ -158,12 +183,13 @@ public class GameCtrl {
      * for the 2 types of questions where the user chooses one of 3 choices
      */
     public void threeChoicesEnable() {
-        this.choiceA.setVisible(true);
-        this.choiceB.setVisible(true);
-        this.choiceC.setVisible(true);
+        this.choiceOne.setVisible(true);
+        this.sliderValue.setVisible(false);
+        this.choiceTwo.setVisible(true);
+        this.choiceThree.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
-        this.correctAns.setVisible(false);
+        //this.correctAns.setVisible(false);
     }
 
     /**
@@ -171,22 +197,24 @@ public class GameCtrl {
      * the guessing type of question
      */
     public void guessEnable() {
-        this.choiceA.setVisible(false);
-        this.choiceB.setVisible(false);
-        this.choiceC.setVisible(false);
+        this.choiceOne.setVisible(false);
+        this.choiceTwo.setVisible(false);
+        this.sliderValue.setVisible(true);
+        this.choiceThree.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
-        this.correctAns.setVisible(false);
+        //this.correctAns.setVisible(false);
     }
 
     /**
      * This method is used to make the jokers invisible in singplayer games
+     * @param value whether to set to false or true
      */
-    public void disableJokers() {
-        this.guaranteeButton.setVisible(false);
-        this.eliminateWrongButton.setVisible(false);
-        this.doublePointsJokerButton.setVisible(false);
-        this.halfTimeJokerButton.setVisible(false);
+    public void setJokers(boolean value) {
+        //this.guaranteeButton.setVisible(false);
+        this.eliminateWrongButton.setVisible(value);
+        this.doublePointsJokerButton.setVisible(value);
+        this.halfTimeJokerButton.setVisible(value);
     }
 
     /**
@@ -246,7 +274,7 @@ public class GameCtrl {
             this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer(), trimmedGame.getQuestion().getType());
             if (trimmedGame.getRound().getTimer() == -4) {
                 this.resetColors();
-                haveYouVoted.setVisible(false);
+                //haveYouVoted.setVisible(false);
             }
             if (trimmedGame.getRound().getTimer() == -2 && !this.mainCtrl.isSingleplayerFlag()) {
                 this.getMultiplayerLeaderboard();
@@ -308,20 +336,19 @@ public class GameCtrl {
                 Platform.runLater(() -> {
                         TrimmedGame trimmedGame = pollGame(); // poll the game
                         this.currentTrimmedGame  = trimmedGame;
-                        showPlayers(trimmedGame);
+                        //showPlayers(trimmedGame);
 
                         try {
                             showReaction(trimmedGame.getReactionHistory()); // display all the reactions
                             displayScreen(trimmedGame);
                             if (this.mainCtrl.isSingleplayerFlag()) {
-                                this.disableJokers();
+                                this.setJokers(false);
                             }
                             // show round or timeout
                             //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
                         }
                         catch (IOException e) {
                             e.printStackTrace();
-
                         }
                 }
                 );
@@ -352,7 +379,7 @@ public class GameCtrl {
     //CHECKSTYLE:OFF
     public void loadReactions() {
         File folder = new File("client/src/main/resources/reactions");
-        System.out.println(folder);
+        //System.out.println(folder);
         // for the gradle run task
         if (folder.listFiles() == null) {folder = new File("src/main/resources/reactions");}
         List<ImageView> ls = new ArrayList<>();
@@ -365,6 +392,7 @@ public class GameCtrl {
             ls.add(new ImageView(new Image("reactions/"+f.getName())));
         }
         reactions.setItems(FXCollections.observableArrayList(ls));
+        reactions.setStyle("-fx-background-color: #0033cc");
         reactions.setCellFactory(param -> new ListCell<>() {
             private void send(String emoji) {
                 try {
@@ -424,7 +452,7 @@ public class GameCtrl {
 
         this.scoreLabel.setText(String.valueOf(myScore));
 
-        if(trimmedGame.getRound().getRound()  >lastRoundAnswered) answerLabel.setText("You have not answered");
+        if(trimmedGame.getRound().getRound() > lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
 
@@ -435,26 +463,34 @@ public class GameCtrl {
      */
     private void showRound(TrimmedGame trimmedGame, int realTimer) {
         answerLabel.setVisible(false);
-
         currentRoundLabel.setText("Current Round " + trimmedGame.getRound().getRound() + 1);
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
         try {
-            questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
+            questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().get(0).substring(26)));
         } catch (IllegalArgumentException e) {
-            questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl()).toURI().toString()));
+            questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl().get(0)).toURI().toString()));
         }
-
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
             case 1:
                 typeLabel.setText("How much energy does it take?");
                 break;
             case 2:
-                typeLabel.setText("Instead of ..., you could do instead ...");
+                typeLabel.setText("Which activity consumes less energy than the given one");
+
+                ImageView[] images = new ImageView[]{imageA, imageB, imageC};
+
+                for(int i = 0; i < 3; i++) {
+                    try {
+                        images[i].setImage(new Image(trimmedGame.getQuestion().getUrl().get(i+1).substring(26)));
+                    } catch (IllegalArgumentException e) {
+                        images[i].setImage(new Image(
+                                new File(trimmedGame.getQuestion().getUrl().get(i+1)).toURI().toString()));
+                    }
+                }
                 break;
         }
-
         if (trimmedGame.getQuestion().getType() == 1 || trimmedGame.getQuestion().getType() == 2) {
             this.threeChoicesEnable();
             if(trimmedGame.getQuestion().getAnswers().size() == 3) {
@@ -510,7 +546,7 @@ public class GameCtrl {
         String response = mainCtrl.httpToJSONString(http);
         //System.out.println(response);
         http.disconnect();
-        haveYouVoted.setVisible(true);
+        //haveYouVoted.setVisible(true);
 
         //System.out.println(response);
 
@@ -562,7 +598,8 @@ public class GameCtrl {
             this.sendAnswer("0");
 
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
-            this.userChoice = choiceA;
+            this.userChoice = choiceOne;
+            this.userChoiceLabel = choiceA;
             this.showYourAnswer();
         }
     }
@@ -575,7 +612,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("1");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
-            this.userChoice = choiceB;
+            this.userChoice = choiceTwo;
+            this.userChoiceLabel = choiceB;
             this.showYourAnswer();
         }
     }
@@ -588,27 +626,10 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("2");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
-            this.userChoice = choiceC;
+            this.userChoice = choiceThree;
+            this.userChoiceLabel = choiceC;
             this.showYourAnswer();
         }
-    }
-
-
-    /**
-     * @return the list of entries in the leaderboard from the server
-     * @throws IOException if the link is not valid
-     */
-    public LinkedList<commons.LeaderboardEntryCommons> getLeaderboard() throws IOException {
-        URL url = new URL(mainCtrl.getLink() + "leaderboard" );
-        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-        Gson g = new Gson();
-        String jsonString = mainCtrl.httpToJSONString(http);
-        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntryCommons>>(){}.getType();
-        //System.out.println(typeToken.getTypeName());
-        LinkedList<commons.LeaderboardEntryCommons> leaderboardList = g.fromJson(jsonString, typeToken);
-        http.disconnect();
-        //System.out.println(leaderboardList);
-        return leaderboardList;
     }
 
     /**
@@ -626,7 +647,7 @@ public class GameCtrl {
      * @param answer the string of the answer
      * @return the button that currently contains the correct answer
      */
-    public Button findCorrectChoice(String answer) {
+    public GridPane findCorrectChoice(String answer) {
         //I know this is not a very good way of solving this problem but it works
 //        System.out.println("This is the correct answer " + this.currentTrimmedGame.getCorrectAnswer() + "!");
 //        System.out.println("choice a " + choiceA.getText()+ "!");
@@ -634,13 +655,13 @@ public class GameCtrl {
 //        System.out.println("choice c " + choiceC.getText()+ "!");
 
         if (choiceA.getText().equals(answer)) {
-            return this.choiceA;
+            return this.choiceOne;
         }
         if (choiceB.getText().equals(answer)) {
-            return this.choiceB;
+            return this.choiceTwo;
         }
 
-        return this.choiceC;
+        return this.choiceThree;
     }
 
     /**
@@ -666,16 +687,24 @@ public class GameCtrl {
     public void showCorrectAnswer(String correctAnswer, int questType) {
         System.out.println(correctAnswer);
         if(questType == 0){
-            correctAns.setText("Correct answer: "+ correctAnswer+" Wh");
-            correctAns.setVisible(true);
+            sliderValue.setText("Correct answer: "+ correctAnswer+" Wh");
+            guessText.setValue(Double.parseDouble(correctAnswer));
+            //correctAns.setVisible(true);
         }
         else {
-            Button correctButton = this.findCorrectChoice(correctAnswer);
-            System.out.println(correctButton.getText());
+            GridPane correctButton = this.findCorrectChoice(correctAnswer);
+            //System.out.println(correctButton.getText());
             correctButton.setStyle("-fx-background-color: #16b211");
         }
     }
 
+    /**
+     * updates the value of the slider
+     */
+    @FXML
+    public void updateValue() {
+        sliderValue.setText(""+(int)Math.ceil(guessText.getValue()));
+    }
 
     /**
      * shows the style of
@@ -688,12 +717,12 @@ public class GameCtrl {
      *
      */
     public void resetColors() {
-        this.choiceA.setStyle("-fx-background-color: #ffffff");
-        this.choiceB.setStyle("-fx-background-color: #ffffff");
-        this.choiceC.setStyle("-fx-background-color: #ffffff");
-        this.choiceA.setVisible(true);
-        this.choiceB.setVisible(true);
-        this.choiceC.setVisible(true);
+        this.choiceOne.setStyle("-fx-background-color: #0033cc");
+        this.choiceTwo.setStyle("-fx-background-color: #0033cc");
+        this.choiceThree.setStyle("-fx-background-color: #0033cc");
+        this.choiceOne.setVisible(true);
+        this.choiceTwo.setVisible(true);
+        this.choiceThree.setVisible(true);
     }
 
     /**
@@ -724,9 +753,9 @@ public class GameCtrl {
      *
      */
     public void choicesDisappear() {
-        this.choiceA.setVisible(false);
-        this.choiceB.setVisible(false);
-        this.choiceC.setVisible(false);
+        this.choiceOne.setVisible(false);
+        this.choiceTwo.setVisible(false);
+        this.choiceThree.setVisible(false);
     }
 
 
@@ -735,7 +764,6 @@ public class GameCtrl {
      * @param response - response from server in String format
      */
     public void printAnswerCorrectness(String response) {
-
         answerLabel.setText("You received " + this.newPoints + " points!");
     }
 
@@ -743,9 +771,10 @@ public class GameCtrl {
      *
      */
     public void submitAnswer() throws IOException {
-        if(!(guessText.getText()==null) && this.checkCanAnswer()){
-            haveYouVoted.setVisible(true);
-            sendAnswer(guessText.getText());
+        if(this.checkCanAnswer()){
+            //haveYouVoted.setVisible(true);
+            //System.out.printf(guessText.getValue()+"");
+            sendAnswer((int)Math.ceil(guessText.getValue())+"");
             lastRoundAnswered = currentTrimmedGame.getRound().getRound();
         }
     }
@@ -770,6 +799,7 @@ public class GameCtrl {
             lb.setPrefHeight(50);
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
+            lb.setStyle("-fx-background-color: white");
             lb.setId("reaction");
             try {
                 Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/" + pair[1])
@@ -796,7 +826,7 @@ public class GameCtrl {
      */
     public void showLeaderboard() throws IOException {
         commons.LeaderboardEntryCommons myEntry = new commons.LeaderboardEntryCommons(this.mainCtrl.getName(), myScore);
-        this.mainCtrl.showLeaderboard(this.getLeaderboard(), myEntry);
+        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), myEntry);
     }
 
 
@@ -825,13 +855,13 @@ public class GameCtrl {
 //            System.out.println("user choice: " +  userChoice.getText());
 //            System.out.println("correct answer: " + this.currentTrimmedGame.getCorrectAnswer());
 //            System.out.println("question type " + this.currentTrimmedGame.getQuestionType());
-        if (!(userChoice.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) &&
+        if (!(userChoiceLabel.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) &&
         this.currentTrimmedGame.getQuestion().getType() != 0 &&
-        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText())){
+        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText())){
             System.out.println("sending right answer...");
             String choice = this.convertAnswerToChoice(currentTrimmedGame.getQuestion().getAnswer());
             this.sendAnswer(choice);
-            this.guaranteeButton.setVisible(false);
+            //this.guaranteeButton.setVisible(false);
         }
     }
 
@@ -842,7 +872,6 @@ public class GameCtrl {
      * @return a string of the number so that it can be easily used in communication
      */
     public String convertAnswerToChoice(String answer) {
-
         if (choiceA.getText().equals(answer)) {
             return "0";
         }
@@ -865,7 +894,7 @@ public class GameCtrl {
             return;
         }
 
-        if (this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText()) ||
+        if (this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText()) ||
                 (this.currentTrimmedGame.getQuestion().getType() == 0 &&
                         this.currentTrimmedGame.getRound().getRound() == lastRoundAnswered)){
 
@@ -925,20 +954,20 @@ public class GameCtrl {
         //System.out.println(this.currentTrimmedGame.getQuestionType());
         if (this.currentTrimmedGame.getQuestion().getType() != 0 &&
                 (this.userChoice == null ||
-                        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText()))) {
-            System.out.println("wrong answer can be deleted");
+                        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText()))) {
+            //System.out.println("wrong answer can be deleted");
             this.eliminateWrongButton.setVisible(false);
             if (!choiceA.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) {
-                choiceA.setVisible(false);
+                choiceOne.setVisible(false);
                 return;
             }
 
             else if (!choiceB.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) {
-                choiceB.setVisible(false);
+                choiceTwo.setVisible(false);
             }
 
             else {
-                choiceC.setVisible(false);
+                choiceThree.setVisible(false);
             }
         }
     }
