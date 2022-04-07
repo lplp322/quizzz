@@ -255,6 +255,7 @@ public class LobbyCtrl {
      * Exits the lobby and removes the player from it
      */
     public void exitLobby() {
+        mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + "multiplayer/delete/" + mainCtrl.getName());
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -275,6 +276,7 @@ public class LobbyCtrl {
      * Start the game
      */
     public void startGame() {
+        mainCtrl.playSound("success");
         try {
             URL url = new URL(mainCtrl.getLink() + "startGame/");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();

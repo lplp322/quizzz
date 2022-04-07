@@ -91,6 +91,7 @@ public class SplashCtrl {
      * shows the help label instructing the user how the game works
      */
     public void showHelp() {
+        mainCtrl.playSound("success");
         this.helpLabel.setWrapText(true);
 
         if (this.helpLabel.isVisible()) {
