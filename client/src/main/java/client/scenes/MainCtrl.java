@@ -156,7 +156,12 @@ public class MainCtrl {
      * Shows a waiting room before game begins
      */
     public void showWaitingRoom() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+
+        //Resizes new scene by calling the setWindowSize method
+        lobbyCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setTitle("Waiting room");
+
         lobbyCtrl.init();
         primaryStage.setScene(lobby);
     }

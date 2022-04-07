@@ -69,7 +69,10 @@ public class LobbyCtrl {
      */
     public void init() {
         //System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
-        gridP.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
+        //gridP.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
+
+        gridP.setPrefSize(1920, 1080);
+        //System.out.printf(gridP.getPrefWidth()+"");
         stopPolling = false;
         prevNames = null;
         Thread t = new Thread(() -> {
@@ -174,8 +177,8 @@ public class LobbyCtrl {
         double ratio = 0.15; // ratio between the current element to the next element
         int rotationStep = 0; // there are 4 steps that repeat in creating the sequence
 
-        double[] startColor = new double[]{255, 0, 0};
-        double[] endColor = new double[]{0, 0, 255};
+        double[] startColor = new double[]{0, 0, 0};
+        double[] endColor = new double[]{255, 255, 255};
         double[] colorDiff = new double[] { // how much we have to change to reach the second color
                 endColor[0] - startColor[0],
                 endColor[1] - startColor[1],
@@ -279,6 +282,15 @@ public class LobbyCtrl {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Changes the size of the AnchorPlane
+     * @param w
+     * @param h
+     */
+    public void setWindowSize(double w, double h){
+        screen.setPrefSize(w,h);
     }
 
     /**

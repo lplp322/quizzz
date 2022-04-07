@@ -221,9 +221,6 @@ public class ActivityViewerCtrl {
         this.updateEntries();
     }
 
-
-
-
 //    public void editActivity() throws IOException {
 //        System.out.println(this.descriptionText.getText());
 //        System.out.println(this.usageText.getText());
