@@ -68,8 +68,8 @@ public class LobbyCtrl {
      * Starts polling for lobby info
      */
     public void init() {
-        System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
-        gridP.setPrefSize(mainCtrl.WIDTH, mainCtrl.HEIGHT);
+        //System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
+        gridP.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
         stopPolling = false;
         prevNames = null;
         Thread t = new Thread(() -> {
