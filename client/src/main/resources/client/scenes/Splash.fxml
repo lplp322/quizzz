@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1009.0" style="-fx-background-size: cover; -fx-background-color: red;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SplashCtrl">
+<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1009.0" style="-fx-background-size: cover; -fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SplashCtrl">
    <children>
       <AnchorPane prefHeight="577.0" prefWidth="973.0" style="-fx-background-image: url('./images/ESA_root_pillars.jpg'); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
@@ -18,12 +18,12 @@
           <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" prefWidth="75.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="251.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="201.33333333333334" minHeight="10.0" prefHeight="192.33333333333334" valignment="TOP" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="259.33333333333337" minHeight="10.0" prefHeight="240.33334859212243" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="304.3333638509115" minHeight="10.0" prefHeight="304.3333638509115" valignment="TOP" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="159.33333333333337" minHeight="10.0" prefHeight="61.999969482421875" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane opacity="0.72" prefHeight="301.0" prefWidth="377.0" style="-fx-background-color: white;" GridPane.rowIndex="1">
+            <Pane opacity="0.88" prefHeight="239.0" prefWidth="377.0" style="-fx-background-color: linear-gradient(#ffffff, #b8b8b8);" GridPane.rowIndex="1">
                <effect>
                   <DropShadow offsetX="5.0" offsetY="5.0">
                      <color>
@@ -36,20 +36,72 @@
                <effect>
                   <DropShadow offsetX="5.0" offsetY="5.0">
                      <color>
-                        <Color opacity="0.3304842710494995" />
+                        <Color opacity="0.18803419172763824" />
                      </color>
                   </DropShadow>
                </effect>
                <children>
-                  <Button fx:id="multiplayerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="107.0" mnemonicParsing="false" onAction="#multiPlayer" opacity="0.96" prefHeight="80.0" prefWidth="347.0" text="Play Multiplayer" textAlignment="CENTER">
+                  <Button fx:id="multiplayerButton" contentDisplay="CENTER" layoutX="17.0" layoutY="107.0" mnemonicParsing="false" onAction="#multiPlayer" opacity="0.96" prefHeight="80.0" prefWidth="347.0" text="          Play Multiplayer" textAlignment="RIGHT">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="29.0" />
+                        <Font name="Century Gothic Bold" size="29.0" />
                      </font>
+                     <graphic>
+                        <Pane prefHeight="87.0" prefWidth="352.0">
+                           <children>
+                              <Pane layoutX="14.0" layoutY="13.0" prefHeight="61.0" prefWidth="64.0" style="-fx-background-image: url(./images/multiplayer.png); -fx-background-size: cover;" />
+                           </children>
+                        </Pane>
+                     </graphic>
                   </Button>
-                  <Button fx:id="singleplayerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#singlePlayer" opacity="0.94" prefHeight="86.0" prefWidth="347.0" text="Play Singleplayer" textAlignment="CENTER">
+                  <Button fx:id="singleplayerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#singlePlayer" opacity="0.94" prefHeight="86.0" prefWidth="347.0" text="       Play Singleplayer" textAlignment="CENTER">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="29.0" />
+                        <Font name="Century Gothic Bold" size="29.0" />
                      </font>
+                     <graphic>
+                        <Pane prefHeight="78.0" prefWidth="339.0">
+                           <children>
+                              <Pane layoutX="8.0" layoutY="11.0" prefHeight="57.0" prefWidth="60.0" style="-fx-background-image: url(./images/singleplayer.png); -fx-background-size: cover;" />
+                           </children>
+                        </Pane>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="17.0" layoutY="214.0" mnemonicParsing="false" onAction="#showActivityViewer" prefHeight="64.0" prefWidth="165.0" style="-fx-background-image: url(http://throneofstring.com/wp-content/uploads/2014/12/Caution-Tape.png); -fx-background-size: cover;" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                     </font>
+                     <effect>
+                        <Lighting diffuseConstant="1.57" specularConstant="0.76" specularExponent="19.07" surfaceScale="3.98">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant azimuth="53.37" elevation="128.72" />
+                           </light>
+                        </Lighting>
+                     </effect>
+                     <graphic>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="121.0" text="ADMIN" textFill="#ebc000">
+                                 <font>
+                                    <Font name="Century Gothic Bold Italic" size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="helpButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="198.0" layoutY="214.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="64.0" prefWidth="165.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="        Exit">
+                     <font>
+                        <Font name="Century Gothic Bold" size="23.0" />
+                     </font>
+                     <graphic>
+                        <Pane prefHeight="65.0" prefWidth="152.0">
+                           <children>
+                              <Pane layoutY="8.0" prefHeight="49.0" prefWidth="55.0" style="-fx-background-image: url(./images/exit.png); -fx-background-size: cover;" />
+                           </children>
+                        </Pane>
+                     </graphic>
                   </Button>
                </children>
             </Pane>
@@ -58,37 +110,6 @@
                   <Font name="Century Gothic Bold" size="96.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#showActivityViewer" prefHeight="48.0" prefWidth="222.0" style="-fx-background-image: url(http://throneofstring.com/wp-content/uploads/2014/12/Caution-Tape.png); -fx-background-size: cover;" textFill="WHITE" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Century Gothic Bold" size="17.0" />
-               </font>
-               <effect>
-                  <Lighting diffuseConstant="1.57" specularConstant="0.76" specularExponent="19.07" surfaceScale="3.98">
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant azimuth="53.37" elevation="128.72" />
-                     </light>
-                  </Lighting>
-               </effect>
-               <graphic>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="2.0" prefHeight="17.0" prefWidth="192.0" text="Activity Viewer" textFill="#ebc000">
-                           <font>
-                              <Font name="Century Gothic Bold Italic" size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </graphic>
-            </Button>
-            <Button fx:id="helpButton" mnemonicParsing="false" onAction="#showHelp" prefHeight="26.0" prefWidth="53.0" text="Help" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
          </children>
       </GridPane>
    </children>
