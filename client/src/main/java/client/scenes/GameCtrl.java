@@ -245,8 +245,7 @@ public class GameCtrl {
             showTimeout(trimmedGame);
             this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer(), trimmedGame.getQuestion().getType());
             if (trimmedGame.getRound().getTimer() == -4) {
-                this.resetColors();
-                //haveYouVoted.setVisible(false);
+                if(trimmedGame.getQuestion().getType()!=0) this.resetColors();
             }
             if (trimmedGame.getRound().getTimer() == -2 && !this.mainCtrl.isSingleplayerFlag()) {
                 GameUtils.getMultiplayerLeaderboard(myScore, currentTrimmedGame);
@@ -407,15 +406,19 @@ public class GameCtrl {
         } catch (IllegalArgumentException e) {
             questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl().get(0)).toURI().toString()));
         }
+        ImageView[] images = new ImageView[]{imageA, imageB, imageC};
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
             case 1:
                 typeLabel.setText("How much energy does it take?");
+
+                for(int i = 0; i < 3; i++) {
+                    images[i].setImage(new Image("./ClientImages/"+(i+1)+"_choice.png"));
+                }
+
                 break;
             case 2:
-                typeLabel.setText("Which activity consumes less energy than the given one");
-
-                ImageView[] images = new ImageView[]{imageA, imageB, imageC};
+                typeLabel.setText("Which activity consumes more energy than the given one");
 
                 for(int i = 0; i < 3; i++) {
                     try {
@@ -449,6 +452,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void sendAnswer(String answer) throws IOException {
+        System.out.printf(answer);
         mainCtrl.playSound("success");
         URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +

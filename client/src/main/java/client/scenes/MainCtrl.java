@@ -189,14 +189,14 @@ public class MainCtrl {
     public void showLeaderboard(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons myResult, int round) {
         if(primaryStage.getScene()!=null){
             Scene currentScene = primaryStage.getScene();   //Gets current scene
-
+            leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         }
         if(round == 19) {
             leaderboardCtrl.showLobby();
         } else {
             leaderboardCtrl.disableLobby();
         }
-        leaderboardCtrl.setWindowSize(1920,1080);
+
         primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
