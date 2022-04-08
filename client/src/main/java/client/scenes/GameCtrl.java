@@ -728,10 +728,7 @@ public class GameCtrl {
         if (userChoice == null) {
             return;
         }
-//            System.out.println("user choice: " +  userChoice.getText());
-//            System.out.println("correct answer: " + this.currentTrimmedGame.getCorrectAnswer());
-//            System.out.println("question type " + this.currentTrimmedGame.getQuestionType());
-        if (!(userChoiceLabel.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) &&
+        if (
         this.currentTrimmedGame.getQuestion().getType() != 0 &&
         this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText())){
             System.out.println("sending right answer...");
@@ -791,7 +788,6 @@ public class GameCtrl {
             this.myScore = Integer.parseInt(jsonString);
             printAnswerCorrectness(null);
         }
-
     }
 
     /**
