@@ -436,7 +436,4 @@ public class MainCtrl {
             }
         });
     }
-
-
-
 }

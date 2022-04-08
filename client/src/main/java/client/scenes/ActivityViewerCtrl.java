@@ -91,6 +91,7 @@ public class ActivityViewerCtrl {
      */
     @FXML
     public void updateEntries() throws IOException {
+        mainCtrl.playSound("success");
         URL activityReceive = new URL(mainCtrl.getLink()+"admin/activities");
 //        System.out.println(mainCtrl.getLink()+"admin/activities");
         HttpURLConnection http = (HttpURLConnection) activityReceive.openConnection();
@@ -129,6 +130,7 @@ public class ActivityViewerCtrl {
      * @throws IOException if the url is for the communication is invalid
      */
     public void submitActivity() throws IOException {
+        mainCtrl.playSound("success");
         //System.out.println(this.descriptionText.getText());
         //System.out.println(this.usageText.getText());
 
@@ -202,6 +204,7 @@ public class ActivityViewerCtrl {
      * Delete an activity with the given id in the db
      */
     public void deleteActivity() throws IOException {
+        mainCtrl.playSound("success");
         URL url = new URL(mainCtrl.getLink() + "admin/delete_activity/" + this.idText.getText());
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setRequestMethod("DELETE");
@@ -215,6 +218,7 @@ public class ActivityViewerCtrl {
      * @throws IOException if the url is invalid
      */
     public void editActivity() throws IOException {
+        mainCtrl.playSound("success");
         this.deleteActivity();
         this.submitActivity();
         this.clearTexts();
