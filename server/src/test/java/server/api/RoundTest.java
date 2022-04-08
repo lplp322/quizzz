@@ -10,7 +10,7 @@ public class RoundTest {
     private Round round;
     @BeforeEach
     public void init() {
-        round = new Round();
+        round = new Round(12);
     }
     @Test
     public void testOneTickDown() {

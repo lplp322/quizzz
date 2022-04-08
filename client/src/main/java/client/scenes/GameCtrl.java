@@ -149,7 +149,7 @@ public class GameCtrl {
 
     private int reactionSize = 0;
 
-    private int sliderRound = 0 ;
+    private int sliderRound = -1 ;
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
@@ -185,12 +185,12 @@ public class GameCtrl {
      * for the 2 types of questions where the user chooses one of 3 choices
      */
     public void threeChoicesEnable() {
-        this.choiceOne.setVisible(true);
-        this.sliderValue.setVisible(false);
-        this.choiceTwo.setVisible(true);
-        this.choiceThree.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
+        this.sliderValue.setVisible(false);
+        this.choiceOne.setVisible(true);
+        this.choiceTwo.setVisible(true);
+        this.choiceThree.setVisible(true);
         //this.correctAns.setVisible(false);
     }
 
