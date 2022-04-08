@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backGround" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-color: grey;" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
+<AnchorPane fx:id="backGround" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-color: grey;" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
    <children>
-      <AnchorPane prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(&quot;client/scenes/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
             <GaussianBlur radius="11.97" />
          </effect>
@@ -131,17 +131,17 @@
                      <children>
                         <ImageView fx:id="halfTimeJokerButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#sendHalfJoker" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ClientImages/half-time.png" />
+                              <Image url="@/ClientImages/half-time.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="doublePointsJokerButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#sendDoublePoints" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ClientImages/double-points.png" />
+                              <Image url="@/ClientImages/double-points.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="eliminateWrongButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#eliminateWrongAnswer" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ClientImages/eliminate-one.png" />
+                              <Image url="@/ClientImages/eliminate-one.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -168,7 +168,7 @@
                   </GridPane>
                   <ImageView fx:id="submitButton" fitHeight="80.0" fitWidth="80.0" layoutY="100.0" onMouseClicked="#submitAnswer" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@./ClientImages/submit.png" />
+                        <Image url="@../../ClientImages/submit.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="430.0" top="55.0" />
@@ -244,7 +244,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="72.66667556762695" minHeight="41.33333969116211" prefHeight="72.66667556762695" valignment="CENTER" vgrow="NEVER" />
@@ -258,7 +258,7 @@
                            <children>
                               <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="7.0" layoutY="6.0" onMouseClicked="#exitGame" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@./ClientImages/exit.png" />
+                                    <Image url="@../../ClientImages/exit.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -268,16 +268,16 @@
                         <Font name="Century Gothic Bold" size="33.0" />
                      </font>
                   </Button>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                     <children>
-                        <ListView layoutX="56.0" layoutY="14.0" prefHeight="423.0" prefWidth="194.0" />
-                     </children>
-                  </Pane>
                   <Label text="Players/HighScore" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic Bold" size="21.0" />
                      </font>
                   </Label>
+                  <ScrollPane prefHeight="494.0" prefWidth="212.0" style="-fx-background-color: transparent;" GridPane.rowIndex="1">
+                    <content>
+                      <AnchorPane fx:id="playerList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
                </children>
             </GridPane>
          </children>

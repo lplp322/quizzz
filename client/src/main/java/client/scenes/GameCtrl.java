@@ -304,7 +304,7 @@ public class GameCtrl {
             label.setPrefHeight(height);
             label.setAlignment(Pos.CENTER);
 
-            String color = "white";
+            String color = "black";
             if(temp.isDisconnected()) {
                 color = "red";
             }
@@ -336,7 +336,7 @@ public class GameCtrl {
                 Platform.runLater(() -> {
                         TrimmedGame trimmedGame = pollGame(); // poll the game
                         this.currentTrimmedGame  = trimmedGame;
-                        //showPlayers(trimmedGame);
+                        showPlayers(trimmedGame);
 
                         try {
                             showReaction(trimmedGame.getReactionHistory()); // display all the reactions

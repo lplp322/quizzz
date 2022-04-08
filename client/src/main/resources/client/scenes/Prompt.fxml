@@ -46,12 +46,12 @@
                   </Label>
                   <ImageView fitHeight="91.0" fitWidth="91.0" layoutX="348.0" layoutY="199.0" onMouseClicked="#onClickStart" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@./ClientImages/start.png" />
+                        <Image url="@../../ClientImages/start.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="91.0" fitWidth="91.0" layoutX="61.0" layoutY="199.0" onMouseClicked="#onClickMenu" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@./ClientImages/exit.png" />
+                        <Image url="@../../ClientImages/exit.png" />
                      </image>
                   </ImageView>
                </children>
