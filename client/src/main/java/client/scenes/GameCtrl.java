@@ -580,7 +580,7 @@ public class GameCtrl {
         if (userChoice == null) {
             return;
         }
-        if (!(userChoice.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) &&
+        if (
         this.currentTrimmedGame.getQuestion().getType() != 0 &&
         this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText())){
             String choice = this.convertAnswerToChoice(currentTrimmedGame.getQuestion().getAnswer());
@@ -626,7 +626,6 @@ public class GameCtrl {
             this.myScore = Integer.parseInt(jsonString);
             printAnswerCorrectness(null);
         }
-
     }
 
     /**
