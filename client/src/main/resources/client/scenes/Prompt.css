@@ -1,0 +1,10 @@
+@import "Style.css";
+
+#mainWindow {
+    -fx-background-color: delftBlue;
+}
+
+#menuButton, #startButton {
+    -fx-background-color: blackButton;
+    -fx-text-fill: white;
+}

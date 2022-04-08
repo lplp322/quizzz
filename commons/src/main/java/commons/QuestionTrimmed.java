@@ -7,7 +7,7 @@ public class QuestionTrimmed {
     private List<String> answers;
     private int type;
     private String answer;
-    private String url;
+    private List<String> url;
 
     /**
      * 
@@ -17,7 +17,7 @@ public class QuestionTrimmed {
      * @param answer the correct answer for the question
      * @param url the url for the image
      */
-    public QuestionTrimmed(String question, List<String> answers, int type, String answer, String url) {
+    public QuestionTrimmed(String question, List<String> answers, int type, String answer, List<String> url) {
         this.question = question;
         this.answers = answers;
         this.type = type;
@@ -61,7 +61,7 @@ public class QuestionTrimmed {
      * returns the url
      * @return url
      */
-    public String getUrl() {
+    public List<String> getUrl() {
         return url;
     }
 }

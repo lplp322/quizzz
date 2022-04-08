@@ -1,0 +1,5 @@
+@import "Style.css";
+
+#mainWindow, #background {
+    -fx-background-color: delftBlue;
+}

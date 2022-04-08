@@ -1,107 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxWidth="1009.0" minWidth="1009.0" prefHeight="610.0" prefWidth="1009.0" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
+<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-color: grey;" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
    <children>
-    <AnchorPane fx:id="leftPanel" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="260.0">
-         <children>
-            <Button fx:id="quitGameButton" layoutX="62.0" layoutY="553.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="42.0" prefWidth="120.0" text="Quit Game">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font></Button>
-            <Label alignment="CENTER" layoutX="-1.0" layoutY="22.0" prefHeight="29.0" prefWidth="260.0" text="Players" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ScrollPane fx:id="scrollPanel" layoutY="85.0" prefHeight="457.0" prefWidth="260.0">
-              <content>
-                <AnchorPane fx:id="playerList" minHeight="363.0" minWidth="258.0" prefHeight="454.0" prefWidth="258.0" />
-              </content>
-            </ScrollPane>
-         </children>
+      <AnchorPane prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <effect>
+            <GaussianBlur radius="11.97" />
+         </effect>
       </AnchorPane>
-    <AnchorPane layoutX="255.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="756.0">
+      <GridPane gridLinesVisible="true" prefHeight="680.0" prefWidth="1124.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" maxWidth="557.3333129882812" minWidth="10.0" prefWidth="303.3333740234375" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="820.6666259765625" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label fx:id="typeLabel" layoutX="343.0" layoutY="124.0" prefHeight="240.0" prefWidth="207.0" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
-            <Button fx:id="choiceA" alignment="CENTER" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="12.0" />
-               </font></Button>
-            <Button fx:id="choiceB" alignment="CENTER" layoutX="272.0" layoutY="482.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="12.0" />
-               </font></Button>
-            <Button fx:id="choiceC" alignment="CENTER" layoutX="272.0" layoutY="523.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="12.0" />
-               </font></Button>
-            <ToolBar fx:id="upperPanel" layoutX="4.0" prefHeight="63.0" prefWidth="750.0">
-               <items>
-                  <Label fx:id="currentRoundLabel" prefHeight="27.0" prefWidth="338.0" text="Current Round:" />
-                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="273.0" text="Timer: " />
-                  <Label prefHeight="17.0" prefWidth="57.0" text="Reactions" />
-                  <ComboBox fx:id="reactions" prefHeight="47.0" prefWidth="54.0" />
-               </items>
-            </ToolBar>
-
-            <Button id="halfTimeJokerButtonhalfTimeJokerButton" fx:id="halfTimeJokerButton" layoutX="73.0" layoutY="566.0" mnemonicParsing="false" onAction="#sendHalfJoker" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
-            <Button id="doublePointsJokerButtondoublePointsJokerButton" fx:id="doublePointsJokerButton" layoutX="263.0" layoutY="566.0" mnemonicParsing="false" onAction="#sendDoublePoints" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
-            <Button id="eliminateWrongButtoneliminateWrongButton" fx:id="eliminateWrongButton" layoutX="446.0" layoutY="566.0" mnemonicParsing="false" onAction="#eliminateWrongAnswer" prefHeight="29.0" prefWidth="128.0" text="Eliminate Wrong Answer">
-               <font>
-                  <Font size="10.0" />
-               </font></Button>
-            <TextField fx:id="guessText" layoutX="327.0" layoutY="483.0" promptText="Enter Your Guess " />
-            <Button fx:id="submitButton" layoutX="561.0" layoutY="482.0" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="27.0" prefWidth="72.0" text="Submit" />
-            <Label fx:id="answerLabel" alignment="CENTER" layoutX="286.0" layoutY="413.0" prefHeight="19.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
-            <Text fx:id="haveYouVoted" layoutX="300.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have voted" textAlignment="CENTER" visible="false" wrappingWidth="137.6373197289131">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <VBox fx:id="reactionBox" layoutX="561.0" layoutY="66.0" prefHeight="266.0" prefWidth="185.0" />
-            <Button id="guaranteeButtonguaranteeButton" fx:id="guaranteeButton" layoutX="605.0" layoutY="568.0" mnemonicParsing="false" onAction="#sendCorrectAnswer" prefHeight="26.0" prefWidth="109.0" text="Guarantee correct answer">
-               <font>
-                  <Font size="8.0" />
-               </font>
-            </Button>
-            <AnchorPane fx:id="questionAnchor" layoutX="25.0" layoutY="111.0" prefHeight="266.0" prefWidth="307.0">
+            <GridPane fx:id="gridPane" alignment="TOP_RIGHT" prefHeight="680.0" prefWidth="1124.0" GridPane.columnIndex="1">
+              <columnConstraints>
+                  <ColumnConstraints />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="536.3333333333334" minWidth="10.0" prefWidth="536.3333333333334" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="159.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+                  <RowConstraints />
+                <RowConstraints maxHeight="41.33332824707031" minHeight="30.0" prefHeight="36.666656494140625" valignment="CENTER" vgrow="NEVER" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="77.68006042111881" prefHeight="89.00001017252605" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="264.3333231608073" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="287.5654987873237" vgrow="ALWAYS" />
+              </rowConstraints>
                <children>
-                  <Label fx:id="questionLabel" alignment="CENTER" layoutX="3.0" layoutY="182.0" prefHeight="80.0" prefWidth="307.0" text="Example Question" textAlignment="CENTER" wrapText="true">
+                  <VBox fx:id="reactionBox" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Pane opacity="0.7" prefHeight="30.0" prefWidth="1217.0" style="-fx-background-color: linear-gradient(#ffffff, #ababab);" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <Label fx:id="timerLabel" alignment="CENTER" layoutY="2.0" prefHeight="32.0" prefWidth="167.0" text="Label" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Century Gothic Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="currentRoundLabel" alignment="CENTER" layoutX="225.0" layoutY="2.0" prefHeight="32.0" prefWidth="287.0" text="Label" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Century Gothic Bold" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="225.0" prefWidth="600.0" spacing="29.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <children>
+                        <GridPane fx:id="choiceOne" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#choiceASend" prefHeight="135.0" prefWidth="200.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="115.1780811404179" minHeight="10.0" prefHeight="101.85172615994915" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="58.566915995530195" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="choiceA" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="95.0" prefWidth="157.0" text="asd" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="imageA" fitHeight="81.0" fitWidth="144.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </ImageView>
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="choiceTwo" onMouseClicked="#choiceBSend" prefHeight="135.0" prefWidth="200.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="101.85172615994915" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="58.566915995530195" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label fx:id="choiceB" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="asd" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="imageB" fitHeight="81.0" fitWidth="144.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="choiceThree" onMouseClicked="#choiceCSend" prefHeight="135.0" prefWidth="200.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="1211.0" minHeight="10.0" prefHeight="101.85172615994915" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="58.566915995530195" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label fx:id="choiceC" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="asd" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="imageC" fitHeight="81.0" fitWidth="144.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                     <children>
+                        <ImageView fx:id="halfTimeJokerButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#sendHalfJoker" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/ClientImages/half-time.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="doublePointsJokerButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#sendDoublePoints" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/ClientImages/double-points.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="eliminateWrongButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#eliminateWrongAnswer" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/ClientImages/eliminate-one.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" />
+                     </GridPane.margin>
+                  </HBox>
+                  <GridPane fx:id="questionPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="238.92307089672283" minHeight="10.0" prefHeight="238.92307089672283" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="108.13395272244918" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="questionLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="88.0" prefWidth="469.0" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="questionImage" fitHeight="238.0" fitWidth="513.0" pickOnBounds="true" />
+                     </children>
+                  </GridPane>
+                  <ImageView fx:id="submitButton" fitHeight="80.0" fitWidth="80.0" layoutY="100.0" onMouseClicked="#submitAnswer" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../ClientImages/submit.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="430.0" top="55.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <Slider fx:id="guessText" blockIncrement="1.0" majorTickUnit="1.0" max="10000.0" minorTickCount="1" onMouseDragged="#updateValue" onMouseEntered="#updateValue" prefHeight="15.0" prefWidth="350.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="40.0" />
+                     </padding>
+                  </Slider>
+                  <Label fx:id="typeLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="65.0" prefWidth="528.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
-                        <Font name="Arial Black" size="17.0" />
+                        <Font size="38.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="questionImage" fitHeight="177.0" fitWidth="301.0" layoutX="6.0" layoutY="11.0" pickOnBounds="true" />
+                  <Label fx:id="sliderValue" alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="338.0" text="0" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="scoreLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="scoreLabel1" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Your score:" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="300.0" />
+                     </padding>
+                  </GridPane>
+                  <Label fx:id="answerLabel" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <padding>
+                        <Insets top="250.0" />
+                     </padding>
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Pane opacity="0.7" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#ffffff, #ababab);" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Pane opacity="0.7" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#ffffff, #ababab);" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="reactions" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
-            </AnchorPane>
-            <AnchorPane layoutX="25.0" layoutY="380.0" prefHeight="90.0" prefWidth="186.0">
+            </GridPane>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url(&quot;./ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;">
+               <effect>
+                  <GaussianBlur radius="43.96" />
+               </effect>
+            </Pane>
+            <Pane opacity="0.37" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#383838, #1a1a1a);" />
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="72.66667556762695" minHeight="41.33333969116211" prefHeight="72.66667556762695" valignment="CENTER" vgrow="NEVER" />
+                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="112.66666666666663" minHeight="112.66666666666663" prefHeight="112.66666666666663" vgrow="NEVER" />
+              </rowConstraints>
                <children>
-                  <Label layoutX="47.0" layoutY="75.0" prefHeight="42.0" prefWidth="97.0" text="Score">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#exitGame" prefHeight="69.0" prefWidth="209.0" style="-fx-background-color: linear-gradient(#c71a1a, #8f1515);" text="    Quit" GridPane.rowIndex="2">
+                     <graphic>
+                        <Pane prefHeight="62.0" prefWidth="197.0">
+                           <children>
+                              <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="7.0" layoutY="6.0" onMouseClicked="#exitGame" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../ClientImages/exit.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </graphic>
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Century Gothic Bold" size="33.0" />
+                     </font>
+                  </Button>
+                  <Label text="Players/HighScore" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic Bold" size="21.0" />
                      </font>
                   </Label>
-                  <Label fx:id="scoreLabel" layoutX="47.0" layoutY="111.0" prefHeight="64.0" prefWidth="98.0" text="0">
-                     <font>
-                        <Font size="34.0" />
-                     </font>
-                  </Label>
+                  <ScrollPane prefHeight="494.0" prefWidth="212.0" style="-fx-background-color: transparent;" GridPane.rowIndex="1">
+                    <content>
+                      <AnchorPane fx:id="playerList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
                </children>
-            </AnchorPane>
-            <Label fx:id="correctAns" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="528.0" text="Correct answer: " textFill="#5d96d9">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
+            </GridPane>
          </children>
-      </AnchorPane>
+      </GridPane>
    </children>
 </AnchorPane>

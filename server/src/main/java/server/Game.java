@@ -12,7 +12,6 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.Collections;
 
-
 public class Game implements Runnable{
     private Map<String, Player> players;
     private int lobbyId;
@@ -33,7 +32,7 @@ public class Game implements Runnable{
         this.players = players;
         this.lobbyId = lobbyId;
         this.gameType = gameType;
-        round = new Round();
+        round = new Round(players.size());
         this.reactions = reactions;
 
         questions = new ArrayList<>();
@@ -54,6 +53,7 @@ public class Game implements Runnable{
      */
     public void disconnectPlayer(String name) {
         players.get(name).setDisconnected(true);
+        round.fastForwardRound();
     }
 
     /**
@@ -174,6 +174,7 @@ public class Game implements Runnable{
         //System.out.println("Round: "+ getRound().getRound());
         //System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
         if(getRound().getRound() == round){
+            getRound().playerAnswered();
             Question currQuestion = questions.get(getRound().getRound());
             //System.out.println("Question type " + currQuestion.getType());
             if(currQuestion.getType() == 0){

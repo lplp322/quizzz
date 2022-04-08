@@ -9,56 +9,70 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class GameCtrl {
     @FXML
-    private Button choiceA;
+    private AnchorPane mainWindow;
+
+    @FXML
+    private Label choiceA;
 
     @FXML
     private Label questionLabel;
 
     @FXML
-    private Button choiceB;
+    private Label choiceB;
 
     @FXML
-    private Button choiceC;
+    private Label choiceC;
 
     @FXML
-    private Button halfTimeJokerButton;
+    private ImageView halfTimeJokerButton;
 
     @FXML
-    private Button doublePointsJokerButton;
+    private ImageView doublePointsJokerButton;
 
     @FXML
-    private Button eliminateWrongButton;
+    private ImageView eliminateWrongButton;
 
     @FXML
     private AnchorPane playerList;
 
     @FXML
-    private TextField guessText;
+    private Slider guessText;
 
     @FXML
-    private Button submitButton;
+    private ImageView imageA;
+
+    @FXML
+    private ImageView imageB;
+
+    @FXML
+    private ImageView imageC;
+
+    @FXML
+    private ImageView submitButton;
 
     @FXML
     private Label currentRoundLabel;
@@ -70,7 +84,13 @@ public class GameCtrl {
     private Label answerLabel;
 
     @FXML
-    private Text haveYouVoted;
+    private GridPane choiceOne;
+
+    @FXML
+    private GridPane choiceTwo;
+
+    @FXML
+    private GridPane choiceThree;
 
     @FXML
     private ComboBox<ImageView> reactions;
@@ -81,8 +101,11 @@ public class GameCtrl {
     @FXML
     private Label scoreLabel;
 
+    //@FXML
+    //private Button guaranteeButton;
+
     @FXML
-    private Button guaranteeButton;
+    private Label sliderValue;
 
     @FXML
     private ImageView questionImage;
@@ -91,17 +114,33 @@ public class GameCtrl {
     private Label typeLabel;
 
     @FXML
-    private Label correctAns;
+    private ScrollPane scrollPane;
+
+    //@FXML
+    //private Label correctAns;
+
+    @FXML
+    private GridPane gridPane;
 
     private MainCtrl mainCtrl;
     private static int lastRoundAnswered = -1;
-    private Button userChoice;
+
+    private GridPane userChoice;
+    private Label userChoiceLabel;
+
     private boolean stopGame;
     private boolean inTimeOut;
     private TrimmedGame currentTrimmedGame;
     private int myScore;
     private int newPoints = 0;
     private int reactionSize = 0;
+
+    private int sliderRound = -1 ;
+
+//    public MostPowerCtrl(MainCtrl mainCtrl) {
+//        this.mainCtrl = mainCtrl;
+//        this.threeChoicesEnable();
+//    }
 
     /**
      * Injecting mainCtrl
@@ -116,6 +155,9 @@ public class GameCtrl {
      * Resets the game
      */
     public void init() {
+        setJokers(true);
+        //gridPane.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
+        //System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
         stopGame = false;
         lastRoundAnswered = -1;
         this.resetColors();
@@ -128,35 +170,52 @@ public class GameCtrl {
      * for the 2 types of questions where the user chooses one of 3 choices
      */
     public void threeChoicesEnable() {
-        this.choiceA.setVisible(true);
-        this.choiceB.setVisible(true);
-        this.choiceC.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
-        this.correctAns.setVisible(false);
+        this.sliderValue.setVisible(false);
+        this.choiceOne.setVisible(true);
+        this.choiceTwo.setVisible(true);
+        this.choiceThree.setVisible(true);
+        //this.correctAns.setVisible(false);
     }
 
     /**
      * This method changes the FXML so that the user only sees the appropriate information for
      * the guessing type of question
+     * @param answer
+     * @param round
      */
-    public void guessEnable() {
-        this.choiceA.setVisible(false);
-        this.choiceB.setVisible(false);
-        this.choiceC.setVisible(false);
+    public void guessEnable(String answer, int round) {
+        //set up the slider min max values
+        System.out.println(answer);
+        if(round>sliderRound) {
+            double rand1 = Math.random();
+            double rand2 = Math.random() + 1;
+            int ans = Integer.parseInt(answer);
+            guessText.setMin(rand1 * 0.3 * ans);
+            guessText.setMax(rand2 * 4 * ans);
+            guessText.setValue(rand1 * 0.3 * ans);
+            sliderRound = round;
+        }
+        this.choiceOne.setVisible(false);
+        this.choiceTwo.setVisible(false);
+        this.sliderValue.setVisible(true);
+        this.choiceThree.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
-        this.correctAns.setVisible(false);
+        //this.correctAns.setVisible(false);
+
     }
 
     /**
      * This method is used to make the jokers invisible in singplayer games
+     * @param value whether to set to false or true
      */
-    public void disableJokers() {
-        this.guaranteeButton.setVisible(false);
-        this.eliminateWrongButton.setVisible(false);
-        this.doublePointsJokerButton.setVisible(false);
-        this.halfTimeJokerButton.setVisible(false);
+    public void setJokers(boolean value) {
+        //this.guaranteeButton.setVisible(false);
+        this.eliminateWrongButton.setVisible(value);
+        this.doublePointsJokerButton.setVisible(value);
+        this.halfTimeJokerButton.setVisible(value);
     }
 
     /**
@@ -187,7 +246,7 @@ public class GameCtrl {
             this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer(), trimmedGame.getQuestion().getType());
             if (trimmedGame.getRound().getTimer() == -4) {
                 this.resetColors();
-                haveYouVoted.setVisible(false);
+                //haveYouVoted.setVisible(false);
             }
             if (trimmedGame.getRound().getTimer() == -2 && !this.mainCtrl.isSingleplayerFlag()) {
                 GameUtils.getMultiplayerLeaderboard(myScore);
@@ -213,7 +272,8 @@ public class GameCtrl {
             label.setPrefWidth(width);
             label.setPrefHeight(height);
             label.setAlignment(Pos.CENTER);
-            String color = "white";
+
+            String color = "black";
             if(temp.isDisconnected()) {
                 color = "red";
             }
@@ -237,20 +297,24 @@ public class GameCtrl {
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
-                    TrimmedGame trimmedGame = GameUtils.pollGame(); // poll the game
-                    this.currentTrimmedGame  = trimmedGame;
-                    showPlayers(trimmedGame);
-                    try {
-                        showReaction(trimmedGame.getReactionHistory()); // display all the reactions
-                        displayScreen(trimmedGame);
-                        if (this.mainCtrl.isSingleplayerFlag()) {
-                            this.disableJokers();
+                        TrimmedGame trimmedGame = GameUtils.pollGame(); // poll the game
+                        this.currentTrimmedGame  = trimmedGame;
+                        showPlayers(trimmedGame);
+
+                        try {
+                            showReaction(trimmedGame.getReactionHistory()); // display all the reactions
+                            displayScreen(trimmedGame);
+                            if (this.mainCtrl.isSingleplayerFlag()) {
+                                this.setJokers(false);
+                            }
+                            // show round or timeout
+                            //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
                         }
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                }
+                );
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -267,6 +331,7 @@ public class GameCtrl {
      */
     public void loadReactions() {
         File folder = new File("client/src/main/resources/reactions");
+        //System.out.println(folder);
         // for the gradle run task
         if (folder.listFiles() == null) {folder = new File("src/main/resources/reactions");}
         List<ImageView> ls = new ArrayList<>();
@@ -278,6 +343,7 @@ public class GameCtrl {
             ls.add(new ImageView(new Image("reactions/"+f.getName())));
         }
         reactions.setItems(FXCollections.observableArrayList(ls));
+        reactions.setStyle("-fx-background-color: #0033cc");
         reactions.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(ImageView item, boolean empty) {
@@ -321,7 +387,8 @@ public class GameCtrl {
         answerLabel.setVisible(true);
         inTimeOut = true;
         this.scoreLabel.setText(String.valueOf(myScore));
-        if(trimmedGame.getRound().getRound()  >lastRoundAnswered) answerLabel.setText("You have not answered");
+
+        if(trimmedGame.getRound().getRound() > lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
     /**
@@ -331,13 +398,14 @@ public class GameCtrl {
      */
     private void showRound(TrimmedGame trimmedGame, int realTimer) {
         answerLabel.setVisible(false);
+        sliderValue.setStyle("-fx-text-fill: white");
         currentRoundLabel.setText("Current Round " + trimmedGame.getRound().getRound() + 1);
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
         try {
-            questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
+            questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().get(0).substring(26)));
         } catch (IllegalArgumentException e) {
-            questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl()).toURI().toString()));
+            questionImage.setImage(new Image(new File(trimmedGame.getQuestion().getUrl().get(0)).toURI().toString()));
         }
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
@@ -345,7 +413,18 @@ public class GameCtrl {
                 typeLabel.setText("How much energy does it take?");
                 break;
             case 2:
-                typeLabel.setText("Instead of ..., you could do instead ...");
+                typeLabel.setText("Which activity consumes less energy than the given one");
+
+                ImageView[] images = new ImageView[]{imageA, imageB, imageC};
+
+                for(int i = 0; i < 3; i++) {
+                    try {
+                        images[i].setImage(new Image(trimmedGame.getQuestion().getUrl().get(i+1).substring(26)));
+                    } catch (IllegalArgumentException e) {
+                        images[i].setImage(new Image(
+                                new File(trimmedGame.getQuestion().getUrl().get(i+1)).toURI().toString()));
+                    }
+                }
                 break;
         }
         if (trimmedGame.getQuestion().getType() == 1 || trimmedGame.getQuestion().getType() == 2) {
@@ -355,7 +434,7 @@ public class GameCtrl {
                 choiceB.setText(trimmedGame.getQuestion().getAnswers().get(1));
                 choiceC.setText(trimmedGame.getQuestion().getAnswers().get(2));
             }
-        } else this.guessEnable();
+        } else this.guessEnable(trimmedGame.getQuestion().getAnswer(), trimmedGame.getRound().getRound());
     }
 
     private void updatePolling(TrimmedGame trimmedGame, int realTimer) {
@@ -370,8 +449,25 @@ public class GameCtrl {
      * @throws IOException
      */
     public void sendAnswer(String answer) throws IOException {
-        String response = GameUtils.sendAnswer(answer, currentTrimmedGame);
-        haveYouVoted.setVisible(true);
+        mainCtrl.playSound("success");
+        URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/"
+                + this.mainCtrl.getName() + "/checkAnswer/" +
+                currentTrimmedGame.getRound().getRound()  + "/" + answer);
+        answerLabel.setText("You have voted");
+        //System.out.printf("dasdasdas");
+        //System.out.println("answer is being sent");
+        //System.out.println(this.mainCtrl.getName());
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("PUT");
+        //System.out.println(http.getResponseCode());
+
+        String response = mainCtrl.httpToJSONString(http);
+        //System.out.println(response);
+        http.disconnect();
+        //haveYouVoted.setVisible(true);
+
+        //System.out.println(response);
+
         if (findScore(response) > myScore) {
             this.newPoints = findScore(response) - myScore;
             this.myScore = findScore(response);
@@ -380,13 +476,32 @@ public class GameCtrl {
             this.newPoints = 0;
         }
         printAnswerCorrectness(response);
+//        this.scoreLabel.setText(String.valueOf(myScore));
     }
 
     /**
      * Sends the halftime joker
      */
     public void sendHalfJoker() {
-        GameUtils.sendHalfJoker();
+
+        try {
+            URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID() + "/" + this.mainCtrl.getName() + "/joker/"
+                    + "HALF");
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+
+            sendJoker("Half-Time");
+            mainCtrl.playSound("success");
+            halfTimeJokerButton.setVisible(false);
+
+            http.setRequestMethod("PUT");
+
+            MainCtrl.httpToJSONString(http);
+
+            http.disconnect();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -397,7 +512,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("0");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
-            this.userChoice = choiceA;
+            this.userChoice = choiceOne;
+            this.userChoiceLabel = choiceA;
             this.showYourAnswer();
         }
     }
@@ -410,7 +526,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("1");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
-            this.userChoice = choiceB;
+            this.userChoice = choiceTwo;
+            this.userChoiceLabel = choiceB;
             this.showYourAnswer();
         }
     }
@@ -423,7 +540,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("2");
             lastRoundAnswered = this.currentTrimmedGame.getRound().getRound();
-            this.userChoice = choiceC;
+            this.userChoice = choiceThree;
+            this.userChoiceLabel = choiceC;
             this.showYourAnswer();
         }
     }
@@ -442,14 +560,21 @@ public class GameCtrl {
      * @param answer the string of the answer
      * @return the button that currently contains the correct answer
      */
-    public Button findCorrectChoice(String answer) {
+    public GridPane findCorrectChoice(String answer) {
+        //I know this is not a very good way of solving this problem but it works
+//        System.out.println("This is the correct answer " + this.currentTrimmedGame.getCorrectAnswer() + "!");
+//        System.out.println("choice a " + choiceA.getText()+ "!");
+//        System.out.println("choice b " + choiceB.getText()+ "!");
+//        System.out.println("choice c " + choiceC.getText()+ "!");
+
         if (choiceA.getText().equals(answer)) {
-            return this.choiceA;
+            return this.choiceOne;
         }
         if (choiceB.getText().equals(answer)) {
-            return this.choiceB;
+            return this.choiceTwo;
         }
-        return this.choiceC;
+
+        return this.choiceThree;
     }
 
     /**
@@ -457,14 +582,26 @@ public class GameCtrl {
      * @param questType
      */
     public void showCorrectAnswer(String correctAnswer, int questType) {
+        //System.out.println(correctAnswer);
         if(questType == 0){
-            correctAns.setText("Correct answer: "+ correctAnswer+" Wh");
-            correctAns.setVisible(true);
+            sliderValue.setText("Correct answer: "+ correctAnswer+" Wh");
+            guessText.setValue(Double.parseDouble(correctAnswer));
+            //correctAns.setVisible(true);
         }
         else {
-            Button correctButton = this.findCorrectChoice(correctAnswer);
+            GridPane correctButton = this.findCorrectChoice(correctAnswer);
+            //System.out.println(correctButton.getText());
             correctButton.setStyle("-fx-background-color: #16b211");
         }
+    }
+
+    /**
+     * updates the value of the slider
+     */
+    @FXML
+    public void updateValue() {
+        if(lastRoundAnswered < currentTrimmedGame.getRound().getRound())
+            sliderValue.setText(""+(int)Math.ceil(guessText.getValue()));
     }
 
     /**
@@ -478,12 +615,12 @@ public class GameCtrl {
      *
      */
     public void resetColors() {
-        this.choiceA.setStyle("-fx-background-color: #ffffff");
-        this.choiceB.setStyle("-fx-background-color: #ffffff");
-        this.choiceC.setStyle("-fx-background-color: #ffffff");
-        this.choiceA.setVisible(true);
-        this.choiceB.setVisible(true);
-        this.choiceC.setVisible(true);
+        this.choiceOne.setStyle("-fx-background-color: #0033cc");
+        this.choiceTwo.setStyle("-fx-background-color: #0033cc");
+        this.choiceThree.setStyle("-fx-background-color: #0033cc");
+        this.choiceOne.setVisible(true);
+        this.choiceTwo.setVisible(true);
+        this.choiceThree.setVisible(true);
     }
 
     /**
@@ -494,6 +631,16 @@ public class GameCtrl {
         stopGame = true;
         GameUtils.exitGame();
     }
+
+    /**
+     *
+     */
+    public void choicesDisappear() {
+        this.choiceOne.setVisible(false);
+        this.choiceTwo.setVisible(false);
+        this.choiceThree.setVisible(false);
+    }
+
 
     /**
      * Changing the label with answer, when response to the answer received
@@ -507,9 +654,9 @@ public class GameCtrl {
      *
      */
     public void submitAnswer() throws IOException {
-        if(!(guessText.getText()==null) && this.checkCanAnswer()){
-            haveYouVoted.setVisible(true);
-            sendAnswer(guessText.getText());
+        if(this.checkCanAnswer()){
+            sliderValue.setStyle("-fx-text-fill: purple");
+            sendAnswer((int)Math.ceil(guessText.getValue())+"");
             lastRoundAnswered = currentTrimmedGame.getRound().getRound();
         }
     }
@@ -530,6 +677,7 @@ public class GameCtrl {
             lb.setPrefHeight(50);
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
+            lb.setStyle("-fx-background-color: white");
             lb.setId("reaction");
             try {
                 Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/" + pair[1])
@@ -555,7 +703,7 @@ public class GameCtrl {
      */
     public void showLeaderboard() throws IOException {
         commons.LeaderboardEntryCommons myEntry = new commons.LeaderboardEntryCommons(this.mainCtrl.getName(), myScore);
-        this.mainCtrl.showLeaderboard(GameUtils.getLeaderboard(), myEntry);
+        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), myEntry);
     }
 
     /**
@@ -582,10 +730,11 @@ public class GameCtrl {
         }
         if (
         this.currentTrimmedGame.getQuestion().getType() != 0 &&
-        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText())){
+        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText())){
+            System.out.println("sending right answer...");
             String choice = this.convertAnswerToChoice(currentTrimmedGame.getQuestion().getAnswer());
             this.sendAnswer(choice);
-            this.guaranteeButton.setVisible(false);
+            //this.guaranteeButton.setVisible(false);
         }
     }
 
@@ -611,16 +760,29 @@ public class GameCtrl {
      * @throws IOException if the url is invalid
      */
     public void sendDoublePoints() throws IOException {
-        GameUtils.sendJoker("Double-Points");
-        mainCtrl.playSound("success");
-        if (userChoice == null) {
-            return;
-        }
-        if (this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText()) ||
+        if(userChoice == null) return;
+
+        if (this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText()) ||
                 (this.currentTrimmedGame.getQuestion().getType() == 0 &&
                         this.currentTrimmedGame.getRound().getRound() == lastRoundAnswered)){
 
+            //System.out.println("sending extra points");
             this.doublePointsJokerButton.setVisible(false);
+
+            sendJoker("Double-Points");
+            mainCtrl.playSound("success");
+            doublePointsJokerButton.setVisible(false);
+
+            URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
+                    this.mainCtrl.getName() + "/updateScore/" +
+                    this.currentTrimmedGame.getRound().getRound() + "/" + this.newPoints);
+
+            //System.out.println(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
+            //        this.mainCtrl.getName() + "/updateScore/" +
+            //        this.currentTrimmedGame.getRound().getRound() + "/" + this.newPoints);
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+
+
             this.newPoints = this.newPoints * 2;
             String jsonString = GameUtils.sendDoublePoints(newPoints, this.currentTrimmedGame);
             this.myScore = Integer.parseInt(jsonString);
@@ -633,22 +795,53 @@ public class GameCtrl {
      * the incorrect answers in multiple choice questions
      */
     public void eliminateWrongAnswer() {
-        GameUtils.sendJoker("Eliminated-Wrong-Answer");
-        mainCtrl.playSound("success");
-        if (this.currentTrimmedGame.getQuestion().getType() != 0 &&
+
+        if (lastRoundAnswered < this.currentTrimmedGame.getRound().getRound() &&
+                this.currentTrimmedGame.getQuestion().getType() != 0 &&
                 (this.userChoice == null ||
-                        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoice.getText()))) {
+                        this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText()))) {
+            //System.out.println("wrong answer can be deleted");
+            sendJoker("Eliminated-Wrong-Answer");
+            mainCtrl.playSound("success");
             this.eliminateWrongButton.setVisible(false);
+
             if (!choiceA.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) {
-                choiceA.setVisible(false);
+                choiceOne.setVisible(false);
                 return;
             }
             else if (!choiceB.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) {
-                choiceB.setVisible(false);
+                choiceTwo.setVisible(false);
             }
             else {
-                choiceC.setVisible(false);
+                choiceThree.setVisible(false);
             }
         }
+    }
+
+    /**
+     * Sends the joker to all other players (notification)
+     * @param joker The joker to send
+     */
+    public void sendJoker(String joker) {
+        try {
+            URL url = new URL( mainCtrl.getLink()+ "reaction/" + mainCtrl.getCurrentID()
+                    + "/" + mainCtrl.getName() + "/" + joker);
+            HttpURLConnection http = (HttpURLConnection)url.openConnection();
+            http.setRequestMethod("PUT");
+            mainCtrl.httpToJSONString(http);
+            http.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Changes the size of the window;
+     * @param w
+     * @param h
+     */
+    @FXML
+    public void setWindowSize(double w, double h){
+        mainWindow.setPrefSize(w,h);
     }
 }

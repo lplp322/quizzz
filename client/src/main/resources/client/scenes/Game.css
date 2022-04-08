@@ -1,41 +1,7 @@
-#leftPanel {
-    -fx-border-color: #111111;
-    -fx-background-color: #444444;
-}
+@import "Style.css";
 
-#upperPanel {
-    -fx-border-color: #111111;
-    -fx-background-color: #d6d6d6;
-}
-
-#quitGameButton {
-    -fx-text-fill: "black";
-    -fx-background-color: #ff5d55;
-}
-
-#guessText {
-    -fx-border-radius: 10%;
-}
-
-#questionAnchor {
-    -fx-border-color: #000000;
-    -fx-background-color: #1d3557;
-}
-
-#questionLabel {
-    -fx-text-fill: white;
-}
-
-#scrollPanel > .viewport {
-    -fx-background-color: transparent;
-}
-
-#scrollPanel {
-    -fx-background-color: transparent;
-}
-
-#choiceA, #choiceB, #choiceC {
-    -fx-border-color: #111111;
+#backGround {
+    -fx-background-color: delftBlue;
 }
 
 #reaction {
@@ -43,22 +9,24 @@
     -fx-border-color: black;
     -fx-padding: 1;
     -fx-border-width: 1.5;
-    -fx-border-color: grey;
 }
 
-#playerList {
-    -fx-background-color: #444444;
-    -fx-text-fill: #444444;
+#choiceOne, #choiceTwo, #choiceThree, #questionPane{
+    -fx-background-color: darkBlue;
+    -fx-border-width: 5px;
+    -fx-border-color: black;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }
 
-#playerList:odd {
-    -fx-background-color: #444444;
+#choiceA, #choiceB, #choiceC {
+    -fx-font-size: 14;
+    -fx-text-fill: white;
 }
 
-#playerList:even {
-    -fx-background-color: #444444;
+#questionLabel {
+    -fx-text-fill: white;
 }
 
-
-
-
+#typeLabel {
+    -fx-text-fill: white;
+}
