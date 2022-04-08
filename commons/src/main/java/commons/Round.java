@@ -22,7 +22,7 @@ public class Round {
      * @param allPlayers number of players
      */
     public Round(int allPlayers) {
-        this.round = 0;
+        this.round = 18;
         this.timer = roundTimer;
         this.halveTimeJoker = null;
         this.gameStatus = 1;

@@ -47,9 +47,10 @@ public class GameUtils{
     /**
      * Displays the leaderboard for multiplayer
      * @param myScore your score
+     * @param trimmedGame the trimmedGame
      * @throws IOException if the link is not valid
      */
-    public static void getMultiplayerLeaderboard(int myScore) throws IOException {
+    public static void getMultiplayerLeaderboard(int myScore, TrimmedGame trimmedGame) throws IOException {
         URL url = new URL(mainCtrl.getLink()  +  mainCtrl.getCurrentID() + "/getMultiplayerLeaderBoard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
@@ -58,7 +59,8 @@ public class GameUtils{
         LinkedList<commons.LeaderboardEntryCommons> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
         LeaderboardEntryCommons userEntry = new LeaderboardEntryCommons(mainCtrl.getName(), myScore);
-        mainCtrl.showLeaderboard(leaderboardList, userEntry);
+        System.out.println(trimmedGame.getRound().getRound());
+        mainCtrl.showLeaderboard(leaderboardList, userEntry, trimmedGame.getRound().getRound());
 //        return leaderboardList;
     }
 
