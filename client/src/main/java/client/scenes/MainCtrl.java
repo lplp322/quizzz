@@ -224,10 +224,8 @@ public class MainCtrl {
             Gson g = new Gson();
             String jsonString = httpToJSONString(http);
             Type typeToken = new TypeToken<LinkedList<LeaderboardEntryCommons>>(){}.getType();
-            //System.out.println(typeToken.getTypeName());
             leaderboardList = g.fromJson(jsonString, typeToken);
             http.disconnect();
-            //System.out.println(leaderboardList);
         }
         catch (IOException e) {
             e.printStackTrace();
