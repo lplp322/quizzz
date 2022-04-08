@@ -191,7 +191,7 @@ public class MainCtrl {
             Scene currentScene = primaryStage.getScene();   //Gets current scene
             leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         }
-        if(round == 19) {
+        if(round == -1) {
             leaderboardCtrl.showLobby();
         } else {
             leaderboardCtrl.disableLobby();
