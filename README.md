@@ -18,6 +18,7 @@ Java 17<br/>
 Git<br/><br/>
 
 - Step 1: Open up a terminal and clone the project
+
 HTTPS:
 ```
 git clone https://gitlab.ewi.tudelft.nl/cse1105/2021-2022/team-repositories/oopp-group-58/repository-template.git
@@ -33,6 +34,7 @@ cd repository-template
 ```
 
 - Step 3: Build the project
+
 If you have gradle installed:
 ```
 gradle build
