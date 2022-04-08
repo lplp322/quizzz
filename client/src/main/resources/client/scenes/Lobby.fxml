@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="screen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@Lobby.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LobbyCtrl">
+<AnchorPane fx:id="screen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@Lobby.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LobbyCtrl">
    <children>
       <GridPane fx:id="gridP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.5976650100667" prefWidth="1124.1760033243202" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>

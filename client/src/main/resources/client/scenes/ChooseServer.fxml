@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ChooseServerCtrl">
+<AnchorPane prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ChooseServerCtrl">
    <children>
       <GridPane prefHeight="610.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -33,7 +33,7 @@
                         <Font name="Franklin Gothic Medium" size="21.0" />
                      </font>
                   </Label>
-                        <Label fx:id="mainLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-24.0" layoutY="-29.0" prefHeight="124.0" prefWidth="394.0" text="Enter IP of server:">
+                        <Label fx:id="mainLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-24.0" layoutY="7.0" prefHeight="52.0" prefWidth="394.0" text="Enter IP of server:">
                            <font>
                               <Font name="Century Gothic Bold" size="29.0" />
                            </font>
