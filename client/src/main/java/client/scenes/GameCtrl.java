@@ -168,7 +168,7 @@ public class GameCtrl {
      */
     public void init() {
         setJokers(true);
-        gridPane.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
+        //gridPane.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
         //System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
         stopGame = false;
         lastRoundAnswered = -1;
