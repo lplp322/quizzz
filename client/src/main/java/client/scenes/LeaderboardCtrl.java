@@ -2,12 +2,14 @@ package client.scenes;
 
 import commons.LeaderboardEntryCommons;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import javax.inject.Inject;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class LeaderboardCtrl {
@@ -50,6 +52,9 @@ public class LeaderboardCtrl {
 
     @FXML
     private AnchorPane bronzeBar;
+
+    @FXML
+    private Button lobbyButton;
 
     /**
      *
@@ -229,5 +234,27 @@ public class LeaderboardCtrl {
      */
     public void backToMainScreen() {
         this.mainCtrl.showSplash();
+    }
+
+    /**
+     * Return directly to lobby
+     * @throws
+     */
+    public void backToLobby() throws MalformedURLException {
+        this.mainCtrl.getPromptCtrl().onClickStart();
+    }
+
+    /**
+     * shows the lobby button
+     */
+    public void showLobby() {
+        this.lobbyButton.setVisible(true);
+    }
+
+    /**
+     * unshows the lobby
+     */
+    public void disableLobby() {
+        this.lobbyButton.setVisible(false);
     }
 }

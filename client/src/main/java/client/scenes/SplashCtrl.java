@@ -88,7 +88,7 @@ public class SplashCtrl {
      */
     public void showLeaderboard() {
         mainCtrl.playSound("success");
-        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), null);
+        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), null, 0);
     }
 //    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
 

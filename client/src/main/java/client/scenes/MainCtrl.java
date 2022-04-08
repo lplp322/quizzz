@@ -184,11 +184,17 @@ public class MainCtrl {
      * Shows the leaderboard
      * @param results
      * @param myResult
+     * @param round the current round
      */
-    public void showLeaderboard(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons myResult) {
+    public void showLeaderboard(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons myResult, int round) {
         if(primaryStage.getScene()!=null){
             Scene currentScene = primaryStage.getScene();   //Gets current scene
             leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+        if(round == 19) {
+            leaderboardCtrl.showLobby();
+        } else {
+            leaderboardCtrl.disableLobby();
         }
 
         primaryStage.setScene(this.leaderboard);
@@ -433,5 +439,13 @@ public class MainCtrl {
                 evt.consume();
             }
         });
+    }
+
+    /**
+     * Getter for prompctrl
+     * @return the promptctrl
+     */
+    public PromptCtrl getPromptCtrl() {
+        return this.promptCtrl;
     }
 }

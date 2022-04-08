@@ -248,7 +248,7 @@ public class GameCtrl {
                 if(trimmedGame.getQuestion().getType()!=0) this.resetColors();
             }
             if (trimmedGame.getRound().getTimer() == -2 && !this.mainCtrl.isSingleplayerFlag()) {
-                GameUtils.getMultiplayerLeaderboard(myScore);
+                GameUtils.getMultiplayerLeaderboard(myScore, currentTrimmedGame);
             }
         } else {
             inTimeOut = false;
@@ -707,7 +707,7 @@ public class GameCtrl {
      */
     public void showLeaderboard() throws IOException {
         commons.LeaderboardEntryCommons myEntry = new commons.LeaderboardEntryCommons(this.mainCtrl.getName(), myScore);
-        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), myEntry);
+        this.mainCtrl.showLeaderboard(mainCtrl.getLeaderboard(), myEntry, currentTrimmedGame.getRound().getRound());
     }
 
     /**
