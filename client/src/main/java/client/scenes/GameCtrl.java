@@ -36,9 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import java.io.File;
-
-
 public class GameCtrl {
 
     @FXML
@@ -463,6 +460,7 @@ public class GameCtrl {
      */
     private void showRound(TrimmedGame trimmedGame, int realTimer) {
         answerLabel.setVisible(false);
+        sliderValue.setStyle("-fx-text-fill: white");
         currentRoundLabel.setText("Current Round " + trimmedGame.getRound().getRound() + 1);
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
@@ -536,7 +534,8 @@ public class GameCtrl {
         URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +
                 currentTrimmedGame.getRound().getRound()  + "/" + answer);
-
+        answerLabel.setText("You have voted");
+        //System.out.printf("dasdasdas");
         //System.out.println("answer is being sent");
         //System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -557,13 +556,10 @@ public class GameCtrl {
             this.myScore = findScore(response);
             System.out.println(newPoints);
         }
-
         else {
             this.newPoints = 0;
         }
         printAnswerCorrectness(response);
-
-
 //        this.scoreLabel.setText(String.valueOf(myScore));
     }
 
@@ -571,12 +567,15 @@ public class GameCtrl {
      * Sends the halftime joker
      */
     public void sendHalfJoker() {
-        sendJoker("Half-Time");
-        mainCtrl.playSound("success");
+
         try {
             URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID() + "/" + this.mainCtrl.getName() + "/joker/"
                     + "HALF");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
+
+            sendJoker("Half-Time");
+            mainCtrl.playSound("success");
+            halfTimeJokerButton.setVisible(false);
 
             http.setRequestMethod("PUT");
 
@@ -685,7 +684,7 @@ public class GameCtrl {
      * @param questType
      */
     public void showCorrectAnswer(String correctAnswer, int questType) {
-        System.out.println(correctAnswer);
+        //System.out.println(correctAnswer);
         if(questType == 0){
             sliderValue.setText("Correct answer: "+ correctAnswer+" Wh");
             guessText.setValue(Double.parseDouble(correctAnswer));
@@ -703,7 +702,8 @@ public class GameCtrl {
      */
     @FXML
     public void updateValue() {
-        sliderValue.setText(""+(int)Math.ceil(guessText.getValue()));
+        if(lastRoundAnswered < currentTrimmedGame.getRound().getRound())
+            sliderValue.setText(""+(int)Math.ceil(guessText.getValue()));
     }
 
     /**
@@ -772,8 +772,7 @@ public class GameCtrl {
      */
     public void submitAnswer() throws IOException {
         if(this.checkCanAnswer()){
-            //haveYouVoted.setVisible(true);
-            //System.out.printf(guessText.getValue()+"");
+            sliderValue.setStyle("-fx-text-fill: purple");
             sendAnswer((int)Math.ceil(guessText.getValue())+"");
             lastRoundAnswered = currentTrimmedGame.getRound().getRound();
         }
@@ -888,26 +887,26 @@ public class GameCtrl {
      * @throws IOException if the url is invalid
      */
     public void sendDoublePoints() throws IOException {
-        sendJoker("Double-Points");
-        mainCtrl.playSound("success");
-        if (userChoice == null) {
-            return;
-        }
+        if(userChoice == null) return;
 
         if (this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText()) ||
                 (this.currentTrimmedGame.getQuestion().getType() == 0 &&
                         this.currentTrimmedGame.getRound().getRound() == lastRoundAnswered)){
 
-            System.out.println("sending extra points");
+            //System.out.println("sending extra points");
             this.doublePointsJokerButton.setVisible(false);
+
+            sendJoker("Double-Points");
+            mainCtrl.playSound("success");
+            doublePointsJokerButton.setVisible(false);
 
             URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
                     this.mainCtrl.getName() + "/updateScore/" +
                     this.currentTrimmedGame.getRound().getRound() + "/" + this.newPoints);
 
-            System.out.println(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
-                    this.mainCtrl.getName() + "/updateScore/" +
-                    this.currentTrimmedGame.getRound().getRound() + "/" + this.newPoints);
+            //System.out.println(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
+            //        this.mainCtrl.getName() + "/updateScore/" +
+            //        this.currentTrimmedGame.getRound().getRound() + "/" + this.newPoints);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
 
 
@@ -948,20 +947,20 @@ public class GameCtrl {
      * the incorrect answers in multiple choice questions
      */
     public void eliminateWrongAnswer() {
-        sendJoker("Eliminated-Wrong-Answer");
-        mainCtrl.playSound("success");
-        //System.out.println("checking wrong answer");
-        //System.out.println(this.currentTrimmedGame.getQuestionType());
-        if (this.currentTrimmedGame.getQuestion().getType() != 0 &&
+
+        if (lastRoundAnswered < this.currentTrimmedGame.getRound().getRound() &&
+                this.currentTrimmedGame.getQuestion().getType() != 0 &&
                 (this.userChoice == null ||
                         this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText()))) {
             //System.out.println("wrong answer can be deleted");
+            sendJoker("Eliminated-Wrong-Answer");
+            mainCtrl.playSound("success");
             this.eliminateWrongButton.setVisible(false);
+
             if (!choiceA.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) {
                 choiceOne.setVisible(false);
                 return;
             }
-
             else if (!choiceB.getText().equals(this.currentTrimmedGame.getQuestion().getAnswer())) {
                 choiceTwo.setVisible(false);
             }
