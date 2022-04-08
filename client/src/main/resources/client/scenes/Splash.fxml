@@ -31,22 +31,22 @@
                <children>
                   <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#singlePlayer" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../ClientImages/singleplayer.png" />
+                        <Image url="@ClientImages/singleplayer.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#multiPlayer" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../ClientImages/multiplayer.png" />
+                        <Image url="@ClientImages/multiplayer.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#showLeaderboard" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../ClientImages/leaderboard.png" />
+                        <Image url="@ClientImages/leaderboard.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#showActivityViewer" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../ClientImages/admin_page.png" />
+                        <Image url="@ClientImages/admin_page.png" />
                      </image>
                   </ImageView>
                </children>
