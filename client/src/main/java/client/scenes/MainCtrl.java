@@ -170,6 +170,10 @@ public class MainCtrl {
      * Changes the current scene to the questions screen
      */
     public void showGame() throws IOException {
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            gameCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
         gameCtrl.init();

@@ -42,6 +42,9 @@ import java.io.File;
 public class GameCtrl {
 
     @FXML
+    private AnchorPane mainWindow;
+
+    @FXML
     private Label choiceA;
 
     @FXML
@@ -987,5 +990,15 @@ public class GameCtrl {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Changes the size of the window;
+     * @param w
+     * @param h
+     */
+    @FXML
+    public void setWindowSize(double w, double h){
+        mainWindow.setPrefSize(w,h);
     }
 }
