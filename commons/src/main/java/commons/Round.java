@@ -10,18 +10,24 @@ public class Round {
     private boolean timeoutActive = false;
     private final int totalRounds = 20;
     private final int roundTimer = 20;
+    private int allPlayers;
+    private int playersVoted;
+
     //private Map<String, Joker> gameChangingJokers;
 
     private HalveTimeJoker halveTimeJoker;
 
     /**
      * By default, first round is 0 and timer counts down from 20
+     * @param allPlayers number of players
      */
-    public Round() {
+    public Round(int allPlayers) {
         this.round = 0;
         this.timer = roundTimer;
         this.halveTimeJoker = null;
         this.gameStatus = 1;
+        this.allPlayers = allPlayers;
+        this.playersVoted = 0;
     }
 
     /**
@@ -30,6 +36,11 @@ public class Round {
      */
     public void tickDown() {
         timer--;
+        if(playersVoted == allPlayers) {
+            fastForwardRound();
+            playersVoted = 0;
+        }
+
         if(halveTimeJoker != null) {
             halveTimeJoker.tickDown();
         }
@@ -53,14 +64,37 @@ public class Round {
     }
 
     /**
+     * Fast forwards the round if all the players have voted
+     */
+    public void fastForwardRound() {
+        timer = Math.min(timer, 0);
+        if(halveTimeJoker != null)
+            halveTimeJoker.setHalvedTimer(0);
+    }
+
+    /**
+     * A player has submitted his vote
+     */
+    public void playerAnswered() {
+        playersVoted++;
+    }
+
+    /**
      * activates the halftime joker
      * @param player
      */
     public void activateHalfTime(Player player) {
         if(timer > 10) {
-            System.out.println("DAS");
+            //System.out.println("DAS");
             halveTimeJoker = new HalveTimeJoker(player, timer / 2);
         }
+    }
+
+    /**
+     * A player has disconnected, so we don't have to consider his vote anymore
+     */
+    public void removePlayer() {
+        allPlayers--;
     }
 
     /**
