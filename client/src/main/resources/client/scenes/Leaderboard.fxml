@@ -41,23 +41,47 @@
                <children>
                   <AnchorPane fx:id="goldBar" minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="236.0" GridPane.columnIndex="1">
                      <children>
-                        <Label fx:id="goldScore" alignment="CENTER" layoutX="2.0" layoutY="21.0" prefHeight="20.0" prefWidth="134.0" />
-                        <Label fx:id="goldName" alignment="CENTER" prefHeight="21.0" prefWidth="142.0" />
+                        <Label fx:id="goldScore" alignment="CENTER" layoutX="2.0" layoutY="21.0" prefHeight="21.0" prefWidth="236.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
+                        <Label fx:id="goldName" alignment="CENTER" prefHeight="24.0" prefWidth="236.0" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
                      </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
                   </AnchorPane>
                   <AnchorPane fx:id="silverBar" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="142.0">
                      <children>
-                        <Label fx:id="silverScore" alignment="CENTER" layoutX="3.0" layoutY="48.0" prefHeight="21.0" prefWidth="135.0" />
-                        <Label fx:id="silverName" alignment="CENTER" prefHeight="21.0" prefWidth="142.0" />
+                        <Label fx:id="silverScore" alignment="CENTER" layoutX="3.0" layoutY="48.0" prefHeight="22.0" prefWidth="231.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
+                        <Label fx:id="silverName" alignment="CENTER" prefHeight="22.0" prefWidth="236.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="bronzeBar" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="142.0" GridPane.columnIndex="2">
                      <children>
-                        <Label fx:id="bronzeScore" alignment="CENTER" layoutX="2.0" layoutY="20.0" prefHeight="24.0" prefWidth="136.0" />
-                        <Label fx:id="bronzeName" alignment="CENTER" prefHeight="22.0" prefWidth="142.0" />
+                        <Label fx:id="bronzeScore" alignment="CENTER" layoutX="2.0" layoutY="20.0" prefHeight="25.0" prefWidth="236.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
+                        <Label fx:id="bronzeName" alignment="CENTER" prefHeight="23.0" prefWidth="236.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="22.0" />
+                           </font></Label>
                      </children>
                   </AnchorPane>
                </children>
+               <GridPane.margin>
+                  <Insets top="60.0" />
+               </GridPane.margin>
             </GridPane>
             <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="30.0" prefWidth="231.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" textAlignment="CENTER" GridPane.rowIndex="2">
                <font>

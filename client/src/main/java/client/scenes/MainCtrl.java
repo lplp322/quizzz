@@ -170,6 +170,10 @@ public class MainCtrl {
      * Changes the current scene to the questions screen
      */
     public void showGame() throws IOException {
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            gameCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
         gameCtrl.init();
@@ -220,10 +224,8 @@ public class MainCtrl {
             Gson g = new Gson();
             String jsonString = httpToJSONString(http);
             Type typeToken = new TypeToken<LinkedList<LeaderboardEntryCommons>>(){}.getType();
-            //System.out.println(typeToken.getTypeName());
             leaderboardList = g.fromJson(jsonString, typeToken);
             http.disconnect();
-            //System.out.println(leaderboardList);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -432,7 +434,4 @@ public class MainCtrl {
             }
         });
     }
-
-
-
 }

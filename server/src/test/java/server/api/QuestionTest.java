@@ -54,6 +54,6 @@ public class QuestionTest {
         dtBase = new TestActivityRepository(activities);
 
         Question q = new Question(dtBase, 2);
-        assertEquals("B", q.getAnswer());
+        assertEquals("D", q.getAnswer());
     }
 }
