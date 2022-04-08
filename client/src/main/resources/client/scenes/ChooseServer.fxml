@@ -1,29 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="610.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ChooseServerCtrl">
+<AnchorPane prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ChooseServerCtrl">
    <children>
-      <AnchorPane prefHeight="577.0" prefWidth="973.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane prefHeight="610.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+            <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="367.33333333333326" minWidth="10.0" prefWidth="345.33333333333326" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="220.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
+        </rowConstraints>
          <children>
-                  <Button fx:id="connect" layoutX="446.0" layoutY="359.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="37.0" prefWidth="115.0" text="Connect">
-                      <font>
-                          <Font name="Franklin Gothic Medium" size="21.0" />
-                      </font>
-                  </Button>
-                  <TextField fx:id="textField" focusTraversable="false" layoutX="387.0" layoutY="286.0" prefHeight="38.0" prefWidth="233.0" promptText="http://localhost:8080/" />
-            <Label fx:id="cantConnectLabel" alignment="CENTER" layoutX="430.0" layoutY="552.0" text="Can not connect" textFill="RED" visible="false">
-               <font>
-                  <Font name="Franklin Gothic Medium" size="21.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
-            <Label fx:id="mainLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="321.0" layoutY="126.0" prefHeight="122.0" prefWidth="368.0" text="Put IP of server:">
-               <font>
-                  <Font name="Century Gothic Bold" size="45.0" />
-               </font>
-            </Label>
+            <Pane opacity="0.96" prefHeight="220.0" prefWidth="363.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                        <Button fx:id="connect" layoutX="115.0" layoutY="156.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="37.0" prefWidth="115.0" text="Connect">
+                            <font>
+                                <Font name="Franklin Gothic Medium" size="21.0" />
+                            </font>
+                        </Button>
+                        <TextField fx:id="textField" focusTraversable="false" layoutX="58.0" layoutY="63.0" prefHeight="38.0" prefWidth="233.0" promptText="http://localhost:8080/" />
+                  <Label fx:id="cantConnectLabel" alignment="CENTER" layoutX="68.0" layoutY="114.0" prefHeight="24.0" prefWidth="212.0" text="Can not connect" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="21.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="mainLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-24.0" layoutY="-29.0" prefHeight="124.0" prefWidth="394.0" text="Enter IP of server:">
+                           <font>
+                              <Font name="Century Gothic Bold" size="29.0" />
+                           </font>
+                        </Label>
+               </children>
+               <effect>
+                  <DropShadow offsetX="5.0" offsetY="5.0">
+                     <color>
+                        <Color opacity="0.2507122755050659" />
+                     </color>
+                  </DropShadow>
+               </effect></Pane>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
