@@ -132,8 +132,8 @@ public class MainCtrl {
         showChooseServer();
 
         primaryStage.show();
-        primaryStage.setMaximized(true);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setMaximized(true);
+        //primaryStage.setFullScreen(true);
 
         this.checkForClosingApplication();
     }
