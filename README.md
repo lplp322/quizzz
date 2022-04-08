@@ -13,11 +13,11 @@
 | ![](https://secure.gravatar.com/avatar/6386037151e662128163e89a3db2ab7d?s=800&d=identicon&size=90) | Maosheng Jiang | M.Jiang-5@student.tudelft.nl |
 
 # How to run it
-####Prerequisites:
+###Prerequisites:
 * Java 17<br/>
 * Git<br/>
 
-####Step 1: Open up a terminal and clone the project
+###Step 1: Open up a terminal and clone the project
 HTTPS:
 ```
 git clone https://gitlab.ewi.tudelft.nl/cse1105/2021-2022/team-repositories/oopp-group-58/repository-template.git
@@ -27,12 +27,12 @@ SSH:
 git clone git@gitlab.ewi.tudelft.nl:cse1105/2021-2022/team-repositories/oopp-group-58/repository-template.git
 ```
 
-####Step 2: Cd into the root directory of the project 
+###Step 2: Cd into the root directory of the project 
 ```
 cd repository-template
 ```
 
-####Step 3: Build the project
+###Step 3: Build the project
 If you have gradle installed:
 ```
 gradle build
@@ -42,16 +42,16 @@ If you don't have gradle installed:
 gradlew build
 ```
 
-####Step 4: Run the server
+###Step 4: Run the server
 ```
 gradle bootRun // if you have gradle installed
 gradlew bootRun
 ```
 
-####Step 5: Open up another terminal, cd into the project root directory and start the client
+###Step 5: Open up another terminal, cd into the project root directory and start the client
 ```
 gradle run // if you have gradle installed
 gradlew run
 ```
 
-####Step 6: Enjoy and learn!
+###Step 6: Enjoy and learn!
