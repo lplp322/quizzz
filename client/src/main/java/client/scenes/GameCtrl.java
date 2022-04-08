@@ -149,6 +149,8 @@ public class GameCtrl {
 
     private int reactionSize = 0;
 
+    private int sliderRound = 0 ;
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -195,8 +197,21 @@ public class GameCtrl {
     /**
      * This method changes the FXML so that the user only sees the appropriate information for
      * the guessing type of question
+     * @param answer
+     * @param round
      */
-    public void guessEnable() {
+    public void guessEnable(String answer, int round) {
+        //set up the slider min max values
+        System.out.println(answer);
+        if(round>sliderRound) {
+            double rand1 = Math.random();
+            double rand2 = Math.random() + 1;
+            int ans = Integer.parseInt(answer);
+            guessText.setMin(rand1 * 0.3 * ans);
+            guessText.setMax(rand2 * 4 * ans);
+            guessText.setValue(rand1 * 0.5 * ans);
+            sliderRound = round;
+        }
         this.choiceOne.setVisible(false);
         this.choiceTwo.setVisible(false);
         this.sliderValue.setVisible(true);
@@ -204,6 +219,7 @@ public class GameCtrl {
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
         //this.correctAns.setVisible(false);
+
     }
 
     /**
@@ -498,7 +514,7 @@ public class GameCtrl {
                 choiceB.setText(trimmedGame.getQuestion().getAnswers().get(1));
                 choiceC.setText(trimmedGame.getQuestion().getAnswers().get(2));
             }
-        } else this.guessEnable();
+        } else this.guessEnable(trimmedGame.getQuestion().getAnswer(), trimmedGame.getRound().getRound());
     }
 
 
