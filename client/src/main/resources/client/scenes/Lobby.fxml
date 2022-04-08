@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="screen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@Lobby.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LobbyCtrl">
+<AnchorPane fx:id="screen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0099ff;" stylesheets="@Lobby.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LobbyCtrl">
    <children>
       <GridPane fx:id="gridP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.5976650100667" prefWidth="1124.1760033243202" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -26,7 +26,7 @@
           <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="98.99602467611362" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Label fx:id="lobbyLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="133.0" prefWidth="460.0" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lobbyLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="133.0" prefWidth="460.0" style="-fx-font-size: 30;" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -39,7 +39,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button fx:id="exitLobby" mnemonicParsing="false" onAction="#exitLobby" prefHeight="64.0" prefWidth="200.0" text="Exit lobby" wrapText="true">
+                  <Button fx:id="exitLobby" mnemonicParsing="false" onAction="#exitLobby" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-border-color: #000000;" text="Exit lobby" wrapText="true">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -51,14 +51,14 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="startGame" mnemonicParsing="false" onAction="#startGame" prefHeight="64.0" prefWidth="200.0" text="Start game" wrapText="true">
+                  <Button fx:id="startGame" mnemonicParsing="false" onAction="#startGame" prefHeight="64.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#baff70, #5bb000); -fx-border-color: #000000;" text="Start game" wrapText="true">
                      <font>
                         <Font size="19.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="46.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../ClientImages/start.png" />
+                              <Image url="@/ClientImages/start.png" />
                            </image>
                         </ImageView>
                      </graphic>
