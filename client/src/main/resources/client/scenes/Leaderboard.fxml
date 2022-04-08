@@ -104,8 +104,15 @@
                </GridPane.margin>
             </GridPane>
             <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" />
-            <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" GridPane.rowIndex="1" />
-            <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="30.0" prefWidth="231.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" textAlignment="CENTER" GridPane.rowIndex="1">
+            <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="lobbyButton" alignment="CENTER" layoutX="151.0" layoutY="15.0" mnemonicParsing="false" onAction="#backToLobby" prefHeight="45.0" prefWidth="116.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Return to lobby" textAlignment="CENTER">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+               </children></Pane>
+            <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="45.0" prefWidth="116.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="21.0" />
                </font>

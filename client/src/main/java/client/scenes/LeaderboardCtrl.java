@@ -230,4 +230,11 @@ public class LeaderboardCtrl {
     public void backToMainScreen() {
         this.mainCtrl.showSplash();
     }
+
+    /**
+     * Return directly to lobby
+     */
+    public void backToLobby() {
+        this.mainCtrl.showWaitingRoom();
+    }
 }
