@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -25,7 +24,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -193,7 +194,7 @@ public class GameCtrl {
             int ans = Integer.parseInt(answer);
             guessText.setMin(rand1 * 0.3 * ans);
             guessText.setMax(rand2 * 4 * ans);
-            guessText.setValue(rand1 * 0.5 * ans);
+            guessText.setValue(rand1 * 0.3 * ans);
             sliderRound = round;
         }
         this.choiceOne.setVisible(false);
@@ -296,7 +297,7 @@ public class GameCtrl {
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
-                        TrimmedGame trimmedGame = pollGame(); // poll the game
+                        TrimmedGame trimmedGame = GameUtils.pollGame(); // poll the game
                         this.currentTrimmedGame  = trimmedGame;
                         showPlayers(trimmedGame);
 
