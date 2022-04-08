@@ -8,11 +8,7 @@
 
 <AnchorPane fx:id="mainWindow" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url('./images/ESA_root_pillars.jpg'); -fx-background-size: cover; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PromptCtrl">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('./images/ESA_root_pillars.jpg'); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('./images/ESA_root_pillars.jpg'); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane prefHeight="677.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -25,7 +21,7 @@
           <RowConstraints maxHeight="146.33333333333337" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="BOTTOM_CENTER" blendMode="HARD_LIGHT" contentDisplay="BOTTOM" prefHeight="232.0" prefWidth="321.0" text="Quizzz!" GridPane.columnIndex="1">
+            <Label alignment="BOTTOM_CENTER" blendMode="HARD_LIGHT" contentDisplay="BOTTOM" opacity="0.84" prefHeight="232.0" prefWidth="321.0" text="Quizzz!" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Century Gothic Bold" size="96.0" />
                </font>
