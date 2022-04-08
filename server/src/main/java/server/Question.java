@@ -142,6 +142,7 @@ public class Question {
      */
     private void generateTypeThree() {
         Collections.sort(activities);
+        Collections.reverse(activities);
         question = activities.get(1).getTitle();
 
         answer = activities.get(0).getTitle();
