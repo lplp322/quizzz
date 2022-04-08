@@ -144,6 +144,10 @@ public class Game implements Runnable{
      * @return the current object as TrimmedGame
      */
     public TrimmedGame getTrimmed() {
+        if(round.getGameStatus()==2) {
+            return new TrimmedGame(lobbyId, null, players, round, reactions);
+        }
+        else
         return new TrimmedGame(lobbyId, questions.get(round.getRound()).getTrimmed(), players, round, reactions);
     }
 

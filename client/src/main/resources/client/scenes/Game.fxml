@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-color: grey;" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
+<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-color: grey;" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
    <children>
       <AnchorPane prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
@@ -164,14 +174,6 @@
                         <Insets left="430.0" top="55.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Slider fx:id="guessText" blockIncrement="1.0" majorTickUnit="1.0" max="10000.0" minorTickCount="1" onMouseDragged="#updateValue" onMouseEntered="#updateValue" prefHeight="15.0" prefWidth="350.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="40.0" />
-                     </padding>
-                  </Slider>
                   <Label fx:id="typeLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="65.0" prefWidth="528.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font size="38.0" />
@@ -212,7 +214,7 @@
                         <Insets bottom="300.0" />
                      </padding>
                   </GridPane>
-                  <Label fx:id="answerLabel" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <Label fx:id="answerLabel" alignment="CENTER" prefHeight="303.0" prefWidth="483.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
                      <padding>
                         <Insets top="250.0" />
                      </padding>
@@ -223,6 +225,14 @@
                   <Pane opacity="0.7" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#ffffff, #ababab);" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Pane opacity="0.7" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#ffffff, #ababab);" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <ComboBox fx:id="reactions" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="guessText" alignment="CENTER" prefHeight="29.0" prefWidth="213.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
                </children>
             </GridPane>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url(&quot;./ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;">

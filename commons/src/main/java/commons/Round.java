@@ -55,12 +55,15 @@ public class Round {
             timeoutActive = false;
             timer = 20;
             round++;
+
+            if(round == totalRounds) {
+                gameStatus = 2;
+                round = -1;
+            }
             halveTimeJoker = null;
         }
 //        System.out.println(round);
-        if(round == totalRounds) {
-            gameStatus = 2;
-        }
+
     }
 
     /**
