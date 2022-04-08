@@ -4,86 +4,108 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="610.0" prefWidth="1009.0" stylesheets="@LeaderboardStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LeaderboardCtrl">
    <children>
+      <AnchorPane prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane layoutX="10.0" layoutY="10.0" prefHeight="610.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
-            <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="257.00892926015825" prefWidth="301.6993602917695" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="257.00892926015825" prefWidth="301.6993602917695" />
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308" minHeight="198.94392899709686" prefHeight="198.94392899709686" vgrow="ALWAYS" />
-            <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308" minHeight="20.94153908357748" prefHeight="329.12846895679047" vgrow="ALWAYS" />
-            <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="81.63835397425544" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.94153908357748" prefHeight="534.3333638509114" vgrow="ALWAYS" />
+            <RowConstraints fillHeight="false" maxHeight="74.99996948242188" minHeight="10.0" prefHeight="74.99996948242188" vgrow="NEVER" />
          </rowConstraints>
          <children>
-            <AnchorPane fx:id="resultPanel" prefHeight="39.0" prefWidth="453.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane prefHeight="622.0" prefWidth="630.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="146.0" minWidth="10.0" prefWidth="127.33333333333334" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="427.6666666666667" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="167.0" minWidth="153.0" prefWidth="153.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="103.99999809265137" minHeight="10.0" prefHeight="87.99999809265137" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="108.00000381469727" minHeight="10.0" prefHeight="90.66667429606122" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="234.33333333333331" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" vgrow="NEVER" />
+              </rowConstraints>
                <children>
-                  <Label fx:id="myResult" alignment="CENTER" layoutY="7.0" prefHeight="24.0" prefWidth="447.0" />
-               </children>
-            </AnchorPane>
-            <Label fx:id="myResult" alignment="CENTER" prefHeight="24.0" prefWidth="447.0" GridPane.columnIndex="1" />
-            <GridPane prefHeight="138.0" prefWidth="708.0" GridPane.columnIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="132.311985908155" vgrow="ALWAYS" />
-               </rowConstraints>
-               <children>
-                  <AnchorPane fx:id="goldBar" minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="236.0" GridPane.columnIndex="1">
+                  <GridPane prefHeight="138.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="132.311985908155" vgrow="ALWAYS" />
+                     </rowConstraints>
                      <children>
-                        <Label fx:id="goldScore" alignment="CENTER" layoutX="2.0" layoutY="21.0" prefHeight="21.0" prefWidth="236.0">
-                           <font>
-                              <Font size="22.0" />
-                           </font></Label>
-                        <Label fx:id="goldName" alignment="CENTER" prefHeight="24.0" prefWidth="236.0" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="22.0" />
-                           </font></Label>
+                        <AnchorPane fx:id="goldBar" minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="goldScore" alignment="CENTER" layoutX="2.0" layoutY="21.0" prefHeight="32.0" prefWidth="143.0">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                              <Label fx:id="goldName" alignment="CENTER" prefHeight="21.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="silverBar" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="142.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="silverScore" alignment="CENTER" layoutX="3.0" layoutY="48.0" prefHeight="22.0" prefWidth="136.0">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                              <Label fx:id="silverName" alignment="CENTER" prefHeight="21.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="bronzeBar" minHeight="0.0" minWidth="0.0" prefHeight="110.0" prefWidth="154.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                                    <Label fx:id="bronzeScore" alignment="CENTER" layoutX="2.0" layoutY="20.0" prefHeight="24.0" prefWidth="136.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                              <Label fx:id="bronzeName" alignment="CENTER" prefHeight="22.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
                      </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </AnchorPane>
-                  <AnchorPane fx:id="silverBar" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="142.0">
-                     <children>
-                        <Label fx:id="silverScore" alignment="CENTER" layoutX="3.0" layoutY="48.0" prefHeight="22.0" prefWidth="231.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="22.0" />
-                           </font></Label>
-                        <Label fx:id="silverName" alignment="CENTER" prefHeight="22.0" prefWidth="236.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="22.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="bronzeBar" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="142.0" GridPane.columnIndex="2">
-                     <children>
-                        <Label fx:id="bronzeScore" alignment="CENTER" layoutX="2.0" layoutY="20.0" prefHeight="25.0" prefWidth="236.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="22.0" />
-                           </font></Label>
-                        <Label fx:id="bronzeName" alignment="CENTER" prefHeight="23.0" prefWidth="236.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="22.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
+                  </GridPane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Pane>
+                  <Label fx:id="myResult" alignment="CENTER" prefHeight="24.0" prefWidth="447.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <content>
+                      <AnchorPane fx:id="scrollPanel" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
                </children>
                <GridPane.margin>
                   <Insets top="60.0" />
                </GridPane.margin>
             </GridPane>
-            <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="30.0" prefWidth="231.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" textAlignment="CENTER" GridPane.rowIndex="2">
+            <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" />
+            <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" GridPane.rowIndex="1" />
+            <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="30.0" prefWidth="231.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="21.0" />
                </font>
@@ -91,11 +113,6 @@
                   <Insets left="30.0" />
                </GridPane.margin>
             </Button>
-            <ScrollPane prefHeight="351.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <content>
-                  <AnchorPane fx:id="scrollPanel" minHeight="0.0" minWidth="0.0" prefHeight="327.0" prefWidth="706.0" />
-               </content>
-            </ScrollPane>
          </children>
       </GridPane>
    </children>

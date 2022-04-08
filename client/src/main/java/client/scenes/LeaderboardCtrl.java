@@ -138,11 +138,11 @@ public class LeaderboardCtrl {
      * @param bars the gold, silver and bronze bars
      */
     public void displayBars(List<LeaderboardEntryCommons> results, Label[] firstThree, AnchorPane[] bars) {
-        final double barHeight = 96, barY = 21, minHeight = 21;
+        final double barHeight = 96, barY = 0, minHeight = 21;
         // reset the bar locations
         for(int i = 0; i < 3; i++) {
-            bars[i].setPrefHeight(63);
-            bars[i].setLayoutY(35);
+            bars[i].setPrefHeight(96);
+            bars[i].setLayoutY(0);
         }
         for(int i = 0; i < firstThree.length; i++) {
             firstThree[i].setText("");
@@ -186,15 +186,15 @@ public class LeaderboardCtrl {
             if(i < 3 && results.get(i).getScore() != 0) {
                 int tempPlayer = i * 2;
                 firstThree[tempPlayer].setText(tempEntry.getName());
-                firstThree[tempPlayer].setLayoutY(-firstThree[tempPlayer].getPrefHeight());
+                firstThree[tempPlayer].setLayoutY(-10-firstThree[tempPlayer].getPrefHeight());
+                firstThree[tempPlayer].setLayoutX(150);
                 firstThree[tempPlayer + 1].setText(tempEntry.getScore() + " POINTS");
                 firstThree[tempPlayer + 1].setLayoutY(bars[i].getPrefHeight()-firstThree[tempPlayer+1].getPrefHeight());
+                firstThree[tempPlayer + 1].setLayoutX(150);
             }
-
             Text place = new Text(i + 1 + ".");
             Text name = new Text(tempEntry.getName());
             Text score = new Text(tempEntry.getScore() + " POINTS");
-
             Font font = new Font(fontSize);
 
             place.setFont(font);

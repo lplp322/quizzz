@@ -12,7 +12,7 @@
    <children>
       <AnchorPane prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
-            <GaussianBlur radius="11.97" />
+            <GaussianBlur radius="0.0" />
          </effect>
       </AnchorPane>
       <GridPane gridLinesVisible="true" prefHeight="680.0" prefWidth="1124.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -227,7 +227,7 @@
             </GridPane>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url(&quot;./ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;">
                <effect>
-                  <GaussianBlur radius="43.96" />
+                  <GaussianBlur radius="28.46" />
                </effect>
             </Pane>
             <Pane opacity="0.37" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#383838, #1a1a1a);" />
