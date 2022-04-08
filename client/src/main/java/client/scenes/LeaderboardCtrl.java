@@ -172,7 +172,9 @@ public class LeaderboardCtrl {
      * @param results the list of results
      * @param yourEntry your score
      */
-    public void displayResults(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons yourEntry) {
+    public void displayResults(List<LeaderboardEntryCommons> results,
+                               LeaderboardEntryCommons yourEntry) {
+        myResult.setText("");
         int yourPlace = 0;
         scrollPanel.getChildren().clear();
         Label[] firstThree = {goldName, goldScore, silverName, silverScore, bronzeName, bronzeScore};
@@ -211,16 +213,15 @@ public class LeaderboardCtrl {
             scrollPanel.getChildren().add(place);
             scrollPanel.getChildren().add(name);
             scrollPanel.getChildren().add(score);
-
             // the check for 0 must be done to ensure we get the highest position
-            if(yourPlace == 0 && tempEntry.getScore() == yourEntry.getScore()) {
+            if(yourPlace == 0 && yourEntry != null && tempEntry.getScore() == yourEntry.getScore()) {
                 yourPlace = i + 1;
             }
         }
         scrollPanel.setPrefSize(300, 20*results.size());
-
         //myResult.setFont(new Font(30));
-        myResult.setText(String.format("You came in: %d with %d POINTS", yourPlace, yourEntry.getScore()));
+        if(yourEntry != null)
+            myResult.setText(String.format("You came in: %d with %d POINTS", yourPlace, yourEntry.getScore()));
     }
 
     /**
