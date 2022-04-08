@@ -199,7 +199,7 @@ public class LobbyCtrl {
             tempLabel.setStyle("-fx-border-color: black;" +
                     "-fx-background-color: " + hex + ";" +
                     "-fx-font-weight: bold;" +
-                    "-fx-text-fill: white;" +
+                    "-fx-text-fill: purple;" +
                     "-fx-font-size: " + Math.min(height, width)/20);
 
             if(i == names.size() - 1) { // last one
