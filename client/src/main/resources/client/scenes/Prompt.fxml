@@ -6,13 +6,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainWindow" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PromptCtrl">
+<AnchorPane fx:id="mainWindow" prefHeight="680.0" prefWidth="1124.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover; -fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PromptCtrl">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane prefHeight="677.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -25,7 +21,7 @@
           <RowConstraints maxHeight="146.33333333333337" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="BOTTOM_CENTER" blendMode="HARD_LIGHT" contentDisplay="BOTTOM" prefHeight="232.0" prefWidth="321.0" text="Quizzz!" GridPane.columnIndex="1">
+            <Label alignment="BOTTOM_CENTER" blendMode="HARD_LIGHT" contentDisplay="BOTTOM" opacity="0.84" prefHeight="232.0" prefWidth="321.0" text="Quizzz!" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Century Gothic Bold" size="96.0" />
                </font>
@@ -42,15 +38,29 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="startButton" layoutX="278.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#baff70, #5bb000);" text="Start" textFill="#000000df">
+                  <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" layoutX="278.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#baff70, #5bb000);" text="     Start" textFill="#000000df">
                      <font>
-                        <Font name="Century Gothic" size="29.0" />
+                        <Font name="Century Gothic Bold" size="29.0" />
                      </font>
+                     <graphic>
+                        <Pane prefHeight="67.0" prefWidth="181.0">
+                           <children>
+                              <Pane layoutX="22.0" layoutY="17.0" prefHeight="39.0" prefWidth="42.0" style="-fx-background-image: url(&quot;/ClientImages/start.png&quot;); -fx-background-size: cover;" />
+                           </children>
+                        </Pane>
+                     </graphic>
                   </Button>
-                  <Button fx:id="menuButton" layoutX="48.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickMenu" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Back to menu" textFill="#000000df">
+                  <Button fx:id="menuButton" alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickMenu" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="      Menu" textFill="#000000df">
                      <font>
-                        <Font name="Century Gothic" size="19.0" />
+                        <Font name="Century Gothic Bold" size="27.0" />
                      </font>
+                     <graphic>
+                        <Pane prefHeight="69.0" prefWidth="191.0">
+                           <children>
+                              <Pane layoutX="20.0" layoutY="16.0" prefHeight="37.0" prefWidth="46.0" style="-fx-background-image: url(&quot;/ClientImages/exit.png&quot;); -fx-background-size: cover;" />
+                           </children>
+                        </Pane>
+                     </graphic>
                   </Button>
                   <Label fx:id="errorLabel" alignment="CENTER" layoutX="117.0" layoutY="147.0" prefHeight="17.0" prefWidth="266.0" text="Name is already taken!" textAlignment="CENTER" textFill="#fc0000" visible="false">
                      <font>

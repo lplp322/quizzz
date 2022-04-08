@@ -15,12 +15,12 @@
  */
 package client;
 
-import client.scenes.AddQuoteCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.GameCtrl;
-import client.scenes.PromptCtrl;
-import client.scenes.QuoteOverviewCtrl;
 import client.scenes.SplashCtrl;
+import client.scenes.PromptCtrl;
+import client.scenes.LeaderboardCtrl;
+import client.scenes.LobbyCtrl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
@@ -30,10 +30,10 @@ public class MyModule implements Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(AddQuoteCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(QuoteOverviewCtrl.class).in(Scopes.SINGLETON);
         binder.bind(GameCtrl.class).in(Scopes.SINGLETON);
         binder.bind(SplashCtrl.class).in(Scopes.SINGLETON);
         binder.bind(PromptCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(LobbyCtrl.class).in(Scopes.SINGLETON);
     }
 }

@@ -1,18 +1,14 @@
 package server.api;
 //CHECKSTYLE:OFF
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import server.Activity;
 import server.Game;
-import server.Player;
-import commons.TrimmedGame;
-import server.Round;
+import commons.Player;
 import server.database.ActivityRepository;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,21 +68,10 @@ public class GameTest {
         tickThread.start();
         int currTimer = game.getRound().getTimer();
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(950);
             assertEquals(currTimer - 1, game.getRound().getTimer());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    @Test
-    public void noJokerTrim() {
-        TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
-                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer(), reactions);
-        TrimmedGame gameTrim = game.trim();
-        assertEquals(trim, gameTrim);
-    }
-
-
 }

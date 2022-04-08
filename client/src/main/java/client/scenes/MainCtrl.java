@@ -15,19 +15,32 @@
  */
 package client.scenes;
 
-import commons.LeaderboardEntry;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import commons.LeaderboardEntryCommons;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
-
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainCtrl {
@@ -35,12 +48,6 @@ public class MainCtrl {
 
     private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
-
-    private QuoteOverviewCtrl overviewCtrl;
-    private Scene overview;
-
-    private AddQuoteCtrl addCtrl;
-    private Scene add;
 
     private GameCtrl gameCtrl;
     private Scene game;
@@ -64,12 +71,15 @@ public class MainCtrl {
     private Scene lobby;
 
     private String name;
+    private boolean singleplayerFlag;
+
+    private HashMap<String, MediaPlayer> sounds;
+
+    private double height, width;
 
     /**
      * Initializes all scenes via pairs of controllers and fxml files
      * @param primaryStage
-     * @param overview
-     * @param add
      * @param splash
      * @param gameCtrl
      * @param prompt
@@ -79,8 +89,7 @@ public class MainCtrl {
      * @param adminMenu
      */
 
-    public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
+    public void initialize(Stage primaryStage, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
                            Pair<ChooseServerCtrl, Parent> chooseServer,
@@ -88,11 +97,6 @@ public class MainCtrl {
                            Pair<ActivityViewerCtrl, Parent> adminMenu) {
 
         this.primaryStage = primaryStage;
-        this.overviewCtrl = overview.getKey();
-        this.overview = new Scene(overview.getValue());
-
-        this.addCtrl = add.getKey();
-        this.add = new Scene(add.getValue());
 
         this.splashCtrl = splash.getKey();
         this.splash = new Scene(splash.getValue());
@@ -117,27 +121,21 @@ public class MainCtrl {
         this.chooseServerCtrl = chooseServer.getKey();
         this.chooseServer = new Scene(chooseServer.getValue());
 
+        this.sounds = new HashMap<>();
+        initSounds();
+
         //showSplash();
+        //LeaderboardEntryCommons a1 = new LeaderboardEntryCommons("A", 60);
+        //LeaderboardEntryCommons a2 = new LeaderboardEntryCommons("B",  0);
+        //LeaderboardEntryCommons a3 = new LeaderboardEntryCommons("C", 20);
+        //showLeaderboard(List.of(a1, a2), a2);
         showChooseServer();
+
         primaryStage.show();
-    }
+        //primaryStage.setMaximized(true);
+        //primaryStage.setFullScreen(true);
 
-    /**
-     * Showing overview
-     */
-    public void showOverview() {
-        primaryStage.setTitle("Quotes: Overview");
-        primaryStage.setScene(overview);
-        overviewCtrl.refresh();
-    }
-
-    /**
-     * Showing add
-     */
-    public void showAdd() {
-        primaryStage.setTitle("Quotes: Adding Quote");
-        primaryStage.setScene(add);
-        add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+        this.checkForClosingApplication();
     }
 
     /**
@@ -148,6 +146,8 @@ public class MainCtrl {
             Scene currentScene = primaryStage.getScene();   //Gets current scene
             splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         }
+        height = primaryStage.getScene().getHeight();
+        width = primaryStage.getScene().getWidth();
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(splash);
     }
@@ -156,7 +156,12 @@ public class MainCtrl {
      * Shows a waiting room before game begins
      */
     public void showWaitingRoom() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+
+        //Resizes new scene by calling the setWindowSize method
+        lobbyCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setTitle("Waiting room");
+
         lobbyCtrl.init();
         primaryStage.setScene(lobby);
     }
@@ -165,32 +170,33 @@ public class MainCtrl {
      * Changes the current scene to the questions screen
      */
     public void showGame() throws IOException {
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            gameCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
         gameCtrl.init();
-        gameCtrl.getGameInfo();
+        gameCtrl.tickGame();
     }
 
     /**
      * Shows the leaderboard
      * @param results
      * @param myResult
+     * @param round the current round
      */
-    public void showLeaderboard(List<LeaderboardEntry> results, LeaderboardEntry myResult) {
-        /*if(primaryStage.getScene() != null) {
-            Scene currentScene = primaryStage.getScene();
-            leaderboardCtrl.setWindowSize(currentScene.getWidth(), currentScene.getHeight());
-        }*/
-        /*primaryStage.setTitle("Leaderboard");
-        primaryStage.setScene(leaderboard);
-        LeaderboardEntry ll = new LeaderboardEntry("Energy Master29", 150);
-        LeaderboardEntry ll2 = new LeaderboardEntry("MLGenergyUsage", 100);
-        LeaderboardEntry ll3 = new LeaderboardEntry("You", 50);
-        LeaderboardEntry ll4 = new LeaderboardEntry("Me", 3);
-        leaderboardCtrl.displayResults(List.of(ll, ll2, ll3, ll4, ll4,
-        ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
-         ll3);
-        */
+    public void showLeaderboard(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons myResult, int round) {
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            leaderboardCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+        if(round == -1) {
+            leaderboardCtrl.showLobby();
+        } else {
+            leaderboardCtrl.disableLobby();
+        }
+
         primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
@@ -210,6 +216,28 @@ public class MainCtrl {
     public void showMultiPlayer(){
         promptCtrl.setMultiplayer();
         showPrompt();
+    }
+
+    /**
+     * @return the list of entries in the leaderboard from the server
+     * @throws IOException if the link is not valid
+     */
+    public LinkedList<LeaderboardEntryCommons> getLeaderboard() {
+        LinkedList<LeaderboardEntryCommons> leaderboardList = new LinkedList<>();
+        try {
+            URL url = new URL(getLink() + "leaderboard" );
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            Gson g = new Gson();
+            String jsonString = httpToJSONString(http);
+            Type typeToken = new TypeToken<LinkedList<LeaderboardEntryCommons>>(){}.getType();
+            leaderboardList = g.fromJson(jsonString, typeToken);
+            http.disconnect();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return leaderboardList;
     }
 
     /**
@@ -250,7 +278,7 @@ public class MainCtrl {
      * @param http this is a http connection that the response of which will be turned into a string
      * @return The http response in JSON format
      */
-    public static String httpToJSONString(HttpURLConnection http) {
+    public static String httpToJSONString(HttpURLConnection http) throws FileNotFoundException {
         StringBuilder textBuilder = new StringBuilder();
         try (Reader reader = new BufferedReader(new InputStreamReader
                 (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
@@ -259,10 +287,26 @@ public class MainCtrl {
                 textBuilder.append((char) c);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         String jsonString = textBuilder.toString();
         return jsonString;
+    }
+
+    /**
+     * returns the height
+     * @return height of the screen
+     */
+    public double getHeight() {
+        return height;
+    }
+
+    /**
+     * returns the width
+     * @return width of the screen
+     */
+    public double getWidth() {
+        return width;
     }
 
     /**
@@ -316,5 +360,92 @@ public class MainCtrl {
     public void returnToGame() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
+    }
+
+    /**
+     * Initialize sounds
+     */
+    private void initSounds() {
+        File file = new File("client/src/main/resources/sounds");
+        if(file.listFiles() == null) {file = new File("src/main/resources/sounds");}
+        for(File f : file.listFiles()) {
+            MediaPlayer mp = new MediaPlayer(new Media(f.toURI().toString()));
+            this.sounds.put(f.getName().split("\\.")[0], mp);
+        }
+    }
+
+    /**
+     * Getter for the SoundBank
+     * @return a hashmap containing all the sounds
+     */
+    public HashMap<String, MediaPlayer> getSounds() {
+        return this.sounds;
+    }
+
+    /**
+     * Resets the sound for multiple uses
+     * @param sound the sound to reset
+     */
+    public void resetSound(MediaPlayer sound) {
+        Duration startTime = sound.getStartTime();
+        sound.seek(startTime);
+    }
+
+    /**
+     * Plays the sound and resets it
+     * @param sound the filename of the sound
+     */
+    public void playSound(String sound) {
+        MediaPlayer mp = this.sounds.get(sound);
+        if(mp == null) {
+            System.out.println("Sound file not found.");
+            return;
+        }
+        mp.play();
+        resetSound(mp);
+    }
+
+    /**
+     * @return a boolean indicating if the game is singleplayer or not
+     */
+    public Boolean isSingleplayerFlag() {
+        return this.singleplayerFlag;
+    }
+
+    /**
+     * @param value assigns a value (boolean to the flag indicating if
+     *              the game is single player or no t
+     */
+    public void setSingleplayerFlag(Boolean value) {
+        this.singleplayerFlag = value;
+    }
+
+
+    /**
+     * Method checks if the user is closing the application, if this is the case
+     * it creates an alert that makes them confirm this is the case or cancel
+     */
+    public void checkForClosingApplication() {
+        primaryStage.setOnCloseRequest(evt -> {
+            // allow user to decide between yes and no
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Do you really want to close this application?", ButtonType.YES, ButtonType.NO);
+
+            // clicking X also means no
+            ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+
+            if (ButtonType.NO.equals(result)) {
+                // consume event i.e. ignore close request
+                evt.consume();
+            }
+        });
+    }
+
+    /**
+     * Getter for prompctrl
+     * @return the promptctrl
+     */
+    public PromptCtrl getPromptCtrl() {
+        return this.promptCtrl;
     }
 }

@@ -1,11 +1,12 @@
 package server;
 
+import commons.QuestionTrimmed;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Random;
 
 
@@ -22,6 +23,7 @@ public class Question {
     private ActivityRepository dt;
     //Correct answer
     private String answer;
+    private List<String> url;
 
     /**
      * Creates a new question
@@ -34,6 +36,7 @@ public class Question {
         Collections.shuffle(allActivities);
         activities = new ArrayList<>();
         answers = new ArrayList<>();
+        url = new LinkedList<>();
 
         for(int i = 0; i < 4; i++) {
             activities.add(allActivities.get(i));
@@ -64,6 +67,7 @@ public class Question {
         Collections.shuffle(allActivities);
         activities = new ArrayList<>();
         answers = new ArrayList<>();
+        url = new LinkedList<>();
 
         for(int i = 0; i < 4; i++) {
             activities.add(allActivities.get(i));
@@ -88,7 +92,9 @@ public class Question {
     private void generateTypeOne() {
         Activity act = activities.get(0);
 
-        question = String.format("Estimate the energy usage of %s", act.getTitle());
+        question = act.getTitle();
+
+        url.add(act.getImagePath());
 
         answers.add(act.getConsumption()+"");
         answer = act.getConsumption()+"";
@@ -104,7 +110,10 @@ public class Question {
         int wrongAnswer2;
         Random random = new Random();
         int questionIndex = random.nextInt(activities.size());
-        question = String.format("How much energy does %s use", activities.get(questionIndex).getTitle());
+        question = activities.get(questionIndex).getTitle();
+
+        url.add(activities.get(questionIndex).getImagePath());
+
         int answerInt = activities.get(questionIndex).getConsumption();
 
         int deviation = random.nextInt(activities.get(questionIndex).getConsumption());
@@ -133,15 +142,33 @@ public class Question {
      */
     private void generateTypeThree() {
         Collections.sort(activities);
-        question = String.format("Instead of %s you could use:", activities.get(1).getTitle());
+        Collections.reverse(activities);
+        question = activities.get(1).getTitle();
 
         answer = activities.get(0).getTitle();
 
         for(int i = 0; i < 4; i++) {
-            if(i!=1)
+            if(i!=1) {
                 answers.add(activities.get(i).getTitle()+"");
+                url.add(activities.get(i).getImagePath());
+            }
         }
-        Collections.shuffle(answers);
+        List<Integer> toShuffle = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            toShuffle.add(i);
+        }
+        Collections.shuffle(toShuffle);
+        List<String> newUrls = List.copyOf(url);
+        List<String> newAnswers = List.copyOf(answers);
+
+        answers.clear();
+        url.clear();
+        url.add(activities.get(1).getImagePath());
+
+        for(int i = 0; i < 3; i++) {
+            answers.add(newAnswers.get(toShuffle.get(i)));
+            url.add(newUrls.get(toShuffle.get(i)));
+        }
     }
 
     /**
@@ -182,6 +209,22 @@ public class Question {
      */
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    /**
+     * returns the class but trimmed
+     * @return trimmed question
+     */
+    public QuestionTrimmed getTrimmed() {
+        return new QuestionTrimmed(question, answers, type, answer, url);
+    }
+
+    /**
+     * returns the path to the image
+     * @return path
+     */
+    public List<String> getUrl() {
+        return url;
     }
 
     /**

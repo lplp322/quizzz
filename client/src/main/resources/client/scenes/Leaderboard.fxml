@@ -1,76 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainWindow" prefHeight="577.0" prefWidth="973.0" stylesheets="@LeaderboardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LeaderboardCtrl">
+<AnchorPane fx:id="mainWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="610.0" prefWidth="1009.0" stylesheets="@LeaderboardStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.LeaderboardCtrl">
    <children>
-      <AnchorPane fx:id="leaderboardPanel" layoutX="300.0" layoutY="87.0" prefHeight="431.0" prefWidth="605.0">
+      <AnchorPane prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(&quot;/ClientImages/ESA_root_pillars.jpg&quot;); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <GridPane layoutX="10.0" layoutY="10.0" prefHeight="610.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="257.00892926015825" prefWidth="301.6993602917695" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.94153908357748" prefHeight="534.3333638509114" vgrow="ALWAYS" />
+            <RowConstraints fillHeight="false" maxHeight="74.99996948242188" minHeight="10.0" prefHeight="74.99996948242188" vgrow="NEVER" />
+         </rowConstraints>
          <children>
-            <ScrollPane fx:id="scrPanel" layoutX="76.0" layoutY="117.0" prefHeight="241.0" prefWidth="453.0">
-              <content>
-                <AnchorPane fx:id="scrollPanel" minHeight="0.0" minWidth="0.0" prefHeight="239.0" prefWidth="450.0" />
-              </content>
-            </ScrollPane>
-            <AnchorPane fx:id="silver" layoutX="111.0" layoutY="54.0" prefHeight="43.0" prefWidth="134.0">
+            <GridPane prefHeight="622.0" prefWidth="630.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="146.0" minWidth="10.0" prefWidth="127.33333333333334" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="427.6666666666667" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="167.0" minWidth="153.0" prefWidth="153.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="103.99999809265137" minHeight="10.0" prefHeight="87.99999809265137" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="108.00000381469727" minHeight="10.0" prefHeight="90.66667429606122" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="234.33333333333331" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" vgrow="NEVER" />
+              </rowConstraints>
                <children>
-                  <Text fx:id="silverScore" layoutX="10.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="113.70043976078591" />
+                  <GridPane prefHeight="138.0" prefWidth="708.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="132.311985908155" vgrow="ALWAYS" />
+                     </rowConstraints>
+                     <children>
+                        <AnchorPane fx:id="goldBar" minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="goldScore" alignment="CENTER" layoutX="2.0" layoutY="21.0" prefHeight="32.0" prefWidth="143.0">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                              <Label fx:id="goldName" alignment="CENTER" prefHeight="21.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="silverBar" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="142.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="silverScore" alignment="CENTER" layoutX="3.0" layoutY="48.0" prefHeight="22.0" prefWidth="136.0">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                              <Label fx:id="silverName" alignment="CENTER" prefHeight="21.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="bronzeBar" minHeight="0.0" minWidth="0.0" prefHeight="110.0" prefWidth="154.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                                    <Label fx:id="bronzeScore" alignment="CENTER" layoutX="2.0" layoutY="20.0" prefHeight="24.0" prefWidth="136.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                              <Label fx:id="bronzeName" alignment="CENTER" prefHeight="22.0" prefWidth="142.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </GridPane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <children>
+                        <Label fx:id="myResult" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="427.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <content>
+                      <AnchorPane fx:id="scrollPanel" minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="430.0" />
+                    </content>
+                  </ScrollPane>
                </children>
-            </AnchorPane>
-            <AnchorPane fx:id="gold" layoutX="245.0" layoutY="36.0" prefHeight="61.0" prefWidth="133.0">
+               <GridPane.margin>
+                  <Insets top="60.0" />
+               </GridPane.margin>
+            </GridPane>
+            <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" />
+            <Pane opacity="0.89" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" GridPane.rowIndex="1">
                <children>
-                  <Text fx:id="goldScore" layoutX="13.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="106.71875030766091" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="bronze" layoutX="377.0" layoutY="65.0" prefHeight="32.0" prefWidth="134.0">
-               <children>
-                  <Text fx:id="bronzeScore" layoutX="11.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="113.70043976078591" />
-               </children>
-            </AnchorPane>
-            <Text fx:id="goldName" layoutX="255.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="113.70043976078591" />
-            <Text fx:id="bronzeName" layoutX="381.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.66882354984841" />
-            <Text fx:id="silverName" layoutX="121.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="113.70043976078591" />
-            <AnchorPane fx:id="resultPanel" layoutX="76.0" layoutY="358.0" prefHeight="39.0" prefWidth="453.0">
-               <children>
-                  <Text fx:id="myResult" layoutX="92.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="313.1747706116871">
+                  <Button fx:id="lobbyButton" alignment="CENTER" layoutX="151.0" layoutY="15.0" mnemonicParsing="false" onAction="#backToLobby" prefHeight="45.0" prefWidth="116.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Return to lobby" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="13.0" />
                      </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="upperPanel" layoutX="233.0" prefHeight="40.0" prefWidth="739.0">
-         <children>
-            <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End">
+                  </Button>
+               </children></Pane>
+            <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="45.0" prefWidth="116.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
-                  <Font size="27.0" />
+                  <Font size="21.0" />
                </font>
-            </Text>
-            <Text layoutX="286.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="163.76736450195312">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Text layoutX="578.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="leftPanel" prefHeight="577.0" prefWidth="234.0">
-         <children>
-            <Button fx:id="exitButton" layoutX="35.0" layoutY="510.0" mnemonicParsing="false" onAction="#backToMainScreen" prefHeight="52.0" prefWidth="164.0" text="Quit Game">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </Button>
          </children>
-      </AnchorPane>
+      </GridPane>
    </children>
 </AnchorPane>

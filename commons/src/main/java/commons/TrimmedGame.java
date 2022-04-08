@@ -1,37 +1,28 @@
 package commons;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 public class TrimmedGame {
     private int id;
-    private String currentQuestion;
-    private int roundNum;
-    private int timer;
-    private int questionType;
-    private List<String> possibleAnswers;
-    private String correctAnswer;
+    private QuestionTrimmed question;
+    private Map<String, Player> players;
+    private Round round;
     private List<String[]> reactionHistory;
 
     /**
      * @param id Id of the game
-     * @param currentQuestion the current question shown to the user
-     * @param roundNum
-     * @param timer
-     * @param answers
-     * @param questionType
-     * @param correctAnswer the correct answer so this can be displayed to the user
+     * @param question the current question shown to the user
+     * @param players
+     * @param round
      * @param reactionHistory
      */
-    public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
-                       int questionType, String correctAnswer, List<String[]> reactionHistory) {
+    public TrimmedGame(int id, QuestionTrimmed question, Map<String, Player> players,
+                       Round round, List<String[]> reactionHistory) {
         this.id = id;
-        this.currentQuestion = currentQuestion;
-        this.roundNum = roundNum;
-        this.timer = timer;
-        this.possibleAnswers = answers;
-        this.questionType = questionType;
-        this.correctAnswer = correctAnswer;
+        this.question = question;
+        this.players = players;
+        this.round = round;
         this.reactionHistory = reactionHistory;
     }
 
@@ -44,43 +35,27 @@ public class TrimmedGame {
     }
 
     /**
-     * Getter for the current question
-     * @return the current question
+     * getter for the players
+     * @return map of the players
      */
-    public String getCurrentQuestion() {
-        return currentQuestion;
+    public Map<String, Player> getPlayers() {
+        return players;
     }
 
     /**
-     * Getter for the round number
-     * @return the round number
+     * getter for question
+     * @return the question class trimmed
      */
-    public int getRoundNum() {
-        return roundNum;
+    public QuestionTrimmed getQuestion() {
+        return question;
     }
 
     /**
-     * Getter for the time left
-     * @return the time left
+     * getter for the round
+     * @return the round
      */
-    public int getTimer() {
-        return timer;
-    }
-
-    /**
-     * Getter for the question type
-     * @return the question type
-     */
-    public int getQuestionType() {
-        return questionType;
-    }
-
-    /**
-     * Getter for the possible answers
-     * @return the list of possible answers
-     */
-    public List<String> getPossibleAnswers() {
-        return possibleAnswers;
+    public Round getRound() {
+        return round;
     }
 
     /**
@@ -91,29 +66,14 @@ public class TrimmedGame {
         return this.reactionHistory;
     }
 
-    /**
-     * Equals method for TrimmedGame
-     * @param o the object to compare with
-     * @return true iff the other object is equal to this
-     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TrimmedGame that = (TrimmedGame) o;
-        return id == that.id && roundNum == that.roundNum && timer == that.timer &&
-                Objects.equals(currentQuestion, that.currentQuestion) &&
-                Objects.equals(possibleAnswers, that.possibleAnswers) &&
-                Objects.equals(reactionHistory, that.reactionHistory);
+    public String toString() {
+        return "TrimmedGame{" +
+                "id=" + id +
+                ", question=" + question +
+                ", players=" + players +
+                ", round=" + round +
+                ", reactionHistory=" + reactionHistory +
+                '}';
     }
-
-    /**
-     * @return the string of the correct answer
-     */
-    public String getCorrectAnswer() {
-        return this.correctAnswer;
-    }
-
-
-
 }
