@@ -18,7 +18,7 @@
 }
 
 #exitLobby {
-    -fx-background-color: red;
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
 }
 
 #screen {
@@ -26,5 +26,5 @@
 }
 
 #startGame {
-    -fx-background-color: green;
+    -fx-background-color: linear-gradient(#baff70, #5bb000);
 }

@@ -138,11 +138,11 @@ public class LeaderboardCtrl {
      * @param bars the gold, silver and bronze bars
      */
     public void displayBars(List<LeaderboardEntryCommons> results, Label[] firstThree, AnchorPane[] bars) {
-        final double barHeight = 96, barY = 21, minHeight = 21;
+        final double barHeight = 96, barY = 0, minHeight = 21;
         // reset the bar locations
         for(int i = 0; i < 3; i++) {
-            bars[i].setPrefHeight(63);
-            bars[i].setLayoutY(35);
+            bars[i].setPrefHeight(96);
+            bars[i].setLayoutY(0);
         }
         for(int i = 0; i < firstThree.length; i++) {
             firstThree[i].setText("");
@@ -172,7 +172,9 @@ public class LeaderboardCtrl {
      * @param results the list of results
      * @param yourEntry your score
      */
-    public void displayResults(List<LeaderboardEntryCommons> results, LeaderboardEntryCommons yourEntry) {
+    public void displayResults(List<LeaderboardEntryCommons> results,
+                               LeaderboardEntryCommons yourEntry) {
+        myResult.setText("");
         int yourPlace = 0;
         scrollPanel.getChildren().clear();
         Label[] firstThree = {goldName, goldScore, silverName, silverScore, bronzeName, bronzeScore};
@@ -184,15 +186,15 @@ public class LeaderboardCtrl {
             if(i < 3 && results.get(i).getScore() != 0) {
                 int tempPlayer = i * 2;
                 firstThree[tempPlayer].setText(tempEntry.getName());
-                firstThree[tempPlayer].setLayoutY(-firstThree[tempPlayer].getPrefHeight());
+                firstThree[tempPlayer].setLayoutY(-10-firstThree[tempPlayer].getPrefHeight());
+                firstThree[tempPlayer].setLayoutX(150);
                 firstThree[tempPlayer + 1].setText(tempEntry.getScore() + " POINTS");
                 firstThree[tempPlayer + 1].setLayoutY(bars[i].getPrefHeight()-firstThree[tempPlayer+1].getPrefHeight());
+                firstThree[tempPlayer + 1].setLayoutX(150);
             }
-
             Text place = new Text(i + 1 + ".");
             Text name = new Text(tempEntry.getName());
             Text score = new Text(tempEntry.getScore() + " POINTS");
-
             Font font = new Font(fontSize);
 
             place.setFont(font);
@@ -211,16 +213,15 @@ public class LeaderboardCtrl {
             scrollPanel.getChildren().add(place);
             scrollPanel.getChildren().add(name);
             scrollPanel.getChildren().add(score);
-
             // the check for 0 must be done to ensure we get the highest position
-            if(yourPlace == 0 && tempEntry.getScore() == yourEntry.getScore()) {
+            if(yourPlace == 0 && yourEntry != null && tempEntry.getScore() == yourEntry.getScore()) {
                 yourPlace = i + 1;
             }
         }
         scrollPanel.setPrefSize(300, 20*results.size());
-
         //myResult.setFont(new Font(30));
-        myResult.setText(String.format("You came in: %d with %d POINTS", yourPlace, yourEntry.getScore()));
+        if(yourEntry != null)
+            myResult.setText(String.format("You came in: %d with %d POINTS", yourPlace, yourEntry.getScore()));
     }
 
     /**
