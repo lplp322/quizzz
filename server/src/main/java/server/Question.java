@@ -144,8 +144,6 @@ public class Question {
         Collections.sort(activities);
         question = activities.get(1).getTitle();
 
-        url.add(activities.get(1).getImagePath());
-
         answer = activities.get(0).getTitle();
 
         for(int i = 0; i < 4; i++) {
@@ -154,7 +152,22 @@ public class Question {
                 url.add(activities.get(i).getImagePath());
             }
         }
-        Collections.shuffle(answers);
+        List<Integer> toShuffle = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            toShuffle.add(i);
+        }
+        Collections.shuffle(toShuffle);
+        List<String> newUrls = List.copyOf(url);
+        List<String> newAnswers = List.copyOf(answers);
+
+        answers.clear();
+        url.clear();
+        url.add(activities.get(1).getImagePath());
+
+        for(int i = 0; i < 3; i++) {
+            answers.add(newAnswers.get(toShuffle.get(i)));
+            url.add(newUrls.get(toShuffle.get(i)));
+        }
     }
 
     /**

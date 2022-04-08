@@ -31,6 +31,14 @@ public class HalveTimeJoker extends Joker{
     }
 
     /**
+     * A setter for the halvedTimer
+     * @param halvedTimer new value for halvedTimer
+     */
+    public void setHalvedTimer(int halvedTimer) {
+        this.halvedTimer = halvedTimer;
+    }
+
+    /**
      * getter for the halved timer
      * @return timer
      */
