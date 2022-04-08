@@ -157,6 +157,8 @@ public class GameCtrl {
      * Resets the game
      */
     public void init() {
+        myScore = 0;
+        newPoints = 0;
         setJokers(true);
         //gridPane.setPrefSize(mainCtrl.getWidth(), mainCtrl.getHeight());
         //System.out.printf(mainCtrl.WIDTH + " " + mainCtrl.HEIGHT);
@@ -237,7 +239,12 @@ public class GameCtrl {
         if (trimmedGame.getRound().getRound() == -1) {
             sendAnswer("1");
             this.stopGame = true;
-            this.showLeaderboard();
+            if(mainCtrl.isSingleplayerFlag()) {
+                this.showLeaderboard();
+            }
+            else {
+                GameUtils.getMultiplayerLeaderboard(myScore, currentTrimmedGame);
+            }
             return;
         }
         if (trimmedGame.getRound().getTimer() == 20 ||
