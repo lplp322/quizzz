@@ -14,7 +14,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -60,7 +60,8 @@ public class GameCtrl {
     private AnchorPane playerList;
 
     @FXML
-    private Slider guessText;
+    private TextField guessText;
+    //private Slider guessText;
 
     @FXML
     private ImageView imageA;
@@ -73,6 +74,7 @@ public class GameCtrl {
 
     @FXML
     private ImageView submitButton;
+
 
     @FXML
     private Label currentRoundLabel;
@@ -192,14 +194,14 @@ public class GameCtrl {
             double rand1 = Math.random();
             double rand2 = Math.random() + 1;
             int ans = Integer.parseInt(answer);
-            guessText.setMin(rand1 * 0.3 * ans);
-            guessText.setMax(rand2 * 4 * ans);
-            guessText.setValue(rand1 * 0.3 * ans);
+            //guessText.setMin(rand1 * 0.3 * ans);
+            //guessText.setMax(rand2 * 4 * ans);
+            //guessText.setValue(rand1 * 0.3 * ans);
             sliderRound = round;
         }
         this.choiceOne.setVisible(false);
         this.choiceTwo.setVisible(false);
-        this.sliderValue.setVisible(true);
+        this.sliderValue.setVisible(false);
         this.choiceThree.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
@@ -216,6 +218,7 @@ public class GameCtrl {
         this.eliminateWrongButton.setVisible(value);
         this.doublePointsJokerButton.setVisible(value);
         this.halfTimeJokerButton.setVisible(value);
+        //this.correctAnswerJoker.setVisible(value);
     }
 
     /**
@@ -235,6 +238,7 @@ public class GameCtrl {
             sendAnswer("1");
             this.stopGame = true;
             this.showLeaderboard();
+            return;
         }
         if (trimmedGame.getRound().getTimer() == 20 ||
                 trimmedGame.getRound().getTimer() == 19) {
@@ -298,19 +302,20 @@ public class GameCtrl {
                 Platform.runLater(() -> {
                         TrimmedGame trimmedGame = GameUtils.pollGame(); // poll the game
                         this.currentTrimmedGame  = trimmedGame;
-                        showPlayers(trimmedGame);
-
-                        try {
-                            showReaction(trimmedGame.getReactionHistory()); // display all the reactions
-                            displayScreen(trimmedGame);
-                            if (this.mainCtrl.isSingleplayerFlag()) {
-                                this.setJokers(false);
+                        if(!stopGame) {
+                            showPlayers(trimmedGame);
+                            try {
+                                showReaction(trimmedGame.getReactionHistory()); // display all the reactions
+                                displayScreen(trimmedGame);
+                                if (this.mainCtrl.isSingleplayerFlag()) {
+                                    this.setJokers(false);
+                                }
+                                // show round or timeout
+                                //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
                             }
-                            // show round or timeout
-                            //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
-                        }
-                        catch (IOException e) {
-                            e.printStackTrace();
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                 }
                 );
@@ -587,9 +592,10 @@ public class GameCtrl {
      */
     public void showCorrectAnswer(String correctAnswer, int questType) {
         //System.out.println(correctAnswer);
-        if(questType == 0){
+        if(questType == 0) {
             sliderValue.setText("Correct answer: "+ correctAnswer+" Wh");
-            guessText.setValue(Double.parseDouble(correctAnswer));
+            sliderValue.setVisible(true);
+            guessText.setText(correctAnswer);
             //correctAns.setVisible(true);
         }
         else {
@@ -599,14 +605,12 @@ public class GameCtrl {
         }
     }
 
-    /**
-     * updates the value of the slider
-     */
+    /*
     @FXML
     public void updateValue() {
         if(lastRoundAnswered < currentTrimmedGame.getRound().getRound())
             sliderValue.setText(""+(int)Math.ceil(guessText.getValue()));
-    }
+    }*/
 
     /**
      * shows the style of
@@ -660,7 +664,10 @@ public class GameCtrl {
     public void submitAnswer() throws IOException {
         if(this.checkCanAnswer()){
             sliderValue.setStyle("-fx-text-fill: purple");
-            sendAnswer((int)Math.ceil(guessText.getValue())+"");
+            //sendAnswer((int)Math.ceil(guessText.getValue())+"");
+            sendAnswer(guessText.getText());
+            //System.out.println(guessText.getText());
+            //System.out.println(guessText.getText());
             lastRoundAnswered = currentTrimmedGame.getRound().getRound();
         }
     }
@@ -727,8 +734,7 @@ public class GameCtrl {
      * @throws IOException if the url where it sends the answer is invalid
      */
     public void sendCorrectAnswer() throws IOException {
-        GameUtils.sendJoker("Guarantee-Correct-Answer");
-        mainCtrl.playSound("success");
+
         if (userChoice == null) {
             return;
         }
@@ -736,6 +742,11 @@ public class GameCtrl {
         this.currentTrimmedGame.getQuestion().getType() != 0 &&
         this.currentTrimmedGame.getQuestion().getAnswers().contains(userChoiceLabel.getText())){
             System.out.println("sending right answer...");
+
+            GameUtils.sendJoker("Guarantee-Correct-Answer");
+            mainCtrl.playSound("success");
+            //.setVisible(false);
+
             String choice = this.convertAnswerToChoice(currentTrimmedGame.getQuestion().getAnswer());
             this.sendAnswer(choice);
             //this.guaranteeButton.setVisible(false);

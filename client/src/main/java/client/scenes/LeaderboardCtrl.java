@@ -207,13 +207,13 @@ public class LeaderboardCtrl {
             score.setFont(font);
 
             AnchorPane.setTopAnchor(place, fontSize*i);
-            AnchorPane.setLeftAnchor(place, 30.0);
+            AnchorPane.setLeftAnchor(place, 430.0);
 
             AnchorPane.setTopAnchor(name, fontSize*i);
-            AnchorPane.setLeftAnchor(name, 70.0);
+            AnchorPane.setLeftAnchor(name, 460.0);
 
             AnchorPane.setTopAnchor(score, fontSize*i);
-            AnchorPane.setLeftAnchor(score, 320.0);
+            AnchorPane.setLeftAnchor(score, 840.0);
 
             scrollPanel.getChildren().add(place);
             scrollPanel.getChildren().add(name);
