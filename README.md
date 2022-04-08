@@ -1,12 +1,7 @@
-# Starting template
+# Description of project
 
-This README will need to contain a description of your project, how to run it, how to set up the development environment, and who worked on it.
-This information can be added throughout the course, except for the names of the group members.
-Add your own name (do not add the names for others!) to the section below.
-
-## Description of project
-
-## Group members
+**Quizzz!** is a Kahoot-like online multiplayer quiz game, centred around the 180th Anniversary Energy Challenge. Quizzz! aims to educate players about the energy consumption of various activities, such as household tasks and travelling, while providing an entertaining and competitive experience.
+# Group members
 
 | Profile Picture                                                                                         | Name           | Email                         |
 | ------------------------------------------------------------------------------------------------------- | -------------- | ----------------------------- |
@@ -17,8 +12,46 @@ Add your own name (do not add the names for others!) to the section below.
 | ![](https://secure.gravatar.com/avatar/b3a317591b97355176020231cc7bd700?s=800&d=identicon&size=90) | Borislav Semerdzhiev | B.N.Semerdzhiev@student.tudelft.nl |
 | ![](https://secure.gravatar.com/avatar/6386037151e662128163e89a3db2ab7d?s=800&d=identicon&size=90) | Maosheng Jiang | M.Jiang-5@student.tudelft.nl |
 
-## How to run it
+# How to run it
+####Prerequisites:
+* Java 17<br/>
+* Git<br/>
 
-## How to contribute to it
+####Step 1: Open up a terminal and clone the project
+HTTPS:
+```
+git clone https://gitlab.ewi.tudelft.nl/cse1105/2021-2022/team-repositories/oopp-group-58/repository-template.git
+```
+SSH:
+```
+git clone git@gitlab.ewi.tudelft.nl:cse1105/2021-2022/team-repositories/oopp-group-58/repository-template.git
+```
 
-## Copyright / License (opt.)
+####Step 2: Cd into the root directory of the project 
+```
+cd repository-template
+```
+
+####Step 3: Build the project
+If you have gradle installed:
+```
+gradle build
+```
+If you don't have gradle installed:
+```
+gradlew build
+```
+
+####Step 4: Run the server
+```
+gradle bootRun // if you have gradle installed
+gradlew bootRun
+```
+
+####Step 5: Open up another terminal, cd into the project root directory and start the client
+```
+gradle run // if you have gradle installed
+gradlew run
+```
+
+####Step 6: Enjoy and learn!
